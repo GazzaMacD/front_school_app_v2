@@ -2,6 +2,10 @@
   "name": "front-school-app-v2",
   "private": true,
   "type": "module",
+  "engines": {
+    "npm": ">=10.0.0 <12.0.0",
+    "node": ">=22.0.0 <24.0.0"
+  },
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
@@ -28,3 +32,4 @@
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
+
