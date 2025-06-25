@@ -26,6 +26,7 @@ export default [
       route("password-reset-done", "routes/auth-pwd-reset-done.tsx"),
       route("password-reset", "routes/auth-pwd-reset.tsx"),
       route("register-success", "routes/auth-register-success.tsx"),
+      route("register", "routes/auth-register.tsx"),
     ]),
   ]),
 ] satisfies RouteConfig;
