@@ -19,6 +19,10 @@ export default [
       route("login", "routes/auth-login.tsx"),
       route("logout", "routes/auth-logout.tsx"),
       route("password-reset-check-email", "routes/auth-pwd-reset-email.tsx"),
+      route(
+        "password-reset-confirm/:uid/:token",
+        "routes/auth-pwd-reset-confirm.tsx"
+      ),
     ]),
   ]),
 ] satisfies RouteConfig;
