@@ -23,6 +23,7 @@ export default [
         "password-reset-confirm/:uid/:token",
         "routes/auth-pwd-reset-confirm.tsx"
       ),
+      route("password-reset-done", "routes/auth-pwd-reset-done.tsx"),
     ]),
   ]),
 ] satisfies RouteConfig;
