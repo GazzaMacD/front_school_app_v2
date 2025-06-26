@@ -30,11 +30,21 @@ export default [
       route("register-success", "routes/auth-register-success.tsx"),
       route("register", "routes/auth-register.tsx"),
     ]),
+    // campaigns
+    route("campaigns", "routes/campaigns.tsx", [
+      index("routes/campaigns-index.tsx"),
+      route(":slug", "routes/campaigns-detail.tsx"),
+    ]),
     //courses
     route("courses", "routes/courses.tsx", [
       index("routes/courses-index.tsx"),
       route(":subject/:slug", "routes/courses-detail.tsx"),
     ]),
-    // language schools
-  ]),
+    // contact
+    route("contact", "routes/contact.tsx", [
+      index("routes/contact-index.tsx"),
+      route("success", "routes/contact-success.tsx"),
+    ]),
+    //
+  ]), // --end front layout
 ] satisfies RouteConfig;
