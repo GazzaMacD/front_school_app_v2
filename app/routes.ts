@@ -35,16 +35,20 @@ export default [
       index("routes/campaigns-index.tsx"),
       route(":slug", "routes/campaigns-detail.tsx"),
     ]),
-    //courses
-    route("courses", "routes/courses.tsx", [
-      index("routes/courses-index.tsx"),
-      route(":subject/:slug", "routes/courses-detail.tsx"),
-    ]),
     // contact
     route("contact", "routes/contact.tsx", [
       index("routes/contact-index.tsx"),
       route("success", "routes/contact-success.tsx"),
     ]),
-    //
+    //courses
+    route("courses", "routes/courses.tsx", [
+      index("routes/courses-index.tsx"),
+      route(":subject/:slug", "routes/courses-detail.tsx"),
+    ]),
+    // language-schools
+    route("language-schools", "routes/language-schools.tsx", [
+      index("routes/language-schools-index.tsx"),
+      route(":slug", "routes/language-schools-detail.tsx"),
+    ]),
   ]), // --end front layout
 ] satisfies RouteConfig;
