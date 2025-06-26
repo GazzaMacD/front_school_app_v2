@@ -9,10 +9,12 @@ export default [
   layout("layouts/front.tsx", [
     index("routes/home.tsx"),
     route("about", "routes/about.tsx"),
+    //blog lessons
     route("blog-lessons", "routes/blog-lessons.tsx", [
       index("routes/blog-lessons-index.tsx"),
       route(":slug", "routes/blog-lessons-detail.tsx"),
     ]),
+    //auth
     layout("layouts/auth.tsx", [
       route("confirm-email/:key", "routes/auth-confirm-email.tsx"),
       route("email-confirmed", "routes/auth-email-confirmed.tsx"),
@@ -28,5 +30,11 @@ export default [
       route("register-success", "routes/auth-register-success.tsx"),
       route("register", "routes/auth-register.tsx"),
     ]),
+    //courses
+    route("courses", "routes/courses.tsx", [
+      index("routes/courses-index.tsx"),
+      route(":subject/:slug", "routes/courses-detail.tsx"),
+    ]),
+    // language schools
   ]),
 ] satisfies RouteConfig;
