@@ -50,5 +50,10 @@ export default [
       index("routes/language-schools-index.tsx"),
       route(":slug", "routes/language-schools-detail.tsx"),
     ]),
+    // learning-experiences
+    route("learning-experiences", "routes/learning-experiences.tsx", [
+      index("routes/learning-experiences-index.tsx"),
+      route(":slug", "routes/learning-experiences-detail.tsx"),
+    ]),
   ]), // --end front layout
 ] satisfies RouteConfig;

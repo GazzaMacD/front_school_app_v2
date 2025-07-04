@@ -1,4 +1,4 @@
-import type { Route } from "./+types/contact-success";
+import type { Route } from "./+types/language-schools-detail";
 
 export function loader({ context }: Route.LoaderArgs) {
   return { message: "Language Schools Detail route" };
