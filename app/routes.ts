@@ -55,5 +55,10 @@ export default [
       index("routes/learning-experiences-index.tsx"),
       route(":slug", "routes/learning-experiences-detail.tsx"),
     ]),
+    // price plans
+    route("price-plans", "routes/price-plans.tsx", [
+      index("routes/price-plans-index.tsx"),
+      route(":slug", "routes/price-plans-detail.tsx"),
+    ]),
   ]), // --end front layout
 ] satisfies RouteConfig;
