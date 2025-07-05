@@ -62,5 +62,10 @@ export default [
     ]),
     // privacy
     route("privacy", "routes/privacy.tsx"),
+    // price plans
+    route("staff", "routes/staff.tsx", [
+      index("routes/staff-index.tsx"),
+      route(":slug", "routes/staff-detail.tsx"),
+    ]),
   ]), // --end front layout
 ] satisfies RouteConfig;
