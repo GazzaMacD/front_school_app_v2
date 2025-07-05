@@ -6,6 +6,7 @@ import {
 } from "@react-router/dev/routes";
 
 export default [
+  // ** Front Layout **
   layout("layouts/front.tsx", [
     index("routes/home.tsx"),
     route("about", "routes/about.tsx"),
@@ -14,7 +15,7 @@ export default [
       index("routes/blog-lessons-index.tsx"),
       route(":slug", "routes/blog-lessons-detail.tsx"),
     ]),
-    //auth
+    // ** Auth Layout in Front **
     layout("layouts/auth.tsx", [
       route("confirm-email/:key", "routes/auth-confirm-email.tsx"),
       route("email-confirmed", "routes/auth-email-confirmed.tsx"),
@@ -62,10 +63,15 @@ export default [
     ]),
     // privacy
     route("privacy", "routes/privacy.tsx"),
-    // price plans
+    // staff
     route("staff", "routes/staff.tsx", [
       index("routes/staff-index.tsx"),
       route(":slug", "routes/staff-detail.tsx"),
+    ]),
+    // testimonials
+    route("testimonials", "routes/testimonials.tsx", [
+      index("routes/testimonials-index.tsx"),
+      route(":slug", "routes/testimonials-detail.tsx"),
     ]),
   ]), // --end front layout
 ] satisfies RouteConfig;
