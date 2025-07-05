@@ -60,5 +60,7 @@ export default [
       index("routes/price-plans-index.tsx"),
       route(":slug", "routes/price-plans-detail.tsx"),
     ]),
+    // privacy
+    route("privacy", "routes/privacy.tsx"),
   ]), // --end front layout
 ] satisfies RouteConfig;
