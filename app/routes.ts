@@ -9,10 +9,12 @@ export default [
   layout("layouts/front.tsx", [
     index("routes/home.tsx"),
     route("about", "routes/about.tsx"),
+    //blog lessons
     route("blog-lessons", "routes/blog-lessons.tsx", [
       index("routes/blog-lessons-index.tsx"),
       route(":slug", "routes/blog-lessons-detail.tsx"),
     ]),
+    //auth
     layout("layouts/auth.tsx", [
       route("confirm-email/:key", "routes/auth-confirm-email.tsx"),
       route("email-confirmed", "routes/auth-email-confirmed.tsx"),
@@ -28,5 +30,35 @@ export default [
       route("register-success", "routes/auth-register-success.tsx"),
       route("register", "routes/auth-register.tsx"),
     ]),
-  ]),
+    // campaigns
+    route("campaigns", "routes/campaigns.tsx", [
+      index("routes/campaigns-index.tsx"),
+      route(":slug", "routes/campaigns-detail.tsx"),
+    ]),
+    // contact
+    route("contact", "routes/contact.tsx", [
+      index("routes/contact-index.tsx"),
+      route("success", "routes/contact-success.tsx"),
+    ]),
+    //courses
+    route("courses", "routes/courses.tsx", [
+      index("routes/courses-index.tsx"),
+      route(":subject/:slug", "routes/courses-detail.tsx"),
+    ]),
+    // language-schools
+    route("language-schools", "routes/language-schools.tsx", [
+      index("routes/language-schools-index.tsx"),
+      route(":slug", "routes/language-schools-detail.tsx"),
+    ]),
+    // learning-experiences
+    route("learning-experiences", "routes/learning-experiences.tsx", [
+      index("routes/learning-experiences-index.tsx"),
+      route(":slug", "routes/learning-experiences-detail.tsx"),
+    ]),
+    // price plans
+    route("price-plans", "routes/price-plans.tsx", [
+      index("routes/price-plans-index.tsx"),
+      route(":slug", "routes/price-plans-detail.tsx"),
+    ]),
+  ]), // --end front layout
 ] satisfies RouteConfig;
