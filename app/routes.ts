@@ -74,4 +74,9 @@ export default [
       route(":slug", "routes/testimonials-detail.tsx"),
     ]),
   ]), // --end front layout
+  // ** Back Layout **
+  route("my-page", "routes/my-page.tsx", [
+    index("routes/my-page-index.tsx"),
+    route("profile", "routes/myp-profile.tsx"),
+  ]),
 ] satisfies RouteConfig;
