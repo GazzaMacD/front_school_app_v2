@@ -75,5 +75,8 @@ export default [
     ]),
   ]), // --end front layout
   // ** Back Layout **
-  route("my-page", "routes/my-page.tsx", [index("routes/my-page-index.tsx")]),
+  route("my-page", "routes/my-page.tsx", [
+    index("routes/my-page-index.tsx"),
+    route("profile", "routes/myp-profile.tsx"),
+  ]),
 ] satisfies RouteConfig;
