@@ -78,5 +78,9 @@ export default [
   route("my-page", "routes/my-page.tsx", [
     index("routes/my-page-index.tsx"),
     route("profile", "routes/myp-profile.tsx"),
+    route("schedules", "routes/myp-schedules.tsx", [
+      index("routes/myp-schedules-index.tsx"),
+      route(":slug", "routes/myp-schedules-detail.tsx"),
+    ]),
   ]),
 ] satisfies RouteConfig;
