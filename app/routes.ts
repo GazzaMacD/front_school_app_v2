@@ -82,5 +82,9 @@ export default [
       index("routes/myp-schedules-index.tsx"),
       route(":slug", "routes/myp-schedules-detail.tsx"),
     ]),
+    route("video-calls", "routes/myp-video-calls.tsx", [
+      index("routes/myp-video-calls-index.tsx"),
+      route(":slug", "routes/myp-video-calls-detail.tsx"),
+    ]),
   ]),
 ] satisfies RouteConfig;
