@@ -87,4 +87,6 @@ export default [
       route(":slug", "routes/myp-video-calls-detail.tsx"),
     ]),
   ]),
+  // ** Resource and Splat routes **
+  route("email-subscribe", "routes/rr-email-subscribe.tsx"),
 ] satisfies RouteConfig;
