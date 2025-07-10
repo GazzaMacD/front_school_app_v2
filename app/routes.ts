@@ -78,5 +78,15 @@ export default [
   route("my-page", "routes/my-page.tsx", [
     index("routes/my-page-index.tsx"),
     route("profile", "routes/myp-profile.tsx"),
+    route("schedules", "routes/myp-schedules.tsx", [
+      index("routes/myp-schedules-index.tsx"),
+      route(":slug", "routes/myp-schedules-detail.tsx"),
+    ]),
+    route("video-calls", "routes/myp-video-calls.tsx", [
+      index("routes/myp-video-calls-index.tsx"),
+      route(":slug", "routes/myp-video-calls-detail.tsx"),
+    ]),
   ]),
+  // ** Resource and Splat routes **
+  route("email-subscribe", "routes/rr-email-subscribe.tsx"),
 ] satisfies RouteConfig;
