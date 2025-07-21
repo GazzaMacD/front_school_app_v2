@@ -10,11 +10,6 @@ export default [
   layout("layouts/front.tsx", [
     index("routes/home.tsx"),
     route("about", "routes/about.tsx"),
-    //blog lessons
-    route("blog-lessons", "routes/blog-lessons.tsx", [
-      index("routes/blog-lessons-index.tsx"),
-      route(":slug", "routes/blog-lessons-detail.tsx"),
-    ]),
     // ** Auth Layout in Front **
     layout("layouts/auth.tsx", [
       route("confirm-email/:key", "routes/auth-confirm-email.tsx"),
@@ -30,6 +25,11 @@ export default [
       route("password-reset", "routes/auth-pwd-reset.tsx"),
       route("register-success", "routes/auth-register-success.tsx"),
       route("register", "routes/auth-register.tsx"),
+    ]),
+    //blog lessons
+    route("blog-lessons", "routes/blog-lessons.tsx", [
+      index("routes/blog-lessons-index.tsx"),
+      route(":slug", "routes/blog-lessons-detail.tsx"),
     ]),
     // campaigns
     route("campaigns", "routes/campaigns.tsx", [
