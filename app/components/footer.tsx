@@ -53,8 +53,14 @@ function Footer() {
           </div>
           <div className="c-footer__copyright">
             <p>
-              © Copyright 2025 株式会社XLingual | All Rights Reserved | Website
-              by Gareth Macdonald
+              © Copyright 2025{" "}
+              <Link to="https://fr.linkedin.com/in/macdonaldgareth/fr">
+                Gareth Macdonald
+              </Link>{" "}
+              | All Rights Reserved | Website by{" "}
+              <Link to="https://fr.linkedin.com/in/macdonaldgareth/fr">
+                Gareth Macdonald
+              </Link>{" "}
             </p>
           </div>
         </div>
