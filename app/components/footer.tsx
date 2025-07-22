@@ -6,13 +6,14 @@ function Footer() {
       <div className="g-grid-container1">
         <div className="g-footer__branding-col">
           <div className="g-footer__logo">
-            <Link to="/">
+            <Link prefetch="viewport" to="/">
               <img src="/img/logo_with_tagline.svg" alt="XLingual logo"></img>
             </Link>
           </div>
           <div className="g-footer__socials">
             <div>
               <Link
+                prefetch="viewport"
                 className="g-footer__social instagram"
                 to={SOCIAL_URLS.instagram_learn}
               >
@@ -20,6 +21,7 @@ function Footer() {
                 <span>Instagram | Language Learning</span>
               </Link>
               <Link
+                prefetch="viewport"
                 className="g-footer__social instagram"
                 to={SOCIAL_URLS.instagram_news}
               >
@@ -29,6 +31,7 @@ function Footer() {
             </div>
             <div>
               <Link
+                prefetch="viewport"
                 to={SOCIAL_URLS.facebook}
                 className="g-footer__social regular"
               >
@@ -36,6 +39,7 @@ function Footer() {
                 <span>Facebook</span>
               </Link>
               <Link
+                prefetch="viewport"
                 to={SOCIAL_URLS.youtube}
                 className="g-footer__social regular"
               >
@@ -56,29 +60,44 @@ function Footer() {
             <h3>言語学習</h3>
             <ul>
               <li>
-                ― <Link to="/courses">語学コース一覧</Link>
-              </li>
-              <li>
-                ― <Link to="/price-plans">料金プラン</Link>
+                ―{" "}
+                <Link prefetch="viewport" to="/courses">
+                  語学コース一覧
+                </Link>
               </li>
               <li>
                 ―{" "}
-                <Link to="/learning-experiences">
+                <Link prefetch="viewport" to="/price-plans">
+                  料金プラン
+                </Link>
+              </li>
+              <li>
+                ―{" "}
+                <Link prefetch="viewport" to="/learning-experiences">
                   ラーニング・エクスペリエンス
                 </Link>
               </li>
               <li>
-                ― <Link to="/blog-lessons">読んで学べるブログ</Link>
+                ―{" "}
+                <Link prefetch="viewport" to="/blog-lessons">
+                  読んで学べるブログ
+                </Link>
               </li>
             </ul>
 
             <h3>会社案内</h3>
             <ul>
               <li>
-                ― <Link to="/about">私たちについて</Link>
+                ―{" "}
+                <Link prefetch="viewport" to="/about">
+                  私たちについて
+                </Link>
               </li>
               <li>
-                ― <Link to="/language-schools">スクール一覧</Link>
+                ―{" "}
+                <Link prefetch="viewport" to="/language-schools">
+                  スクール一覧
+                </Link>
               </li>
             </ul>
           </div>
@@ -86,14 +105,20 @@ function Footer() {
             <h3>お問い合わせ</h3>
             <ul>
               <li>
-                ― <Link to="/contact#form">フォームでのお問い合わせ</Link>
-              </li>
-              <li>
-                ― <Link to="/contact#telephone">電話でのお問い合わせe</Link>
+                ―{" "}
+                <Link prefetch="viewport" to="/contact#form">
+                  フォームでのお問い合わせ
+                </Link>
               </li>
               <li>
                 ―{" "}
-                <Link to="mailto:contact@xlingual.co.jp">
+                <Link prefetch="viewport" to="/contact#telephone">
+                  電話でのお問い合わせe
+                </Link>
+              </li>
+              <li>
+                ―{" "}
+                <Link prefetch="viewport" to="mailto:contact@xlingual.co.jp">
                   Eメールでのお問い合わせ
                 </Link>
               </li>
@@ -101,10 +126,15 @@ function Footer() {
             <h3>その他</h3>
             <ul>
               <li>
-                ― <Link to="/my-page">マイページ</Link>
+                ―{" "}
+                <Link prefetch="viewport" to="/my-page">
+                  マイページ
+                </Link>
               </li>
               <li>
-                <Link to="/privacy">― プライバシーポリシー</Link>
+                <Link prefetch="viewport" to="/privacy">
+                  ― プライバシーポリシー
+                </Link>
               </li>
             </ul>
           </div>
