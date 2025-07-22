@@ -5,19 +5,19 @@ import { SOCIAL_URLS } from "~/common/constants";
 
 function Footer() {
   return (
-    <footer className="g-footer">
+    <footer className="c-footer">
       <div className="g-grid-container1">
-        <div className="g-footer__branding-col">
-          <div className="g-footer__logo">
+        <div className="c-footer__branding-col">
+          <div className="c-footer__logo">
             <Link prefetch="viewport" to="/">
               <img src="/img/logo_with_tagline.svg" alt="XLingual logo"></img>
             </Link>
           </div>
-          <div className="g-footer__socials">
+          <div className="c-footer__socials">
             <div>
               <Link
                 prefetch="viewport"
-                className="g-footer__social instagram"
+                className="c-footer__social instagram"
                 to={SOCIAL_URLS.instagram_learn}
               >
                 <FaInstagram />
@@ -25,7 +25,7 @@ function Footer() {
               </Link>
               <Link
                 prefetch="viewport"
-                className="g-footer__social instagram"
+                className="c-footer__social instagram"
                 to={SOCIAL_URLS.instagram_news}
               >
                 <FaInstagram />
@@ -36,7 +36,7 @@ function Footer() {
               <Link
                 prefetch="viewport"
                 to={SOCIAL_URLS.facebook}
-                className="g-footer__social regular"
+                className="c-footer__social regular"
               >
                 <FaFacebookF />
                 <span>Facebook</span>
@@ -44,21 +44,21 @@ function Footer() {
               <Link
                 prefetch="viewport"
                 to={SOCIAL_URLS.youtube}
-                className="g-footer__social regular"
+                className="c-footer__social regular"
               >
                 <FaYoutube />
                 <span>Youtube</span>
               </Link>
             </div>
           </div>
-          <div className="g-footer__copyright">
+          <div className="c-footer__copyright">
             <p>
               © Copyright 2025 株式会社XLingual | All Rights Reserved | Website
               by Gareth Macdonald
             </p>
           </div>
         </div>
-        <div className="g-footer__links-col">
+        <div className="c-footer__links-col">
           <div>
             <h3>言語学習</h3>
             <ul>
