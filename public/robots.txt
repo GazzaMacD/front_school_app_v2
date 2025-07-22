@@ -5,4 +5,4 @@ User-agent: Yandex
 Disallow: /
 #Rest
 User-agent: *
-Allow: /
+Disallow: /
