@@ -1,4 +1,7 @@
 import { Link } from "react-router";
+import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
+
+import { SOCIAL_URLS } from "~/common/constants";
 
 function Footer() {
   return (
@@ -143,3 +146,5 @@ function Footer() {
     </footer>
   );
 }
+
+export { Footer };
