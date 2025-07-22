@@ -8,12 +8,12 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import baseStyles from "./styles/base.css?url";
+import globalStyles from "./styles/global.css?url";
 
 export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
-    href: baseStyles,
+    href: globalStyles,
   },
 ];
 
