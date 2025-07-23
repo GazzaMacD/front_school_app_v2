@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 
 import { Footer } from "~/components/footer";
+import { FrontHeader } from "~/components/front-header";
 import type { Route } from "./+types/front";
 import footerStyles from "~/styles/components/footer.css?url";
 
@@ -14,7 +15,7 @@ export const links: Route.LinksFunction = () => [
 export default function FrontLayout() {
   return (
     <>
-      <header>Header for Front</header>
+      <FrontHeader />
       <Outlet />
       <Footer />
     </>
