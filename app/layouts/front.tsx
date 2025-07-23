@@ -13,9 +13,11 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export default function FrontLayout() {
+  //FIX: get user from useMatches() and root
+  let user = null;
   return (
     <>
-      <FrontHeader />
+      <FrontHeader user={user} />
       <Outlet />
       <FrontFooter />
     </>
