@@ -3,7 +3,7 @@ import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
 
 import { SOCIAL_URLS } from "~/common/constants";
 
-function Footer() {
+function FrontFooter() {
   return (
     <footer className="c-footer">
       <div className="g-grid-container1">
@@ -153,4 +153,4 @@ function Footer() {
   );
 }
 
-export { Footer };
+export { FrontFooter };
