@@ -1,22 +1,30 @@
 import { Outlet } from "react-router";
 
-import { Footer } from "~/components/footer";
+import { FrontFooter } from "~/components/front-footer";
+import { FrontHeader } from "~/components/front-header";
 import type { Route } from "./+types/front";
-import footerStyles from "~/styles/components/footer.css?url";
+import footerStyles from "~/styles/components/front-footer.css?url";
+import headerStyles from "~/styles/components/front-header.css?url";
 
 export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: footerStyles,
   },
+  {
+    rel: "stylesheet",
+    href: headerStyles,
+  },
 ];
 
 export default function FrontLayout() {
+  //FIX: get user from useMatches() and root
+  let user = null;
   return (
     <>
-      <header>Header for Front</header>
+      <FrontHeader user={user} />
       <Outlet />
-      <Footer />
+      <FrontFooter />
     </>
   );
 }
