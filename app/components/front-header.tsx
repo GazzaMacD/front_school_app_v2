@@ -16,58 +16,58 @@ type TFrontHeaderProps = {
 function FrontHeader({ user }: TFrontHeaderProps) {
   let { pathname } = useLocation();
   return (
-    <header className="g-header">
-      <div className="g-header__inner">
-        <div className="g-header__tagline-background"></div>
-        <div className="g-header__branding">
-          <Link to="/" className="g-header__logo-link">
+    <header className="c-fheader">
+      <div className="c-fheader__inner">
+        <div className="c-fheader__tagline-background"></div>
+        <div className="c-fheader__branding">
+          <Link to="/" className="c-fheader__logo-link">
             <img
-              className="g-header__logo"
+              className="c-fheader__logo"
               src="/img/xlingual_logo_without_tagline.svg"
               alt="XLingual logo"
             ></img>
           </Link>
-          <div className="g-header__tagline">
+          <div className="c-fheader__tagline">
             エクスリンガル｜Experts in Language Learning
           </div>
         </div>
-        <div className="g-menu">
-          <nav className="g-menu__nav">
-            <ul className="g-menu__list">
-              <li className="g-menu__item">
-                <a className="g-menu__phone" href="tel:0561-42-5707">
+        <div className="c-fheader-menu">
+          <nav className="c-fheader-menu__nav">
+            <ul className="c-fheader-menu__list">
+              <li className="c-fheader-menu__item">
+                <a className="c-fheader-menu__phone" href="tel:0561-42-5707">
                   <FaMobileAlt />
                   <span>0561-42-5707</span>
                 </a>
               </li>
-              <li className="g-menu__item g-menu__contact">
+              <li className="c-fheader-menu__item c-fheader-menu__contact">
                 <Link to="/contact#form">
                   <span>問合せ</span>
                   <span>お問い合わせ</span>
                 </Link>
               </li>
               {user ? (
-                <li className="g-menu__item">
+                <li className="c-fheader-menu__item">
                   <form
                     className="right-menu__form"
                     action="/logout"
                     method="post"
                   >
-                    <button className="g-menu__logout" type="submit">
+                    <button className="c-fheader-menu__logout" type="submit">
                       ログアウト
                     </button>
                   </form>
                 </li>
               ) : (
                 <>
-                  <li className="g-menu__item">
-                    <a className="g-menu__reglog-link" href="/register">
-                      <div className="g-menu__reglog reg">
+                  <li className="c-fheader-menu__item">
+                    <a className="c-fheader-menu__reglog-link" href="/register">
+                      <div className="c-fheader-menu__reglog reg">
                         <span>新規</span>登録
                       </div>
                     </a>
-                    <a className="g-menu__reglog-link" href="/login">
-                      <div className="g-menu__reglog log">ログイン</div>
+                    <a className="c-fheader-menu__reglog-link" href="/login">
+                      <div className="c-fheader-menu__reglog log">ログイン</div>
                     </a>
                   </li>
                 </>
@@ -87,16 +87,24 @@ function HamburgerMenu() {
   return (
     <div>
       <form>
-        <input type="checkbox" id="navi-toggle" className="g-sm__checkbox" />
-        <label htmlFor="navi-toggle" className="g-sm__button" role="button">
+        <input
+          type="checkbox"
+          id="navi-toggle"
+          className="c-fheader-sm__checkbox"
+        />
+        <label
+          htmlFor="navi-toggle"
+          className="c-fheader-sm__button"
+          role="button"
+        >
           <div>
-            <span className="g-sm__button__icon">&nbsp;</span>
-            <span className="g-sm__button__text">メニュー</span>
+            <span className="c-fheader-sm__button__icon">&nbsp;</span>
+            <span className="c-fheader-sm__button__text">メニュー</span>
           </div>
         </label>
-        <div className="g-sm">
-          <nav className="g-sm__inner">
-            <div className="g-sm__inner__menus">
+        <div className="c-fheader-sm">
+          <nav className="c-fheader-sm__inner">
+            <div className="c-fheader-sm__inner__menus">
               <h3>言語学習</h3>
               <ul>
                 <li>
@@ -148,26 +156,32 @@ function HamburgerMenu() {
                 </li>
               </ul>
             </div>
-            <div className="g-sm__inner__socials">
+            <div className="c-fheader-sm__inner__socials">
               <Link
-                className="g-sm__social instagram"
+                className="c-fheader-sm__social instagram"
                 to={SOCIAL_URLS.instagram_learn}
               >
                 <FaInstagram />
                 <div>Instagram | Language Learning</div>
               </Link>
-              <Link to={SOCIAL_URLS.facebook} className="g-sm__social regular">
+              <Link
+                to={SOCIAL_URLS.facebook}
+                className="c-fheader-sm__social regular"
+              >
                 <FaFacebookF />
                 <div>Facebook</div>
               </Link>
               <Link
                 to={SOCIAL_URLS.instagram_news}
-                className="g-sm__social instagram"
+                className="c-fheader-sm__social instagram"
               >
                 <FaInstagram />
                 <div>Instagram | News</div>
               </Link>
-              <Link to={SOCIAL_URLS.youtube} className="g-sm__social regular">
+              <Link
+                to={SOCIAL_URLS.youtube}
+                className="c-fheader-sm__social regular"
+              >
                 <FaYoutube />
                 <div>Youtube</div>
               </Link>

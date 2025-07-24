@@ -4,11 +4,16 @@ import { FrontFooter } from "~/components/front-footer";
 import { FrontHeader } from "~/components/front-header";
 import type { Route } from "./+types/front";
 import footerStyles from "~/styles/components/front-footer.css?url";
+import headerStyles from "~/styles/components/front-header.css?url";
 
 export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: footerStyles,
+  },
+  {
+    rel: "stylesheet",
+    href: headerStyles,
   },
 ];
 
