@@ -23,7 +23,9 @@ export default function FrontLayout() {
   return (
     <>
       <FrontHeader user={user} />
-      <Outlet />
+      <div className="g-content-wrapper">
+        <Outlet />
+      </div>
       <FrontFooter />
     </>
   );
