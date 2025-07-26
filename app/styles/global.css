@@ -693,7 +693,7 @@ Design Elements
 Containers, Wrappers and Iframes
 -------------------------------- */
 /* base wrapper */
-.base-wrapper {
+.g-base-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100%;
@@ -887,16 +887,16 @@ Block quotes
 /** 
 * Base grids, containers  & figure/ img / classes
 */
-.content-wrapper {
+.g-content-wrapper {
   padding-top: 79px;
 }
 @media (min-width: 48rem) {
-  .content-wrapper {
+  .g-content-wrapper {
     padding-top: 130px;
   }
 }
 @media (min-width: 64rem) {
-  .content-wrapper {
+  .g-content-wrapper {
     padding-top: 80px;
   }
 }
