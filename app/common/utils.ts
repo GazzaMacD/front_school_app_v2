@@ -57,3 +57,58 @@ export function getDesc({
     return "";
   }
 }
+
+/*
+ * Date and time functions
+ */
+
+export function getJapaneseDurationString(s: string, e: string): string {
+  const start = new Date(s);
+  const end = new Date(e);
+  const startString = `${start.getFullYear()}年${
+    start.getMonth() + 1
+  }月${start.getDate()}日`;
+  const endString = `${end.getFullYear()}年${
+    end.getMonth() + 1
+  }月${end.getDate()}日`;
+  return `${startString} ~ ${endString}`;
+}
+
+export function getDateString(start: string, end: string) {
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  let dateString: string;
+  if (startDate.getTime() === endDate.getTime()) {
+    dateString = `${startDate.getFullYear()}.${
+      startDate.getMonth() + 1
+    }.${startDate.getDate()}`;
+  } else {
+    dateString = `${startDate.getFullYear()}.${
+      startDate.getMonth() + 1
+    }.${startDate.getDate()} ~ ${endDate.getFullYear()}.${
+      endDate.getMonth() + 1
+    }.${endDate.getDate()}`;
+  }
+  return dateString;
+}
+
+export function getDateStringWithDays(start: string, end: string) {
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let dateString: string;
+  if (startDate.getTime() === endDate.getTime()) {
+    dateString = `${startDate.getFullYear()}.${
+      startDate.getMonth() + 1
+    }.${startDate.getDate()} (${days[startDate.getDay()]})`;
+  } else {
+    dateString = `${startDate.getFullYear()}.${
+      startDate.getMonth() + 1
+    }.${startDate.getDate()} (${
+      days[startDate.getDay()]
+    }) ~ ${endDate.getFullYear()}.${
+      endDate.getMonth() + 1
+    }.${endDate.getDate()} (${days[endDate.getDay()]})`;
+  }
+  return dateString;
+}
