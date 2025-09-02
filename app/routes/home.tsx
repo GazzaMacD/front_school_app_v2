@@ -3,6 +3,7 @@ import type { Route } from "./+types/home";
 import { getTitle, getDesc } from "~/common/utils";
 import homeStyles from "~/styles/home.css?url";
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
+import { Swoosh1 } from "~/components/swooshes";
 import type {
   TDetailMeta,
   TFullImage,
@@ -135,6 +136,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
       </section>
+      <Swoosh1 swooshColor="beige" backColor="white" />
     </>
   );
 }
