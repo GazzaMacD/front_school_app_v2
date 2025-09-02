@@ -2,7 +2,7 @@ import type { Route } from "./+types/home";
 
 import { getTitle, getDesc } from "~/common/utils";
 import homeStyles from "~/styles/home.css?url";
-import { BASE_API_URL } from "~/.server/env";
+import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
 import type {
   TDetailMeta,
   TFullImage,
@@ -12,6 +12,7 @@ import type {
   THomeTeacher,
   THomeBlogPost,
 } from "~/common/types";
+import { HeadingOne } from "~/components/headings";
 
 /**
  * Helpers
@@ -73,6 +74,7 @@ export async function loader({ context }: Route.LoaderArgs) {
     home: home.data.items[0] as THomePageData,
     blogs: blogs.data.items as THomeBlogPosts,
     campaigns,
+    base_back_url: BASE_BACK_URL,
   };
 } // end loader
 
@@ -81,8 +83,7 @@ export async function loader({ context }: Route.LoaderArgs) {
  */
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const { home, blogs, campaigns } = loaderData;
-  console.log(campaigns);
+  const { home, blogs, campaigns, base_back_url } = loaderData;
   return (
     <>
       {/* Meta tags*/}
@@ -109,6 +110,28 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               <span>XLingual - エクスリンガル語学学校 -</span>
               マルチリンガルの講師たちと一緒に英語を勉強しましょう
             </h1>
+          </div>
+        </div>
+      </section>
+
+      <section id="why">
+        <div className="g-grid-container1 ho-why">
+          <div className="ho-why__img-wrapper">
+            <img
+              src={`${base_back_url}${home.why_image.medium.src}`}
+              alt={home.why_image.medium.alt}
+            />
+          </div>
+          <div className="ho-why__details">
+            <HeadingOne
+              enText={home.why_en_title}
+              jpText={home.why_jp_title}
+              align="left"
+              bkground="light"
+              level="h2"
+            />
+
+            <div dangerouslySetInnerHTML={{ __html: home.why_content }}></div>
           </div>
         </div>
       </section>

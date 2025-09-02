@@ -4,6 +4,7 @@
 
 type TENV_VARS =
   | "BASE_API_URL"
+  | "BASE_BACK_URL"
   | "SESSION_SECRET"
   | "HOME_URL"
   | "SCHEDULE_PERMS"
@@ -28,6 +29,7 @@ function getEnvOrThrow(name: TENV_VARS): string {
  */
 
 export const BASE_API_URL = getEnvOrThrow("BASE_API_URL");
+export const BASE_BACK_URL = getEnvOrThrow("BASE_BACK_URL");
 export const SESSION_SECRET = getEnvOrThrow("SESSION_SECRET");
 export const HOME_URL = getEnvOrThrow("HOME_URL");
 export const PERMISSIONS = {
