@@ -180,6 +180,45 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
       </section>
+
+      <section id="services">
+        <Swoosh1 backColor="cream" swooshColor="brown" />
+        <div className="ho-services">
+          <div className="g-grid-container1">
+            <div className="ho-services__heading">
+              <HeadingOne
+                enText={home.service_en_title}
+                jpText={home.service_jp_title}
+                align="left"
+                bkground="green"
+                level="h2"
+              />
+            </div>
+            {home.service_cards.map((service, i) => {
+              return (
+                <article
+                  key={service.id}
+                  className={`ho-services__card card${i}`}
+                >
+                  <div className="ho-services__card__img-wrap">
+                    <img
+                      className="ho-services__card__img"
+                      src={`${base_back_url}${service.value.image.medium.src}`}
+                      alt={service.value.image.medium.alt}
+                    />
+                  </div>
+                  <div className="ho-services__details">
+                    <h3>{service.value.title}</h3>
+                    <p>{service.value.text}</p>
+                    <Link to={service.value.link}>詳しく見る</Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       <Swoosh1 swooshColor="beige" backColor="white" />
     </>
   );
