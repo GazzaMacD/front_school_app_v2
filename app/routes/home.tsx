@@ -2,10 +2,14 @@ import type { Route } from "./+types/home";
 
 import { getTitle, getDesc, getJapaneseDurationString } from "~/common/utils";
 import homeStyles from "~/styles/home.css?url";
+import cardStyles from "~/styles/components/cards.css?url";
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
 import { Swoosh1 } from "~/components/swooshes";
 import { Link } from "react-router";
-import { RoundButtonLink } from "~/components/buttons";
+import { RoundButtonLink, SolidPillButtonLink } from "~/components/buttons";
+import { HeadingOne } from "~/components/headings";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { StaffRoundPicCard } from "~/components/cards";
 import type {
   TDetailMeta,
   TFullImage,
@@ -15,7 +19,6 @@ import type {
   THomeTeacher,
   THomeBlogPost,
 } from "~/common/types";
-import { HeadingOne } from "~/components/headings";
 
 /**
  * Helpers
@@ -24,6 +27,10 @@ export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: homeStyles,
+  },
+  {
+    rel: "stylesheet",
+    href: cardStyles,
   },
 ];
 
@@ -275,6 +282,42 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       </section>
 
       <section id="prices">Prices here</section>
+
+      <section id="teachers">
+        <div className="ho-teachers">
+          <div className="g-grid-container1">
+            <div className="ho-teachers__heading">
+              <HeadingOne
+                enText={home.teacher_en_title}
+                jpText={home.teacher_jp_title}
+                align="center"
+                bkground="light"
+                level="h2"
+              />
+            </div>
+            {home.home_teachers.map((item, i) => {
+              const teacher = item.teacher;
+              return (
+                <div key={teacher.id} className={`ho-teacher__card card${i}`}>
+                  <StaffRoundPicCard
+                    url={`/staff/${teacher.slug}`}
+                    src={`${base_back_url}${teacher.image.thumbnail.src}`}
+                    alt={teacher.image.original.alt}
+                    name={teacher.display_name}
+                    tagline={teacher.display_tagline}
+                  />
+                </div>
+              );
+            })}
+            <div className="ho-teachers__more">
+              <SolidPillButtonLink to="/about#teachers" color="green">
+                すべての講師を見る &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <FaArrowRightLong />
+              </SolidPillButtonLink>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section id="blog-lessons">Blog here</section>
 
