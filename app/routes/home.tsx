@@ -274,6 +274,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         </div>
       </section>
 
+      <section id="prices">Prices here</section>
+
+      <section id="blog-lessons">Blog here</section>
+
       <Swoosh1 swooshColor="beige" backColor="white" />
     </>
   );
