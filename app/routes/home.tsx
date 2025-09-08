@@ -1,14 +1,24 @@
 import type { Route } from "./+types/home";
+import React from "react";
 
-import { getTitle, getDesc, getJapaneseDurationString } from "~/common/utils";
+import {
+  getTitle,
+  getDesc,
+  getJapaneseDurationString,
+  getDisplay,
+} from "~/common/utils";
 import homeStyles from "~/styles/home.css?url";
 import cardStyles from "~/styles/components/cards.css?url";
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
 import { Swoosh1 } from "~/components/swooshes";
 import { Link } from "react-router";
-import { RoundButtonLink, SolidPillButtonLink } from "~/components/buttons";
+import {
+  RoundButtonLink,
+  SolidPillButtonLink,
+  LgBiButtonLink,
+} from "~/components/buttons";
 import { HeadingOne } from "~/components/headings";
-import { FaArrowRightLong } from "react-icons/fa6";
+import { FaArrowRightLong, FaRegCircle, FaXmark } from "react-icons/fa6";
 import { StaffRoundPicCard } from "~/components/cards";
 import type {
   TDetailMeta,
@@ -19,6 +29,8 @@ import type {
   THomeTeacher,
   THomeBlogPost,
 } from "~/common/types";
+
+import useEmblaCarousel from "embla-carousel-react";
 
 /**
  * Helpers
@@ -38,13 +50,12 @@ export const links: Route.LinksFunction = () => [
  * Loaders and Actions
  */
 
-const homeUrl = `${BASE_API_URL}/pages/?type=home.homepage&fields=*`;
-const blogslUrl = `${BASE_API_URL}/pages/?order=-published_date&limit=8&type=lessons.LessonDetailPage&fields=_,id,slug,display_title,display_tagline,published_date,title,category,header_image,id`;
-//campaign urls
-const simpleBannerUrl = `${BASE_API_URL}/pages/?type=campaigns.CampaignSimpleBannerPage&order=-start_date&limit=3&fields=*`;
-const imageBannerUrl = `${BASE_API_URL}/pages/?type=campaigns.CampaignImageBannerPage&order=-start_date&limit=3&fields=_,banner_image,slug,title,marketing_start_date,start_date,end_date,name_ja,campaign_page_type`;
-
 export async function loader({ context }: Route.LoaderArgs) {
+  const homeUrl = `${BASE_API_URL}/pages/?type=home.homepage&fields=*`;
+  const blogslUrl = `${BASE_API_URL}/pages/?order=-published_date&limit=8&type=lessons.LessonDetailPage&fields=_,id,slug,display_title,display_tagline,published_date,title,category,header_image,id`;
+  //campaign urls
+  const simpleBannerUrl = `${BASE_API_URL}/pages/?type=campaigns.CampaignSimpleBannerPage&order=-start_date&limit=3&fields=*`;
+  const imageBannerUrl = `${BASE_API_URL}/pages/?type=campaigns.CampaignImageBannerPage&order=-start_date&limit=3&fields=_,banner_image,slug,title,marketing_start_date,start_date,end_date,name_ja,campaign_page_type`;
   const urls = [homeUrl, blogslUrl, simpleBannerUrl, imageBannerUrl];
   const [home, blogs, simpleBanner, imageBanner] = await Promise.all(
     urls.map((url) =>
@@ -94,6 +105,16 @@ export async function loader({ context }: Route.LoaderArgs) {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const { home, blogs, campaigns, base_back_url } = loaderData;
+  // Prices slider
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+  const scrollPrev = React.useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+  const scrollNext = React.useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  // Blog slider
   return (
     <>
       {/* Meta tags*/}
@@ -281,7 +302,136 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         </div>
       </section>
 
-      <section id="prices">Prices here</section>
+      <section id="prices">
+        <div className="g-grid-container2">
+          <div className="ho-prices">
+            <div className="ho-prices__heading">
+              <HeadingOne
+                enText={home.price_en_title}
+                jpText={home.price_jp_title}
+                align="left"
+                bkground="dark"
+                level="h2"
+              />
+            </div>
+            <div className="ho-prices__wrapper">
+              <div className="ho-prices-slider">
+                <button
+                  className="ho-prices-slider__button prev"
+                  onClick={scrollPrev}
+                ></button>
+                <button
+                  className="ho-prices-slider__button next"
+                  onClick={scrollNext}
+                ></button>
+                <div className="ho-prices-slider__viewport" ref={emblaRef}>
+                  <div className="ho-prices-slider__container">
+                    {home.home_class_prices.map((p) => {
+                      const cp = p.class_price;
+                      const pi = p.class_price.price_info;
+                      return (
+                        <div className="ho-prices-slider__slide" key={p.id}>
+                          <article className="ho-price">
+                            <div>
+                              <h3>{cp.title}</h3>
+                            </div>
+                            <p>{cp.display_title}</p>
+                            <table>
+                              <tbody>
+                                <tr>
+                                  <td>料金</td>
+                                  <td>￥{pi.posttax_price}</td>
+                                </tr>
+                                <tr>
+                                  <td>時間</td>
+                                  <td>
+                                    {cp.length}
+                                    {getDisplay(cp.length_unit, 1)}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>頻度</td>
+                                  <td>
+                                    {getDisplay(cp.quantity_unit, 1)}
+                                    {cp.quantity}回
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>最大人数</td>
+                                  <td>{cp.max_num}</td>
+                                </tr>
+                                <tr>
+                                  <td>ネイティブ講師</td>
+                                  <td>
+                                    {cp.is_native ? (
+                                      <FaRegCircle />
+                                    ) : (
+                                      <FaXmark />
+                                    )}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>オンライン受講</td>
+                                  <td>
+                                    {cp.is_online ? (
+                                      <FaRegCircle />
+                                    ) : (
+                                      <FaXmark />
+                                    )}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>対面受講</td>
+                                  <td>
+                                    {cp.is_inperson ? (
+                                      <FaRegCircle />
+                                    ) : (
+                                      <FaXmark />
+                                    )}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>オンラインレッスンノート</td>
+                                  <td>
+                                    {cp.has_onlinenotes ? (
+                                      <FaRegCircle />
+                                    ) : (
+                                      <FaXmark />
+                                    )}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>オンライン予約</td>
+                                  <td>
+                                    {cp.bookable_online ? (
+                                      <FaRegCircle />
+                                    ) : (
+                                      <FaXmark />
+                                    )}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </article>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="ho-prices__button-wrapper">
+              <LgBiButtonLink
+                to="/price-plans"
+                color="orange"
+                jp="すべてのプランを見る"
+                en="View All Plans"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section id="teachers">
         <div className="ho-teachers">

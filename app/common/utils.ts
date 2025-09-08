@@ -1,5 +1,12 @@
 import { BASE_TITLE, HOME_DESC } from "./constants";
 /*
+ * Display functions
+ */
+export function getDisplay(str: string, langNum: number) {
+  return str.split(",")[langNum];
+}
+
+/*
  * Meta functions
  */
 export function getTitle({
