@@ -597,7 +597,7 @@ a.ho-campaigns__link {
 
 /* price slider */
 /*
-* Embla slider
+* Embla Prices slider
 */
 .ho-prices-slider {
   overflow: hidden;
@@ -891,15 +891,85 @@ a.ho-campaigns__link {
 .ho-blog-lessons__heading {
   grid-column: 1/16;
 }
+
+/* NEW blog slider */
+.ho-blog__slider-wrapper {
+  margin: 0;
+  grid-column: 1/16;
+}
+
+.ho-blog-slider {
+  overflow: hidden;
+  position: relative;
+  margin-top: -82px;
+  padding-top: 76px;
+}
+.ho-blog-slider__container {
+  display: flex;
+}
+.ho-blog-slider__slide {
+  flex: 0 0 45%; /* Slide covers 80% of the viewport */
+  margin-right: 5%;
+}
+@media (min-width: 30rem) {
+  .ho-blog-slider__slide {
+    flex: 0 0 55%; /* Slide covers 55% of the viewport */
+    margin-right: 10%;
+  }
+}
+@media (min-width: 48rem) {
+  .ho-blog-slider__slide {
+    flex: 0 0 40%; /* Slide covers 40% of the viewport */
+    margin-right: 8%;
+  }
+}
+@media (min-width: 64rem) {
+  .ho-blog-slider__slide {
+    flex: 0 0 46%; /* Slide covers 46% of the viewport */
+    margin-right: 10%;
+  }
+}
+@media (min-width: 96rem) {
+  .ho-blog-slider__slide {
+    flex: 0 0 25%; /* Slide covers 55% of the viewport */
+    margin-right: 6%;
+  }
+}
+/* NEW slider buttons */
+
+.ho-blog-slider__button {
+  border: none;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  background-color: var(--color-brand-brown);
+  border-radius: 50%;
+  color: var(--color-brand-white);
+}
+.ho-blog-slider__button.prev {
+  top: 0;
+  right: 50px;
+}
+.ho-blog-slider__button.next {
+  top: 0;
+  right: 0;
+}
+.ho-blog-slider__button::after {
+  display: block;
+  content: "➜";
+  font-size: 22px;
+}
+.ho-blog-slider__button.prev::after {
+  transform: rotate(180deg);
+}
+
+/* NEW blog more */
 .ho-blog__more {
   grid-column: 1/16;
   justify-self: center;
 }
+
 /* blog slider */
-.ho-blog__slider-wrapper {
-  margin: -160px 0 40px 0;
-  grid-column: 1/16;
-}
 .ho-blog-lessons .swiper-wrapper {
   padding: 70px 0 0 0;
 }
@@ -937,7 +1007,7 @@ a.ho-campaigns__link {
   padding: 1px 0 0 0;
   font-size: 22px;
 }
-/* cards */
+/* blog slider cards */
 a.ho-blog-link::before {
   content: none;
 }
@@ -1057,27 +1127,6 @@ a.ho-blog-link::before {
   }
   .ho-blog-lessons .swiper {
     padding: 100px 0 0 0;
-  }
-  .ho-blog-lessons .swiper-button-prev {
-    width: 60px;
-    height: 60px;
-    right: 100px;
-    top: 30px;
-  }
-  .ho-blog-lessons .swiper-button-prev::after {
-    font-size: 44px;
-  }
-
-  .ho-blog-lessons .swiper-button-next {
-    width: 60px;
-    height: 60px;
-    right: 10px;
-    top: 30px;
-  }
-  .ho-blog-lessons .swiper-button-next::after {
-    content: "➜";
-    padding: 1px 0 0 0;
-    font-size: 44px;
   }
   /* cards */
   /* cards--overlay */

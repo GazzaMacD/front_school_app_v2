@@ -105,16 +105,25 @@ export async function loader({ context }: Route.LoaderArgs) {
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const { home, blogs, campaigns, base_back_url } = loaderData;
+
   // Prices slider
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
-  const scrollPrev = React.useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-  const scrollNext = React.useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
+  const [emblaPricesRef, emblaPricesApi] = useEmblaCarousel({ loop: true });
+  const scrollPricesPrev = React.useCallback(() => {
+    if (emblaPricesApi) emblaPricesApi.scrollPrev();
+  }, [emblaPricesApi]);
+  const scrollPricesNext = React.useCallback(() => {
+    if (emblaPricesApi) emblaPricesApi.scrollNext();
+  }, [emblaPricesApi]);
 
   // Blog slider
+  const [emblaBlogRef, emblaBlogApi] = useEmblaCarousel({ loop: false });
+  const scrollBlogPrev = React.useCallback(() => {
+    if (emblaBlogApi) emblaBlogApi.scrollPrev();
+  }, [emblaBlogApi]);
+  const scrollBlogNext = React.useCallback(() => {
+    if (emblaBlogApi) emblaBlogApi.scrollNext();
+  }, [emblaBlogApi]);
+
   return (
     <>
       {/* Meta tags*/}
@@ -318,13 +327,16 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               <div className="ho-prices-slider">
                 <button
                   className="ho-prices-slider__button prev"
-                  onClick={scrollPrev}
+                  onClick={scrollPricesPrev}
                 ></button>
                 <button
                   className="ho-prices-slider__button next"
-                  onClick={scrollNext}
+                  onClick={scrollPricesNext}
                 ></button>
-                <div className="ho-prices-slider__viewport" ref={emblaRef}>
+                <div
+                  className="ho-prices-slider__viewport"
+                  ref={emblaPricesRef}
+                >
                   <div className="ho-prices-slider__container">
                     {home.home_class_prices.map((p) => {
                       const cp = p.class_price;
@@ -469,7 +481,83 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         </div>
       </section>
 
-      <section id="blog-lessons">Blog here</section>
+      <section id="blog-lessons">
+        <div className="ho-blog-lessons">
+          <div className="g-grid-container1">
+            <div className="ho-blog-lessons__heading">
+              <HeadingOne
+                enText={home.bloglesson_en_title}
+                jpText={home.bloglesson_jp_title}
+                align="left"
+                bkground="light"
+                level="h2"
+              />
+            </div>
+            <div className="ho-blog__slider-wrapper">
+              <div className="ho-blog-slider">
+                <button
+                  className="ho-blog-slider__button prev"
+                  onClick={scrollBlogPrev}
+                ></button>
+                <button
+                  className="ho-blog-slider__button next"
+                  onClick={scrollBlogNext}
+                ></button>
+                <div className="ho-blog-slider__viewport" ref={emblaBlogRef}>
+                  <div className="ho-blog-slider__container">
+                    {blogs.map((blog, i) => {
+                      const d = new Date(blog.published_date);
+                      return (
+                        <article
+                          className="ho-blog-slider__slide"
+                          key={blog.id}
+                        >
+                          <Link
+                            className="ho-blog-link"
+                            to={`/blog-lessons/${blog.meta.slug}`}
+                          >
+                            <div className="ho-blog__card">
+                              <div className="ho-blog__card-img-wrapper">
+                                <img
+                                  className="ho-blog__card-img"
+                                  src={`${base_back_url}${blog.header_image.medium.src}`}
+                                  alt={blog.header_image.medium.alt}
+                                />
+                                <div className="ho-blog__card-overlay">
+                                  <div className="ho-blog__card-overlay-inner">
+                                    <h3>Let's Learn!</h3>
+                                    <p>記事を読む</p>
+                                    <FaArrowRightLong />
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="ho-blog__card-details">
+                                <div>
+                                  <p>{`${d.getFullYear()}.${
+                                    d.getMonth() + 1
+                                  }.${d.getDate()}`}</p>
+                                  <p>[ {blog.category.ja_name} ]</p>
+                                </div>
+                                <h3>{blog.display_title}</h3>
+                              </div>
+                            </div>
+                          </Link>
+                        </article>
+                      );
+                    })}
+                  </div>
+                  {/* end container */}
+                </div>
+                {/* end viewport */}
+              </div>
+              {/* end slider */}
+            </div>
+            {/* end slider-wrapper */}
+          </div>
+          {/* end container1 */}
+        </div>
+        {/* end blog-lessons */}
+      </section>
 
       <Swoosh1 swooshColor="beige" backColor="white" />
     </>
