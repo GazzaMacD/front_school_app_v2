@@ -603,7 +603,7 @@ a.ho-campaigns__link {
   overflow: hidden;
   position: relative;
   margin-top: -118px;
-  padding-top: 110px;
+  padding-top: 140px;
 }
 .ho-prices-slider__container {
   display: flex;
@@ -616,6 +616,7 @@ a.ho-campaigns__link {
 /* slider buttons */
 .ho-prices-slider__button {
   position: absolute;
+  top: 40px;
   border: none;
   width: 40px;
   height: 40px;
@@ -632,12 +633,10 @@ a.ho-campaigns__link {
 .ho-prices-slider__button.next {
   right: 10px;
   left: auto;
-  top: 40px;
 }
 .ho-prices-slider__button.prev {
   right: 80px;
   left: auto;
-  top: 40px;
 }
 .ho-prices-slider__button.prev::after {
   transform: rotate(180deg);
@@ -654,11 +653,34 @@ a.ho-campaigns__link {
     flex: 0 0 40%; /* Slide covers 40% of the viewport */
     margin-right: 8%;
   }
+  .ho-prices-slider {
+    margin-top: -156px;
+    padding-top: 165px;
+  }
+  .ho-prices-slider__button {
+    width: 50px;
+    height: 50px;
+  }
+  .ho-prices-slider__button::after {
+    font-size: 40px;
+  }
 }
 @media (min-width: 64rem) {
   .ho-prices-slider__slide {
     flex: 0 0 46%; /* Slide covers 46% of the viewport */
     margin-right: 10%;
+  }
+  .ho-prices-slider {
+    margin-top: -212px;
+    padding-top: 165px;
+  }
+  .ho-prices-slider__button {
+    width: 66px;
+    height: 66px;
+  }
+  .ho-prices-slider__button.prev {
+    right: 100px;
+    left: auto;
   }
 }
 @media (min-width: 96rem) {
@@ -911,30 +933,6 @@ a.ho-campaigns__link {
   flex: 0 0 45%; /* Slide covers 80% of the viewport */
   margin-right: 5%;
 }
-@media (min-width: 30rem) {
-  .ho-blog-slider__slide {
-    flex: 0 0 55%; /* Slide covers 55% of the viewport */
-    margin-right: 10%;
-  }
-}
-@media (min-width: 48rem) {
-  .ho-blog-slider__slide {
-    flex: 0 0 40%; /* Slide covers 40% of the viewport */
-    margin-right: 8%;
-  }
-}
-@media (min-width: 64rem) {
-  .ho-blog-slider__slide {
-    flex: 0 0 46%; /* Slide covers 46% of the viewport */
-    margin-right: 10%;
-  }
-}
-@media (min-width: 96rem) {
-  .ho-blog-slider__slide {
-    flex: 0 0 25%; /* Slide covers 55% of the viewport */
-    margin-right: 6%;
-  }
-}
 /* NEW slider buttons */
 
 .ho-blog-slider__button {
@@ -961,6 +959,55 @@ a.ho-campaigns__link {
 }
 .ho-blog-slider__button.prev::after {
   transform: rotate(180deg);
+}
+@media (min-width: 30rem) {
+  .ho-blog-slider__slide {
+    flex: 0 0 55%; /* Slide covers 55% of the viewport */
+    margin-right: 10%;
+  }
+}
+@media (min-width: 48rem) {
+  .ho-blog-slider {
+    margin-top: 55px;
+    padding-top: 125px;
+  }
+  .ho-blog-slider__slide {
+    flex: 0 0 40%; /* Slide covers 40% of the viewport */
+    margin-right: 8%;
+  }
+  .ho-blog-slider__button {
+    width: 50px;
+    height: 50px;
+  }
+  .ho-blog-slider__button.prev {
+    right: 60px;
+  }
+}
+@media (min-width: 64rem) {
+  .ho-blog-slider {
+    margin-top: -2px;
+    padding-top: 125px;
+  }
+  .ho-blog-slider__slide {
+    flex: 0 0 46%; /* Slide covers 46% of the viewport */
+    margin-right: 10%;
+  }
+  .ho-blog-slider__button {
+    width: 66px;
+    height: 66px;
+  }
+  .ho-blog-slider__button::after {
+    font-size: 40px;
+  }
+  .ho-blog-slider__button.prev {
+    right: 90px;
+  }
+}
+@media (min-width: 96rem) {
+  .ho-blog-slider__slide {
+    flex: 0 0 25%; /* Slide covers 55% of the viewport */
+    margin-right: 6%;
+  }
 }
 
 /* NEW blog more */
