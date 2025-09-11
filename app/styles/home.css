@@ -634,6 +634,11 @@ a.ho-campaigns__link {
   right: 10px;
   left: auto;
 }
+.ho-prices-slider__button:disabled {
+  opacity: 0.35;
+  cursor: auto;
+  pointer-events: none;
+}
 .ho-prices-slider__button.prev {
   right: 80px;
   left: auto;
@@ -784,33 +789,6 @@ a.ho-campaigns__link {
   }
   .ho-price > table > tbody > tr > td:nth-of-type(odd) {
     min-width: 195px;
-  }
-  .ho-prices__button-wrapper {
-    position: absolute;
-    bottom: -74px;
-    right: 120px;
-  }
-  .ho-prices__wrapper .swiper-button-prev {
-    width: 60px;
-    height: 60px;
-    right: 100px;
-    left: auto;
-    top: 22px;
-  }
-  .ho-prices__wrapper .swiper-button-prev::after {
-    padding: 0 0 4px 0;
-    font-size: 44px;
-  }
-
-  .ho-prices__wrapper .swiper-button-next {
-    width: 60px;
-    height: 60px;
-    right: 10px;
-    top: 22px;
-  }
-  .ho-prices__wrapper .swiper-button-next::after {
-    padding: 1px 0 0 0;
-    font-size: 44px;
   }
 }
 @media (min-width: 64rem) {

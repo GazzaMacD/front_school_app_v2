@@ -31,6 +31,7 @@ import type {
 } from "~/common/types";
 
 import useEmblaCarousel from "embla-carousel-react";
+import type { EmblaCarouselType } from "embla-carousel-react";
 
 /**
  * Helpers
@@ -108,12 +109,31 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   // Prices slider
   const [emblaPricesRef, emblaPricesApi] = useEmblaCarousel({ loop: false });
+
   const scrollPricesPrev = React.useCallback(() => {
     if (emblaPricesApi) emblaPricesApi.scrollPrev();
   }, [emblaPricesApi]);
   const scrollPricesNext = React.useCallback(() => {
     if (emblaPricesApi) emblaPricesApi.scrollNext();
   }, [emblaPricesApi]);
+
+  const [prevPriceBtnDisabled, setPrevPriceBtnDisabled] = React.useState(true);
+  const [nextPriceBtnDisabled, setNextPriceBtnDisabled] = React.useState(true);
+
+  const onSelect = React.useCallback(
+    (emblaPricesApi: EmblaCarouselType | undefined) => {
+      setPrevPriceBtnDisabled(!emblaPricesApi.canScrollPrev());
+      setNextPriceBtnDisabled(!emblaPricesApi.canScrollNext());
+    },
+    []
+  );
+
+  React.useEffect(() => {
+    if (!emblaPricesApi) return;
+
+    onSelect(emblaPricesApi);
+    emblaPricesApi.on("reInit", onSelect).on("select", onSelect);
+  }, [emblaPricesApi, onSelect]);
 
   // Blog slider
   const [emblaBlogRef, emblaBlogApi] = useEmblaCarousel({ loop: false });
@@ -326,12 +346,18 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             <div className="ho-prices__wrapper">
               <div className="ho-prices-slider">
                 <button
-                  className="ho-prices-slider__button prev"
+                  className={`ho-prices-slider__button prev ${
+                    prevPriceBtnDisabled ? "end" : ""
+                  }`}
                   onClick={scrollPricesPrev}
+                  disabled={prevPriceBtnDisabled}
                 ></button>
                 <button
-                  className="ho-prices-slider__button next"
+                  className={`ho-prices-slider__button next ${
+                    nextPriceBtnDisabled ? "end" : ""
+                  }`}
                   onClick={scrollPricesNext}
+                  disabled={nextPriceBtnDisabled}
                 ></button>
                 <div
                   className="ho-prices-slider__viewport"
