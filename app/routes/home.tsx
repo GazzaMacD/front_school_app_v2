@@ -107,7 +107,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const { home, blogs, campaigns, base_back_url } = loaderData;
 
   // Prices slider
-  const [emblaPricesRef, emblaPricesApi] = useEmblaCarousel({ loop: true });
+  const [emblaPricesRef, emblaPricesApi] = useEmblaCarousel({ loop: false });
   const scrollPricesPrev = React.useCallback(() => {
     if (emblaPricesApi) emblaPricesApi.scrollPrev();
   }, [emblaPricesApi]);
