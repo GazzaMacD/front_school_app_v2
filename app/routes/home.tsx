@@ -31,7 +31,6 @@ import type {
 } from "~/common/types";
 
 import useEmblaCarousel from "embla-carousel-react";
-import type { EmblaCarouselType } from "embla-carousel-react";
 
 /**
  * Helpers
@@ -120,20 +119,17 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const [prevPriceBtnDisabled, setPrevPriceBtnDisabled] = React.useState(true);
   const [nextPriceBtnDisabled, setNextPriceBtnDisabled] = React.useState(true);
 
-  const onSelect = React.useCallback(
-    (emblaPricesApi: EmblaCarouselType | undefined) => {
-      setPrevPriceBtnDisabled(!emblaPricesApi.canScrollPrev());
-      setNextPriceBtnDisabled(!emblaPricesApi.canScrollNext());
-    },
-    []
-  );
+  const onPricesSelect = React.useCallback((emblaPricesApi: any) => {
+    setPrevPriceBtnDisabled(!emblaPricesApi.canScrollPrev());
+    setNextPriceBtnDisabled(!emblaPricesApi.canScrollNext());
+  }, []);
 
   React.useEffect(() => {
     if (!emblaPricesApi) return;
 
-    onSelect(emblaPricesApi);
-    emblaPricesApi.on("reInit", onSelect).on("select", onSelect);
-  }, [emblaPricesApi, onSelect]);
+    onPricesSelect(emblaPricesApi);
+    emblaPricesApi.on("reInit", onPricesSelect).on("select", onPricesSelect);
+  }, [emblaPricesApi, onPricesSelect]);
 
   // Blog slider
   const [emblaBlogRef, emblaBlogApi] = useEmblaCarousel({ loop: false });
@@ -143,6 +139,21 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const scrollBlogNext = React.useCallback(() => {
     if (emblaBlogApi) emblaBlogApi.scrollNext();
   }, [emblaBlogApi]);
+
+  const [prevBlogBtnDisabled, setPrevBlogBtnDisabled] = React.useState(true);
+  const [nextBlogBtnDisabled, setNextBlogBtnDisabled] = React.useState(true);
+
+  const onBlogSelect = React.useCallback((emblaBlogApi: any) => {
+    setPrevBlogBtnDisabled(!emblaBlogApi.canScrollPrev());
+    setNextBlogBtnDisabled(!emblaBlogApi.canScrollNext());
+  }, []);
+
+  React.useEffect(() => {
+    if (!emblaBlogApi) return;
+
+    onBlogSelect(emblaBlogApi);
+    emblaBlogApi.on("reInit", onBlogSelect).on("select", onBlogSelect);
+  }, [emblaBlogApi, onBlogSelect]);
 
   return (
     <>
@@ -346,16 +357,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             <div className="ho-prices__wrapper">
               <div className="ho-prices-slider">
                 <button
-                  className={`ho-prices-slider__button prev ${
-                    prevPriceBtnDisabled ? "end" : ""
-                  }`}
+                  className="ho-prices-slider__button prev"
                   onClick={scrollPricesPrev}
                   disabled={prevPriceBtnDisabled}
                 ></button>
                 <button
-                  className={`ho-prices-slider__button next ${
-                    nextPriceBtnDisabled ? "end" : ""
-                  }`}
+                  className="ho-prices-slider__button next"
                   onClick={scrollPricesNext}
                   disabled={nextPriceBtnDisabled}
                 ></button>
@@ -524,10 +531,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                 <button
                   className="ho-blog-slider__button prev"
                   onClick={scrollBlogPrev}
+                  disabled={prevBlogBtnDisabled}
                 ></button>
                 <button
                   className="ho-blog-slider__button next"
                   onClick={scrollBlogNext}
+                  disabled={nextBlogBtnDisabled}
                 ></button>
                 <div className="ho-blog-slider__viewport" ref={emblaBlogRef}>
                   <div className="ho-blog-slider__container">
