@@ -2,12 +2,14 @@ import type { Route } from "./+types/about";
 import { Link } from "react-router";
 
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
+import { getTitle, getDesc, getDivisor4LetterHash } from "~/common/utils";
+import { StaffRoundPicCard, NumberedHorizontalCards } from "~/components/cards";
+import { SlidingHeaderPage } from "~/components/pages";
+import { HeadingOne } from "~/components/headings";
+// css imports
 import cardStyles from "~/styles/components/cards.css?url";
 import aboutStyles from "~/styles/about.css?url";
 import pagesStyles from "~/styles/components/pages.css?url";
-import { getTitle, getDesc, getDivisor4LetterHash } from "~/common/utils";
-import { SlidingHeaderPage } from "~/components/pages";
-import { HeadingOne } from "~/components/headings";
 
 /**
  * Helpers
@@ -88,6 +90,42 @@ export default function About({ loaderData }: Route.ComponentProps) {
               <h2>{page.mission_title}</h2>
               <p>{page.mission_tagline}</p>
               <p>{page.mission_content}</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="teachers">
+          <div className="ab-teachers">
+            <div className="g-grid-container1">
+              <div className="ab-teachers__heading">
+                <HeadingOne
+                  enText={page.staff_en_title}
+                  jpText={page.staff_jp_title}
+                  align="center"
+                  bkground="light"
+                  level="h2"
+                />
+              </div>
+              {page.staff_members.length ? (
+                page.staff_members.map((member, i) => {
+                  return (
+                    <div
+                      key={member.id}
+                      className={`ab-teachers__card-wrapper ${teacherHash[i]}`}
+                    >
+                      <StaffRoundPicCard
+                        url={`/staff/${member.staff.slug}`}
+                        src={`${base_back_url}${member.staff.image.original.src}`}
+                        alt={member.staff.image.original.alt}
+                        name={member.staff.name}
+                        tagline={member.staff.display_tagline}
+                      />
+                    </div>
+                  );
+                })
+              ) : (
+                <p>Please add at least one staff member</p>
+              )}
             </div>
           </div>
         </section>
