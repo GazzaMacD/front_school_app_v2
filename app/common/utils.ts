@@ -119,3 +119,33 @@ export function getDateStringWithDays(start: string, end: string) {
   }
   return dateString;
 }
+
+/*
+ * Hash creators
+ *
+ * For creating hash map objects to map numbers
+ * to letters primarily for grid css layouts
+ */
+export function getDivisor4LetterHash(length: number) {
+  const hash: Record<string, string> = {};
+  const letters = "abcd";
+  let count = 0;
+  for (let i = 0; i < length; i++) {
+    hash[i] = letters[count];
+    count += 1;
+    if (count > 3) count = 0;
+  }
+  return hash;
+}
+
+export function getDivisor3LetterHash(length: number) {
+  const hash: Record<string, string> = {};
+  const letters = "abc";
+  let count = 0;
+  for (let i = 0; i < length; i++) {
+    hash[i] = letters[count];
+    count += 1;
+    if (count > 2) count = 0;
+  }
+  return hash;
+}
