@@ -164,6 +164,32 @@ export default function About({ loaderData }: Route.ComponentProps) {
             </div>
           </div>
         </section>
+
+        <section id="history">
+          <div className="ab-history">
+            <div className="g-narrow-container">
+              <HeadingOne
+                enText={page.history_en_title}
+                jpText={page.history_jp_title}
+                align="center"
+                bkground="light"
+                level="h2"
+              />
+              <div className="ab-history__content">
+                {page.history_content.map((block) => {
+                  if (block.type === "rich_text") {
+                    return (
+                      <div
+                        key={block.id}
+                        dangerouslySetInnerHTML={{ __html: block.value }}
+                      />
+                    );
+                  }
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
       </SlidingHeaderPage>
     </>
   );
