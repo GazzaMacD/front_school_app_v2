@@ -1,0 +1,109 @@
+/* mission */
+.ab-mission {
+  margin-bottom: 60px;
+}
+@media (min-width: 48rem) {
+  .ab-mission {
+    margin-bottom: 160px;
+  }
+}
+
+/* teachers */
+.ab-teachers {
+  margin-bottom: 60px;
+}
+.ab-teachers__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8%;
+}
+.ab-teachers__card {
+  flex: 0 0 156px;
+}
+@media (min-width: 30rem) {
+  .ab-teachers__card {
+    flex: 0 0 200px;
+  }
+}
+@media (min-width: 48rem) {
+  .ab-teachers__card {
+    flex: 0 0 198px;
+  }
+}
+@media (min-width: 64rem) {
+  .ab-teachers {
+    margin-bottom: 160px;
+  }
+  .ab-teachers__card {
+    flex: 0 0 250px;
+  }
+}
+@media (min-width: 75rem) {
+  .ab-teachers {
+    margin-bottom: 160px;
+  }
+  .ab-teachers__card {
+    flex: 0 0 250px;
+  }
+}
+
+/* values */
+.ab-values {
+  margin-bottom: 60px;
+}
+.ab-values > div:first-of-type {
+  margin-bottom: 40px;
+}
+
+/* values--card layout */
+.ab-values__card-wrapper.t0 {
+  grid-column: 1/16;
+  margin-bottom: 40px;
+}
+.ab-values__card-wrapper.t1 {
+  grid-column: 1/16;
+  margin-bottom: 40px;
+}
+@media (min-width: 48rem) {
+  .ab-values {
+    margin-bottom: 160px;
+  }
+  .ab-values > div:first-of-type {
+    margin-bottom: 60px;
+  }
+}
+@media (min-width: 64rem) {
+  .ab-values {
+    margin-bottom: 160px;
+  }
+  .ab-values > div:first-of-type {
+    margin-bottom: 60px;
+  }
+  .ab-values__card-wrapper.t0 {
+    grid-column: 4/13;
+    margin-bottom: 40px;
+  }
+  .ab-values__card-wrapper.t1 {
+    grid-column: 4/13;
+    margin-bottom: 40px;
+  }
+}
+@media (min-width: 75rem) {
+  .ab-values {
+    margin-bottom: 160px;
+  }
+  .ab-values > div:first-of-type {
+    margin-bottom: 60px;
+  }
+  .ab-values__card-wrapper.t0 {
+    grid-column: 1/8;
+    margin-bottom: 40px;
+  }
+  .ab-values__card-wrapper.t1 {
+    grid-column: 9/16;
+    margin-bottom: 40px;
+  }
+}
+
+/* history */
