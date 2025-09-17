@@ -129,6 +129,41 @@ export default function About({ loaderData }: Route.ComponentProps) {
             </div>
           </div>
         </section>
+
+        <section id="values">
+          <div className="ab-values">
+            <div className="g-narrow-container">
+              <HeadingOne
+                enText={page.values_en_title}
+                jpText={page.values_jp_title}
+                align="center"
+                bkground="light"
+                level="h2"
+              />
+              <div dangerouslySetInnerHTML={{ __html: page.values_intro }} />
+            </div>
+            <div className="g-grid-container1">
+              {page.values_list.map((block, i) => {
+                const classType = i % 2;
+                return (
+                  <div
+                    key={block.id}
+                    className={`ab-values__card-wrapper t${classType}`}
+                  >
+                    <NumberedHorizontalCards
+                      number={`0${i + 1}`}
+                      enTitle={block.value.title}
+                      jaTitle={block.value.jp_title}
+                      text={block.value.text}
+                      src={`${base_back_url}${block.value.image.thumbnail.src}`}
+                      alt={block.value.image.medium.alt}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
       </SlidingHeaderPage>
     </>
   );
