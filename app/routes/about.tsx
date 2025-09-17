@@ -57,7 +57,6 @@ export async function loader() {
 
 export default function About({ loaderData }: Route.ComponentProps) {
   const { page, base_back_url } = loaderData;
-  const teacherHash = getDivisor4LetterHash(page.staff_members.length);
 
   return (
     <>
@@ -96,7 +95,7 @@ export default function About({ loaderData }: Route.ComponentProps) {
 
         <section id="teachers">
           <div className="ab-teachers">
-            <div className="g-grid-container1">
+            <div className="g-basic-container">
               <div className="ab-teachers__heading">
                 <HeadingOne
                   enText={page.staff_en_title}
@@ -106,26 +105,25 @@ export default function About({ loaderData }: Route.ComponentProps) {
                   level="h2"
                 />
               </div>
-              {page.staff_members.length ? (
-                page.staff_members.map((member, i) => {
-                  return (
-                    <div
-                      key={member.id}
-                      className={`ab-teachers__card-wrapper ${teacherHash[i]}`}
-                    >
-                      <StaffRoundPicCard
-                        url={`/staff/${member.staff.slug}`}
-                        src={`${base_back_url}${member.staff.image.original.src}`}
-                        alt={member.staff.image.original.alt}
-                        name={member.staff.name}
-                        tagline={member.staff.display_tagline}
-                      />
-                    </div>
-                  );
-                })
-              ) : (
-                <p>Please add at least one staff member</p>
-              )}
+              <div className="ab-teachers__wrapper">
+                {page.staff_members.length ? (
+                  page.staff_members.map((member, i) => {
+                    return (
+                      <div key={member.id} className="ab-teachers__card">
+                        <StaffRoundPicCard
+                          url={`/staff/${member.staff.slug}`}
+                          src={`${base_back_url}${member.staff.image.original.src}`}
+                          alt={member.staff.image.original.alt}
+                          name={member.staff.name}
+                          tagline={member.staff.display_tagline}
+                        />
+                      </div>
+                    );
+                  })
+                ) : (
+                  <p>Please add at least one staff member</p>
+                )}
+              </div>
             </div>
           </div>
         </section>

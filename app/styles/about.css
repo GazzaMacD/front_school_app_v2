@@ -12,57 +12,39 @@
 .ab-teachers {
   margin-bottom: 60px;
 }
-.ab-teachers__heading {
-  grid-column: 1/16;
+.ab-teachers__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8%;
 }
-/* teachers--card layout */
-.ab-teachers__card-wrapper {
-  margin-bottom: 30px;
+.ab-teachers__card {
+  flex: 0 0 156px;
 }
-.ab-teachers__card-wrapper.a,
-.ab-teachers__card-wrapper.c {
-  grid-column: 1/8;
-}
-.ab-teachers__card-wrapper.b,
-.ab-teachers__card-wrapper.d {
-  grid-column: 9/16;
+@media (min-width: 30rem) {
+  .ab-teachers__card {
+    flex: 0 0 200px;
+  }
 }
 @media (min-width: 48rem) {
-  .ab-teachers {
-    margin-bottom: 160px;
-  }
-  .ab-teachers__card-wrapper {
-    margin-bottom: 60px;
-  }
-  .ab-teachers__card-wrapper.a {
-    grid-column: 2/7;
-  }
-  .ab-teachers__card-wrapper.b {
-    grid-column: 10/15;
-  }
-  .ab-teachers__card-wrapper.c {
-    grid-column: 2/7;
-  }
-  .ab-teachers__card-wrapper.d {
-    grid-column: 10/15;
+  .ab-teachers__card {
+    flex: 0 0 198px;
   }
 }
 @media (min-width: 64rem) {
   .ab-teachers {
     margin-bottom: 160px;
   }
-  /* teachers--card layout */
-  .ab-teachers__card-wrapper.a {
-    grid-column: 1/4;
+  .ab-teachers__card {
+    flex: 0 0 250px;
   }
-  .ab-teachers__card-wrapper.b {
-    grid-column: 5/8;
+}
+@media (min-width: 75rem) {
+  .ab-teachers {
+    margin-bottom: 160px;
   }
-  .ab-teachers__card-wrapper.c {
-    grid-column: 9/12;
-  }
-  .ab-teachers__card-wrapper.d {
-    grid-column: 13/16;
+  .ab-teachers__card {
+    flex: 0 0 250px;
   }
 }
 
