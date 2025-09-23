@@ -5,6 +5,19 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
 import { getTitle, getDesc } from "~/common/utils";
 import { HeadingOne } from "~/components/headings";
+import { Swoosh1 } from "~/components/swooshes";
+import { SimpleImageGallery } from "~/common/galleries";
+import galleryStyles from "~/styles/components/galleries.css?url";
+
+/**
+ * Helpers
+ */
+export const links: Route.LinksFunction = () => [
+  {
+    rel: "stylesheet",
+    href: galleryStyles,
+  },
+];
 
 /**
  * Loaders and Actions
@@ -116,6 +129,21 @@ export default function LanguageSchoolDetail({
           </div>
         </div>
       </section>
+
+      <section id="gallery">
+        <div className="g-narrow-container">
+          <HeadingOne
+            enText="Gallery"
+            jpText="ギャラリー"
+            align="center"
+            bkground="light"
+            level="h2"
+          />
+        </div>
+        <SimpleImageGallery images={page.ls_photos} baseUrl={base_back_url} />
+      </section>
+
+      <Swoosh1 swooshColor="beige" backColor="cream" />
     </>
   );
 }
