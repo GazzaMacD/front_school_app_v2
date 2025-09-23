@@ -1,7 +1,10 @@
 import { Link } from "react-router";
 import type { Route } from "./+types/language-schools-detail";
+import { FaArrowRightLong } from "react-icons/fa6";
+
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
 import { getTitle, getDesc } from "~/common/utils";
+import { HeadingOne } from "~/components/headings";
 
 /**
  * Loaders and Actions
@@ -54,6 +57,26 @@ export default function LanguageSchoolDetail({
           />
         </div>
       </header>
+
+      <section id="intro">
+        <div className="g-narrow-container">
+          <HeadingOne
+            enText="Introduction"
+            jpText="学校紹介"
+            align="center"
+            bkground="light"
+            level="h2"
+          />
+          <div dangerouslySetInnerHTML={{ __html: page.display_intro }} />
+          <div className="ls-dp-intro__links">
+            <Link to="/contact">
+              無料体験レッスン <FaArrowRightLong />
+            </Link>
+            <Link to="/courses">コース一覧</Link>
+            <Link to="/language-schools">スクール一覧</Link>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
