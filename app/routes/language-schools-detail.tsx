@@ -33,6 +33,8 @@ export default function LanguageSchoolDetail({
   loaderData,
 }: Route.ComponentProps) {
   const { page, base_back_url } = loaderData;
+  const ad = page?.ls?.address;
+
   return (
     <>
       {/* Meta tags*/}
@@ -74,6 +76,43 @@ export default function LanguageSchoolDetail({
             </Link>
             <Link to="/courses">コース一覧</Link>
             <Link to="/language-schools">スクール一覧</Link>
+          </div>
+        </div>
+      </section>
+
+      <section id="access">
+        <div className="g-narrow-container">
+          <HeadingOne
+            enText="Access"
+            jpText="アクセス"
+            align="center"
+            bkground="light"
+            level="h2"
+          />
+        </div>
+        <div
+          className="ls-dp-access__map"
+          dangerouslySetInnerHTML={{ __html: page.display_map }}
+        />
+        <div className="g-basic-container">
+          <div className="ls-dp-access__contact">
+            <p>
+              〒{ad.code} {ad.state}
+              {ad.city}
+              {ad.line_two}
+              {ad.line_one}
+            </p>
+            <p>TEL：0561-42-5707</p>
+            <p>
+              メールアドレス：
+              <Link to="mailto:contact@xlingual.co.jp">
+                contact@xlingual.co.jp
+              </Link>
+            </p>
+          </div>
+          <div className="ls-dp-access__directions">
+            <p>[ 電車でお越しの方 ] {page.access_train} </p>
+            <p>[ お車でお越しの方 ] {page.access_car} </p>
           </div>
         </div>
       </section>
