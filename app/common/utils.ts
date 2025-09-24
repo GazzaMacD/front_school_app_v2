@@ -7,6 +7,36 @@ export function getDisplay(str: string, langNum: number) {
 }
 
 /*
+ * Fetch and other API functions
+ */
+// fetch with Meta - for Fetch.all etc
+type TFetchWithMetaSuccess<T> = {
+  ok: boolean;
+  data: T;
+  status: number;
+  url: string;
+};
+
+type TFetchWithMetaError = {
+  error: unknown;
+  url: string;
+};
+
+type TFetchWithMetaResult<T> = TFetchWithMetaSuccess<T> | TFetchWithMetaError;
+
+export async function fetchWithMeta<T = unknown>(
+  url: string
+): Promise<TFetchWithMetaResult<T>> {
+  try {
+    const res = await fetch(url);
+    const data: T = await res.json();
+    return { ok: res.ok, data, status: res.status, url };
+  } catch (error) {
+    return { error, url };
+  }
+}
+
+/*
  * Meta functions
  */
 export function getTitle({
