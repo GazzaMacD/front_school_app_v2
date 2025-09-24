@@ -92,7 +92,37 @@ export default function CoursesIndex({ loaderData }: Route.ComponentProps) {
       swooshBackColor="cream"
       swooshFrontColor="beige"
     >
-      <div>Page Here</div>;
+      <section id="popular">
+        <div className="cs-lp-popular">
+          <div className="g-grid-container1">
+            <div className="cs-lp-popular__heading">
+              <HeadingOne
+                enText={lp.popular_en_title}
+                jpText={lp.popular_jp_title}
+                align="center"
+                bkground="light"
+                level="h2"
+              />
+            </div>
+            {lp.popular_courses.map((c, i) => {
+              return (
+                <div
+                  key={c.id}
+                  className={`cs-lp-popular__card ${popularHash[i]}`}
+                >
+                  <DetailLinkCard
+                    title={c.course.display_title}
+                    tagline={c.course.display_tagline}
+                    src={`${base_back_url}${c.course.image.thumbnail.src}`}
+                    alt={`${c.course.image.thumbnail.alt}`}
+                    url={`/courses/${c.course.subject_slug}/${c.course.slug}`}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
     </SlidingHeaderPage>
   );
 }
