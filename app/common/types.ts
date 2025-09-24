@@ -14,6 +14,52 @@ export type TDetailMeta = {
   alias_of: string | null;
   locale: string;
 };
+// Prices
+
+type TPriceInfo = {
+  name: string;
+  display_name: string;
+  pretax_price: string;
+  posttax_price: string;
+  is_sale: boolean;
+  before_sale_pretax_price: string | null;
+  before_sale_posttax_price: string | null;
+  start_date: string; // ISO timestamp
+  end_date: string | null;
+};
+
+export type TPricePlan = {
+  id: number;
+  slug: string;
+  title: string;
+  display_title: string;
+  length: number;
+  length_unit: string;
+  quantity: number;
+  quantity_unit: string;
+  max_num: number;
+  is_native: boolean;
+  is_online: boolean;
+  is_inperson: boolean;
+  has_onlinenotes: boolean;
+  bookable_online: boolean;
+  price_info: TPriceInfo;
+};
+
+export type TCoursePrice = {
+  id: number;
+  meta: {
+    type: string; // e.g. "courses.CommonPricePlans"
+  };
+  price_plan: TPricePlan;
+};
+
+// WagTail Blocks
+export type TRichTextBlock = {
+  type: "rich_text";
+  value: string;
+  id: string;
+};
 
 // Images
 export type TImageFrag = {

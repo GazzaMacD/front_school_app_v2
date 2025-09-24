@@ -11,13 +11,15 @@ export function getDisplay(str: string, langNum: number) {
  */
 // fetch with Meta - for Fetch.all etc
 type TFetchWithMetaSuccess<T> = {
-  ok: boolean;
-  data: T;
+  success: true;
   status: number;
+  data: T;
   url: string;
 };
 
 type TFetchWithMetaError = {
+  success: false;
+  status: number;
   error: unknown;
   url: string;
 };
@@ -29,10 +31,13 @@ export async function fetchWithMeta<T = unknown>(
 ): Promise<TFetchWithMetaResult<T>> {
   try {
     const res = await fetch(url);
+    if (!res.ok) {
+      return { success: false, status: res.status, error: res.statusText, url };
+    }
     const data: T = await res.json();
-    return { ok: res.ok, data, status: res.status, url };
+    return { success: true, data, status: res.status, url };
   } catch (error) {
-    return { error, url };
+    return { success: false, status: 500, error, url };
   }
 }
 

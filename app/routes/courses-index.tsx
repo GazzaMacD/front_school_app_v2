@@ -51,17 +51,18 @@ export async function loader() {
     fetchWithMeta<TCourseDetailPage>(detailPageUrl),
   ]);
 
-  //errors
-  if ("error" in listPageResult) {
+  //error
+  if (!listPageResult.success) {
     console.error("List page failed:", listPageResult.error);
-    throw new Response("Sorry that is a server error", { status: 500 });
+    throw new Response("Sorry that is an error", {
+      status: listPageResult.status,
+    });
   }
-  if ("error" in detailPageResult) {
+  if (!detailPageResult.success) {
     console.error("Detail page failed:", detailPageResult.error);
-    throw new Response("Sorry that is a server error", { status: 500 });
-  }
-  if (!detailPageResult.ok || !listPageResult.ok) {
-    throw new Response("Sorry page information is not found", { status: 404 });
+    throw new Response("Sorry that is an error", {
+      status: detailPageResult.status,
+    });
   }
 
   // success
