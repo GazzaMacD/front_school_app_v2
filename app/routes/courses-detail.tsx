@@ -126,6 +126,33 @@ export default function CoursesDetail({ loaderData }: Route.ComponentProps) {
           />
         </div>
       </header>
+
+      <section id="skills">
+        <div className="g-narrow-container">
+          <HeadingOne
+            enText="What skills will I learn"
+            jpText="学べるスキルの例"
+            align="center"
+            bkground="light"
+            level="h2"
+          />
+        </div>
+        <div className="g-basic-container">
+          <div className="cs-dp-skills">
+            <ul>
+              {page.course_content_points.map((sk, i) => {
+                const num = i > 8 ? i + 1 : `0${i + 1}`;
+                return (
+                  <li key={sk.id} className="cs-dp-skills__skill">
+                    <div>{num}</div>
+                    <div>{sk.value.text}</div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
