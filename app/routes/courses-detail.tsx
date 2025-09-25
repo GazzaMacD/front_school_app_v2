@@ -2,12 +2,17 @@ import type { Route } from "./+types/courses-detail";
 import { BsFillBarChartFill, BsGlobe, BsJournalText } from "react-icons/bs";
 
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
+import {
+  getTitle,
+  getDesc,
+  fetchWithMeta,
+  getDivisor4LetterHash,
+} from "~/common/utils";
 import { HeadingOne } from "~/components/headings";
 import { Swoosh1 } from "~/components/swooshes";
 import { DetailLinkCard } from "~/components/cards";
 import { ClassPricePlanTable } from "~/components/prices";
 import pricesStyles from "~/styles/components/prices.css?url";
-import { fetchWithMeta } from "~/common/utils";
 import type {
   TCoursePrice,
   TDetailMeta,
@@ -52,7 +57,77 @@ export async function loader({ params }: Route.LoaderArgs) {
  */
 export default function CoursesDetail({ loaderData }: Route.ComponentProps) {
   const { page, base_back_url } = loaderData;
-  return <div>Detail page with title & desc here</div>;
+  const subject = page.course.subject as "english" | "japanese" | "french";
+  const subjectDisplay = page.course.subject_display.split(",");
+  const categoryDisplay = page.course.course_category_display.split(",");
+  const levelFromDisplay = page.level_from.display.split(",");
+  const levelToDisplay = page.level_to.display.split(",");
+  const relatedHash = getDivisor4LetterHash(page.related_courses.length);
+
+  return (
+    <>
+      {/* Meta tags*/}
+      <title>
+        {getTitle({ title: `${page.display_title}`, isHome: false })}
+      </title>
+      <meta
+        name="description"
+        content={getDesc({ desc: page.display_title, isHome: false })}
+      />
+      {/* Meta tags END*/}
+
+      <header className="cs-dp-header">
+        <div className="g-basic-container">
+          <div className="cs-dp-header__titles">
+            <h1>
+              {page.display_title}
+              <span>{page.title}</span>
+            </h1>
+            <p>{page.display_tagline}</p>
+          </div>
+          <div className="cs-dp-header__info">
+            <div>
+              <BsGlobe />
+              <span>言語 :</span>
+              <span>
+                {subject === "japanese" ? subjectDisplay[1] : subjectDisplay[2]}
+              </span>
+            </div>
+            <div>
+              <BsJournalText />
+              <span>コース種別 :</span>
+              <span>
+                {subject === "japanese"
+                  ? categoryDisplay[0]
+                  : categoryDisplay[1]}
+              </span>
+            </div>
+            <div>
+              <BsFillBarChartFill />
+              <span>レベル :</span>
+              <span>
+                {subject === "japanese"
+                  ? levelFromDisplay[0]
+                  : levelFromDisplay[1]}
+                {page.level_to.number < 2 ||
+                page.level_to.number <= page.level_from.number
+                  ? ""
+                  : subject === "japanese"
+                  ? ` ~ ${levelToDisplay[0]}`
+                  : ` ~ ${levelToDisplay[1]}`}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="cs-dp-header__img-wrap">
+          <img
+            src={`${base_back_url}${page.header_image.medium.src}`}
+            alt={page.header_image.medium.alt}
+          />
+        </div>
+      </header>
+    </>
+  );
 }
 
 /**
