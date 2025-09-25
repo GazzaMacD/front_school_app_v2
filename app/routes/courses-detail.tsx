@@ -256,6 +256,33 @@ export default function CoursesDetail({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
       </section>
+
+      <section id="related">
+        <div className="cs-dp-related">
+          <div className="g-grid-container1">
+            <div className="cs-dp-related__heading">
+              <h2>その他のおすすめコース</h2>
+            </div>
+            {page.related_courses.map((c, i) => {
+              return (
+                <div
+                  key={c.id}
+                  className={`cs-dp-related__card ${relatedHash[i]}`}
+                >
+                  <DetailLinkCard
+                    title={c.course.display_title}
+                    tagline={c.course.display_tagline}
+                    src={`${base_back_url}${c.course.image.thumbnail.src}`}
+                    alt={`${c.course.image.thumbnail.alt}`}
+                    url={`/courses/${c.course.subject_slug}/${c.course.slug}`}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+      <Swoosh1 swooshColor="beige" backColor="white" />
     </>
   );
 }
