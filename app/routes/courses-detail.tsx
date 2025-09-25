@@ -208,6 +208,54 @@ export default function CoursesDetail({ loaderData }: Route.ComponentProps) {
           }
         })}
       </section>
+
+      <section id="plans">
+        <div className="g-basic-container">
+          <HeadingOne
+            enText="Popular Price Plans"
+            jpText="人気のプラン"
+            align="center"
+            bkground="light"
+            level="h2"
+          />
+        </div>
+        <div className="g-basic-container">
+          <div className="cs-dp-plans__wrapper">
+            {page.common_price_plans.map((item, i) => {
+              const p = item.price_plan;
+              const pi = item.price_plan.price_info;
+              return (
+                <div key={item.id} className="cs-dp-plans__plan">
+                  <ClassPricePlanTable
+                    color="beige"
+                    showLinkButton={true}
+                    slug={p.slug}
+                    titleEn={p.title}
+                    titleJa={p.display_title}
+                    duration={p.length}
+                    durationUnit={p.length_unit}
+                    stdQuantity={p.quantity}
+                    stdQuantityUnit={p.quantity_unit}
+                    maxNum={p.max_num}
+                    isNative={p.is_native}
+                    isOnline={p.is_online}
+                    isInperson={p.is_inperson}
+                    hasOnlineNotes={p.has_onlinenotes}
+                    bookableOnline={p.bookable_online}
+                    preTaxPrice={pi.pretax_price}
+                    postTaxPrice={pi.posttax_price}
+                    onSale={pi.is_sale}
+                    preSalePreTaxPrice={pi.before_sale_pretax_price}
+                    preSalePostTaxPrice={pi.before_sale_posttax_price}
+                    priceStartDate={pi.start_date}
+                    priceEndDate={pi.end_date}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
