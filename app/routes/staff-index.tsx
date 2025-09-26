@@ -1,10 +1,9 @@
-import type { Route } from "./+types/staff-index";
+import { redirect } from "react-router";
 
-export function loader({ context }: Route.LoaderArgs) {
-  return { message: "Staff Index Page" };
-}
-
-export default function StaffIndex({ loaderData }: Route.ComponentProps) {
-  const { message } = loaderData;
-  return <div>{message}</div>;
+/**
+ * Actions and loaders
+ */
+export function loader() {
+  // No index page currently. Staff are on About page so redirect to /about#teachers
+  return redirect("/about#teachers");
 }
