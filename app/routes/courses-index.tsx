@@ -6,7 +6,12 @@ import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
 import { SlidingHeaderPage } from "~/components/pages";
 import { DetailLinkCard } from "~/components/cards";
 import { HeadingOne } from "~/components/headings";
-import { fetchWithMeta, getDivisor4LetterHash } from "~/common/utils";
+import {
+  getTitle,
+  getDesc,
+  fetchWithMeta,
+  getDivisor4LetterHash,
+} from "~/common/utils";
 import pageStyles from "~/styles/components/pages.css?url";
 import type { TFullImage, TDetailMeta } from "~/common/types";
 /**
@@ -87,89 +92,99 @@ export default function CoursesIndex({ loaderData }: Route.ComponentProps) {
     writing: ["d", "英語ライティング"],
   };
   return (
-    <SlidingHeaderPage
-      mainTitle={lp.title}
-      subTitle={lp.display_title}
-      swooshBackColor="cream"
-      swooshFrontColor="beige"
-    >
-      <section id="popular">
-        <div className="cs-lp-popular">
-          <div className="g-grid-container1">
-            <div className="cs-lp-popular__heading">
-              <HeadingOne
-                enText={lp.popular_en_title}
-                jpText={lp.popular_jp_title}
-                align="center"
-                bkground="light"
-                level="h2"
-              />
-            </div>
-            {lp.popular_courses.map((c, i) => {
-              return (
-                <div
-                  key={c.id}
-                  className={`cs-lp-popular__card ${popularHash[i]}`}
-                >
-                  <DetailLinkCard
-                    title={c.course.display_title}
-                    tagline={c.course.display_tagline}
-                    src={`${base_back_url}${c.course.image.thumbnail.src}`}
-                    alt={`${c.course.image.thumbnail.alt}`}
-                    url={`/courses/${c.course.subject_slug}/${c.course.slug}`}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section id="english">
-        <div className="cs-lp-language">
-          <div className="g-grid-container1">
-            <div className="cs-lp-language__heading">
-              <HeadingOne
-                enText={lp.english_en_title}
-                jpText={lp.english_jp_title}
-                align="center"
-                bkground="light"
-                level="h2"
-              />
-            </div>
-            <div className="cs-lp-language__english">
-              {Object.entries(englishHeadings).map(([k, v]) => {
+    <>
+      {/* Meta tags*/}
+      <title>
+        {getTitle({ title: `${lp.title}・${lp.display_title}`, isHome: false })}
+      </title>
+      <meta
+        name="description"
+        content={getDesc({ desc: lp.meta.search_description, isHome: false })}
+      />
+      <SlidingHeaderPage
+        mainTitle={lp.title}
+        subTitle={lp.display_title}
+        swooshBackColor="cream"
+        swooshFrontColor="beige"
+      >
+        <section id="popular">
+          <div className="cs-lp-popular">
+            <div className="g-grid-container1">
+              <div className="cs-lp-popular__heading">
+                <HeadingOne
+                  enText={lp.popular_en_title}
+                  jpText={lp.popular_jp_title}
+                  align="center"
+                  bkground="light"
+                  level="h2"
+                />
+              </div>
+              {lp.popular_courses.map((c, i) => {
                 return (
                   <div
-                    key={k}
-                    className={`cs-lp-language__col ${v[0]}`}
-                    id={v[1]}
+                    key={c.id}
+                    className={`cs-lp-popular__card ${popularHash[i]}`}
                   >
-                    <h3>{v[1]}</h3>
-                    {ld.english[k] ? (
-                      ld.english[k].map((cs) => {
-                        return (
-                          <Link
-                            key={cs.id}
-                            to={`/courses/${cs.course.subject}/${cs.meta.slug}`}
-                            className="cs-lp-language__link"
-                          >
-                            {cs.display_title}
-                            <FaArrowRightLong />
-                          </Link>
-                        );
-                      })
-                    ) : (
-                      <p>Coming soon</p>
-                    )}
+                    <DetailLinkCard
+                      title={c.course.display_title}
+                      tagline={c.course.display_tagline}
+                      src={`${base_back_url}${c.course.image.thumbnail.src}`}
+                      alt={`${c.course.image.thumbnail.alt}`}
+                      url={`/courses/${c.course.subject_slug}/${c.course.slug}`}
+                    />
                   </div>
                 );
               })}
             </div>
           </div>
-        </div>
-      </section>
-    </SlidingHeaderPage>
+        </section>
+
+        <section id="english">
+          <div className="cs-lp-language">
+            <div className="g-grid-container1">
+              <div className="cs-lp-language__heading">
+                <HeadingOne
+                  enText={lp.english_en_title}
+                  jpText={lp.english_jp_title}
+                  align="center"
+                  bkground="light"
+                  level="h2"
+                />
+              </div>
+              <div className="cs-lp-language__english">
+                {Object.entries(englishHeadings).map(([k, v]) => {
+                  return (
+                    <div
+                      key={k}
+                      className={`cs-lp-language__col ${v[0]}`}
+                      id={v[1]}
+                    >
+                      <h3>{v[1]}</h3>
+                      {ld.english[k] ? (
+                        ld.english[k].map((cs) => {
+                          return (
+                            <Link
+                              key={cs.id}
+                              to={`/courses/${cs.course.subject}/${cs.meta.slug}`}
+                              className="cs-lp-language__link"
+                            >
+                              {cs.display_title}
+                              <FaArrowRightLong />
+                            </Link>
+                          );
+                        })
+                      ) : (
+                        <p>Coming soon</p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      </SlidingHeaderPage>
+    </>
   );
 }
 
