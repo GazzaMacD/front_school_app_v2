@@ -1,8 +1,7 @@
 import type { Route } from "./+types/staff-detail";
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
-import { fetchWithMeta } from "~/common/utils";
 import type { TDetailMeta, TFullImage, TRichTextBlock } from "~/common/types";
-
+import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
 /**
  * Loaders and Actions
  */
@@ -33,7 +32,21 @@ export async function loader({ params }: Route.LoaderArgs) {
  */
 export default function StaffDetail({ loaderData }: Route.ComponentProps) {
   const { page } = loaderData;
-  return <div>Html here</div>;
+
+  return (
+    <>
+      {/* Meta tags*/}
+      <title>
+        {getTitle({ title: `${page.display_name}`, isHome: false })}
+      </title>
+      <meta
+        name="description"
+        content={getDesc({ desc: page.intro, isHome: false })}
+      />
+      {/* Meta tags END*/}
+      <div>teacher</div>
+    </>
+  );
 }
 
 /**
