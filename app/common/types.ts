@@ -61,6 +61,15 @@ export type TRichTextBlock = {
   id: string;
 };
 
+export type TYoutubeBlock = {
+  type: "youtube";
+  value: {
+    short: boolean;
+    src: string;
+  };
+  id: string;
+};
+
 // Images
 export type TImageFrag = {
   src: string;
