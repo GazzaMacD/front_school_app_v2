@@ -1,12 +1,9 @@
-import type { Route } from "./+types/testimonials-index";
+import { redirect } from "react-router";
 
-export function loader({ context }: Route.LoaderArgs) {
-  return { message: "Testimonials Index Page" };
-}
-
-export default function TestimonialsIndex({
-  loaderData,
-}: Route.ComponentProps) {
-  const { message } = loaderData;
-  return <div>{message}</div>;
+/**
+ * Actions and loaders
+ */
+export function loader() {
+  // No index page currently. Redirect to home testimonials
+  return redirect("/#testimonials");
 }
