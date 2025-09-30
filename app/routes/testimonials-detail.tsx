@@ -51,6 +51,24 @@ export default function TestimonialDetail({
         content={getDesc({ desc: page.comment, isHome: false })}
       />
       {/* Meta tags END*/}
+
+      <header className="te-dp-header">
+        <div className="g-grid-container1">
+          <div className="te-dp-header__img-wrapper">
+            <img
+              src={`${base_back_url}${page.customer_portrait_image.thumbnail.src}`}
+              alt={page.customer_portrait_image.thumbnail.alt}
+            />
+          </div>
+          <div className="te-dp-header__details">
+            <h1>{page.customer_name}</h1>
+            {page.occupation && <p>{page.occupation}</p>}
+            {page.organization_name && (
+              <p className="test-page__org">{page.organization_name}</p>
+            )}
+          </div>
+        </div>
+      </header>
     </>
   );
 }
