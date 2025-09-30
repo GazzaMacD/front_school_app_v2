@@ -64,8 +64,9 @@ export type TRichTextBlock = {
 export type TYoutubeBlock = {
   type: "youtube";
   value: {
-    short: boolean;
     src: string;
+    short: boolean;
+    limit: boolean;
   };
   id: string;
 };
