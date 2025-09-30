@@ -64,8 +64,21 @@ export type TRichTextBlock = {
 export type TYoutubeBlock = {
   type: "youtube";
   value: {
-    short: boolean;
     src: string;
+    short: boolean;
+    limit: boolean;
+  };
+  id: string;
+};
+
+export type TConversationBlock = {
+  type: "conversation";
+  value: {
+    person_one_name: string;
+    person_two_name: string;
+    title: string;
+    intro: string;
+    conversation: { person_one: string; person_two: string }[];
   };
   id: string;
 };
