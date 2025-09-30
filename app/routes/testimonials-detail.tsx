@@ -39,7 +39,20 @@ export default function TestimonialDetail({
   loaderData,
 }: Route.ComponentProps) {
   const { page, base_back_url } = loaderData;
-  return <div>page</div>;
+
+  return (
+    <>
+      {/* Meta tags*/}
+      <title>
+        {getTitle({ title: `${page.customer_name}`, isHome: false })}
+      </title>
+      <meta
+        name="description"
+        content={getDesc({ desc: page.comment, isHome: false })}
+      />
+      {/* Meta tags END*/}
+    </>
+  );
 }
 
 /**
