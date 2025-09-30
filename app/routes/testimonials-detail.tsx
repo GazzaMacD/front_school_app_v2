@@ -71,6 +71,7 @@ export default function TestimonialDetail({
             />
           </div>
           <div className="te-dp-header__details">
+            <h5>お客様の声</h5>
             <h1>{page.customer_name}</h1>
             {page.occupation && <p>{page.occupation}</p>}
             {page.organization_name && (
