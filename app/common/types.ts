@@ -28,7 +28,7 @@ type TPriceInfo = {
   end_date: string | null;
 };
 
-export type TPricePlan = {
+export type TPrice = {
   id: number;
   slug: string;
   title: string;
@@ -46,12 +46,12 @@ export type TPricePlan = {
   price_info: TPriceInfo;
 };
 
-export type TCoursePrice = {
+export type TPricePlan = {
   id: number;
   meta: {
     type: string; // e.g. "courses.CommonPricePlans"
   };
-  price_plan: TPricePlan;
+  price_plan: TPrice;
 };
 
 // WagTail Blocks
