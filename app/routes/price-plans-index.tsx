@@ -46,7 +46,21 @@ export async function loader() {
 export default function PricePlansIndex({ loaderData }: Route.ComponentProps) {
   const { page } = loaderData;
   console.dir(page, { depth: null });
-  return <div>price index page</div>;
+
+  return (
+    <>
+      {/* Meta tags*/}
+      <title>
+        {getTitle({
+          title: `${page.title}・${page.display_title}`,
+          isHome: false,
+        })}
+      </title>
+      <meta name="description" content={getDesc({ desc: "", isHome: false })} />
+      {/* Meta tags END*/}
+      <div>price index page</div>;
+    </>
+  );
 }
 
 /**
