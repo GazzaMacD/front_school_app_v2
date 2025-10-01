@@ -14,7 +14,7 @@ import { DetailLinkCard } from "~/components/cards";
 import { ClassPricePlanTable } from "~/components/prices";
 import pricesStyles from "~/styles/components/prices.css?url";
 import type {
-  TCoursePrice,
+  TPricePlan,
   TDetailMeta,
   TFullImage,
   TRichTextBlock,
@@ -340,7 +340,7 @@ type TCourseDetailPage = {
   level_from: TLevel;
   level_to: TLevel;
   course_content_points: TCourseContentPoint[];
-  common_price_plans: TCoursePrice;
+  common_price_plans: TPricePlan;
   course_description: TRichTextBlock[];
   related_courses: TRelatedCourse[];
 };
