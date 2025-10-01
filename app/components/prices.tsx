@@ -22,13 +22,11 @@ type TPriceTableProps = {
   isInperson: boolean;
   hasOnlineNotes: boolean;
   bookableOnline: boolean;
-  preTaxPrice: string;
   postTaxPrice: string;
   onSale: boolean;
-  preSalePreTaxPrice: string | null;
   preSalePostTaxPrice: string | null;
   priceStartDate: string;
-  priceEndDate: string;
+  priceEndDate: string | null;
 };
 function ClassPricePlanTable({
   color,
@@ -46,13 +44,9 @@ function ClassPricePlanTable({
   isInperson,
   hasOnlineNotes,
   bookableOnline,
-  preTaxPrice,
   postTaxPrice,
   onSale,
-  preSalePreTaxPrice,
   preSalePostTaxPrice,
-  priceStartDate,
-  priceEndDate,
 }: TPriceTableProps) {
   return (
     <div className={`c-pricetable-wrapper ${color}`}>

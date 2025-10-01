@@ -10,6 +10,103 @@
   max-width: 700px;
 }
 
+/*
+* Embla Prices slider
+*/
+.pp-lp-slider {
+  overflow: hidden;
+  position: relative;
+  padding-top: 40px;
+}
+.pp-lp-slider__container {
+  display: flex;
+}
+.pp-lp-slider__slide {
+  flex: 0 0 65%; /* Slide covers 80% of the viewport */
+  margin-right: 15%;
+  cursor: grab;
+}
+/* slider buttons */
+.pp-lp-slider__button {
+  position: absolute;
+  top: 0px;
+  border: none;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-brand-brown);
+  border-radius: 50%;
+  color: var(--color-brand-white);
+  cursor: pointer;
+}
+.pp-lp-slider__button::after {
+  content: "\279c";
+  display: block;
+  padding: 0 0 1px 0;
+  font-size: 22px;
+}
+.pp-lp-slider__button.next {
+  right: 10px;
+  left: auto;
+}
+.pp-lp-slider__button:disabled {
+  opacity: 0.35;
+  cursor: auto;
+  pointer-events: none;
+}
+.pp-lp-slider__button.prev {
+  right: 80px;
+  left: auto;
+}
+.pp-lp-slider__button.prev::after {
+  transform: rotate(180deg);
+}
+
+@media (min-width: 30rem) {
+  .pp-lp-slider__slide {
+    flex: 0 0 55%; /* Slide covers 55% of the viewport */
+    margin-right: 10%;
+  }
+}
+@media (min-width: 48rem) {
+  .pp-lp-slider__slide {
+    flex: 0 0 25%; /* Slide covers 40% of the viewport */
+    margin-right: 8%;
+  }
+  .pp-lp-slider {
+    padding-top: 50px;
+  }
+  .pp-lp-slider__button {
+    width: 50px;
+    height: 50px;
+  }
+}
+@media (min-width: 64rem) {
+  .pp-lp-slider__slide {
+    flex: 0 0 25%; /* Slide covers 46% of the viewport */
+    margin-right: 10%;
+  }
+  .pp-lp-slider {
+    padding-top: 100px;
+  }
+  .pp-lp-slider__button {
+    width: 66px;
+    height: 66px;
+  }
+  .pp-lp-slider__button.prev {
+    right: 100px;
+    left: auto;
+  }
+  .pp-lp-slider__button::after {
+    font-size: 40px;
+  }
+}
+@media (min-width: 96rem) {
+  .pp-lp-slider__slide {
+    flex: 0 0 25%; /* Slide covers 55% of the viewport */
+    margin-right: 6%;
+  }
+}
+
 /* slider styles */
 .pp-lp-swiper__wrapper .swiper {
   padding-top: 50px;
