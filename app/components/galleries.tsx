@@ -1,29 +1,8 @@
+import type { TSimpleImageBlock } from "~/common/types";
+
 /*
  * Simple Image Gallery
  */
-type TSimpleImage = {
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-};
-
-type TSimpleImageValue = {
-  image: {
-    id: number;
-    title: string;
-    original: TSimpleImage;
-    medium: TSimpleImage;
-    thumbnail: TSimpleImage;
-  };
-  caption: string;
-};
-type TSimpleImageBlock = {
-  type: string;
-  value: TSimpleImageValue;
-  id: string;
-};
-
 type TSIGProps = {
   images: TSimpleImageBlock[];
   baseUrl: string;

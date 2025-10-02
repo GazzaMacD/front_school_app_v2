@@ -192,6 +192,22 @@ export default function LearningExperiencesIndex({
             </div>
           </div>
         </section>
+
+        <section id="gallery">
+          <div>
+            <HeadingOne
+              enText={listPage.gallery_en_title}
+              jpText={listPage.gallery_jp_title}
+              align="center"
+              bkground="light"
+              level="h2"
+            />
+          </div>
+          <SimpleImageGallery
+            images={listPage.experiences_gallery}
+            baseUrl={base_back_url}
+          />
+        </section>
       </SlidingHeaderPage>
     </>
   );

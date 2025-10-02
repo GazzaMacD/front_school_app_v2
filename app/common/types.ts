@@ -100,8 +100,8 @@ export type TSimpleImageBlock = {
   type: "simple_image_block";
   value: {
     image: TFullImage;
+    caption: string;
   };
-  caption: string;
   id: string;
 };
 
