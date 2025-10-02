@@ -51,7 +51,24 @@ export default function PricePlansDetail({ loaderData }: Route.ComponentProps) {
         content={getDesc({ desc: page.display_tagline, isHome: false })}
       />
       {/* Meta tags END*/}
-      <div>page here</div>
+
+      <header className="pp-dp-header">
+        <div className="g-basic-container">
+          <div className="pp-dp-header__titles">
+            <h1>
+              {page.display_title}
+              <span>{page.title}</span>
+            </h1>
+            <p>{page.display_tagline}</p>
+          </div>
+        </div>
+        <div className="pp-dp-header__img-wrap">
+          <img
+            src={`${base_back_url}${page.header_image.medium.src}`}
+            alt={page.header_image.medium.alt}
+          />
+        </div>
+      </header>
     </>
   );
 }
