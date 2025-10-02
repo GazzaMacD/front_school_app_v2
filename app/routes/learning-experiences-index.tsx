@@ -10,6 +10,7 @@ import {
   fetchWithMeta,
   getDivisor3LetterHash,
 } from "~/common/utils";
+import { HeadingOne } from "~/components/headings";
 import type {
   TDetailMeta,
   TFullImage,
@@ -29,6 +30,7 @@ export const links: Route.LinksFunction = () => [
     href: pageCStyles,
   },
 ];
+const learningExperienceDesc = `エクスリンガルのラーニング・エクスペリエンスとは？ エクスリンガルのラーニング・エクスペリエンスは、当校人気の語学イベントです。 楽しくイベントに参加しながら、様々なシチュエーションの中で好奇心をもってわくわくしながら語学を学べるよう、当校のマルチリンガルなネイティブ講師たちが創り上げる語学アドベンチャーです。ラーニング・エクスペリエンスでは、コミュニケーション意欲を掻き立て、自然な学習意欲を生み出すことで、あなたの語学力向上を目指します。`;
 
 /**
  * Loaders and Actions
@@ -98,12 +100,35 @@ export default function LearningExperiencesIndex({
       <meta
         name="description"
         content={getDesc({
-          desc: listPage.intro.replace(/<\/?[^>]+(>|$)/g, ""),
+          desc: learningExperienceDesc,
           isHome: false,
         })}
       />
       {/* Meta tags END*/}
-      <div>page here</div>
+      <SlidingHeaderPage
+        mainTitle={listPage.title}
+        subTitle={listPage.display_title}
+        swooshBackColor="cream"
+        swooshFrontColor="beige"
+      >
+        <section id="intro">
+          <div>
+            <div className="g-narrow-container">
+              <div>
+                <HeadingOne
+                  enText={listPage.intro_en_title}
+                  jpText={listPage.intro_jp_title}
+                  align="center"
+                  bkground="light"
+                  level="h2"
+                />
+              </div>
+              <div dangerouslySetInnerHTML={{ __html: listPage.intro }} />
+            </div>
+          </div>
+        </section>
+        <div>page here</div>
+      </SlidingHeaderPage>
     </>
   );
 }
