@@ -34,7 +34,26 @@ export async function loader({ params }: Route.LoaderArgs) {
  */
 export default function PricePlansDetail({ loaderData }: Route.ComponentProps) {
   const { page, base_back_url } = loaderData;
-  return <div>page here</div>;
+  const p = page.class_service;
+  const pi = page.class_service.price_info;
+
+  return (
+    <>
+      {/* Meta tags*/}
+      <title>
+        {getTitle({
+          title: `${page.title}・${page.display_title}`,
+          isHome: false,
+        })}
+      </title>
+      <meta
+        name="description"
+        content={getDesc({ desc: page.display_tagline, isHome: false })}
+      />
+      {/* Meta tags END*/}
+      <div>page here</div>
+    </>
+  );
 }
 
 /**
