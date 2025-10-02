@@ -2,7 +2,15 @@ import type { Route } from "./+types/price-plans-detail";
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
 import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
 import { Swoosh1 } from "~/components/swooshes";
-import type { TDetailMeta, TFullImage, TRichTextBlock } from "~/common/types";
+import { HeadingOne } from "~/components/headings";
+import type {
+  TDetailMeta,
+  TFullImage,
+  TRichTextBlock,
+  TTextWidthImageBlock,
+  TYoutubeBlock,
+} from "~/common/types";
+import { ClassPricePlanTable } from "~/components/prices";
 
 /**
  * Loaders and Actions
@@ -69,6 +77,88 @@ export default function PricePlansDetail({ loaderData }: Route.ComponentProps) {
           />
         </div>
       </header>
+
+      <section id="about">
+        <div className="g-narrow-container">
+          <HeadingOne
+            enText="About Plan"
+            jpText="プランについて"
+            align="center"
+            bkground="light"
+            level="h2"
+          />
+        </div>
+        <div className="pp-dp-about__intro">
+          {page.class_intro.map((block) => {
+            if (block.type === "rich_text") {
+              return (
+                <div
+                  className="g-narrow-container"
+                  key={block.id}
+                  dangerouslySetInnerHTML={{ __html: block.value }}
+                />
+              );
+            } else if (block.type === "text_width_img") {
+              return (
+                <div key={block.id} className="g-narrow-container">
+                  <figure className="pp-dp-about__img-wrapper text-width">
+                    <img
+                      src={`${base_back_url}${block.value.image.original.src}`}
+                      alt={block.value.image.original?.alt}
+                    />
+                    {block.value?.caption ? (
+                      <figcaption>{block.value.caption}</figcaption>
+                    ) : null}
+                  </figure>
+                </div>
+              );
+            } else if (block.type === "youtube") {
+              return (
+                <div key={block.id}>
+                  <div className="pp-dp-intro__youtube">
+                    <iframe
+                      className={`g-youtube-iframe ${
+                        block.value.short ? "g-youtube-short" : ""
+                      }`}
+                      src={`${block.value.src}?modestbranding=1&controls=0&rel=0`}
+                      title="YouTube video player"
+                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </div>
+              );
+            } else {
+              return null;
+            }
+          })}
+        </div>
+        <div className="pp-dp-about__price">
+          <ClassPricePlanTable
+            color="beige"
+            showLinkButton={false}
+            slug={p.slug}
+            titleEn={page.title}
+            titleJa={page.display_title}
+            duration={p.length}
+            durationUnit={p.length_unit}
+            stdQuantity={p.quantity}
+            stdQuantityUnit={p.quantity_unit}
+            maxNum={p.max_num}
+            isNative={p.is_native}
+            isOnline={p.is_online}
+            isInperson={p.is_inperson}
+            hasOnlineNotes={p.has_onlinenotes}
+            bookableOnline={p.bookable_online}
+            postTaxPrice={pi.posttax_price}
+            onSale={pi.is_sale}
+            preSalePostTaxPrice={pi.before_sale_posttax_price}
+            priceStartDate={pi.start_date}
+            priceEndDate={pi.end_date}
+          />
+        </div>
+      </section>
+      <Swoosh1 swooshColor="beige" backColor="cream" />
     </>
   );
 }
@@ -109,6 +199,8 @@ type TClassService = {
   price_info: TClassPriceInfo;
 };
 
+type TClassIntro = TRichTextBlock | TYoutubeBlock | TTextWidthImageBlock;
+
 type TPriceDetailPage = {
   id: number;
   meta: TDetailMeta;
@@ -117,7 +209,7 @@ type TPriceDetailPage = {
   display_title: string;
   display_tagline: string;
   header_image: TFullImage;
-  class_intro: TRichTextBlock[];
+  class_intro: TClassIntro[];
 };
 
 type TPriceDetailPageResult = {

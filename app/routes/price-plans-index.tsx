@@ -2,7 +2,6 @@ import type { Route } from "./+types/price-plans-index";
 import { BASE_API_URL } from "~/.server/env";
 import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
 import pageStyles from "~/styles/components/pages.css?url";
-import priceStyles from "~/styles/components/prices.css?url";
 import { SlidingHeaderPage } from "~/components/pages";
 import { HeadingOne } from "~/components/headings";
 import { ClassPricePlanTable } from "~/components/prices";
@@ -17,10 +16,6 @@ export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: pageStyles,
-  },
-  {
-    rel: "stylesheet",
-    href: priceStyles,
   },
 ];
 
