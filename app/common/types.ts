@@ -96,6 +96,15 @@ export type TTextWidthImageBlock = {
   id: string;
 };
 
+export type TSimpleImageBlock = {
+  type: "simple_image_block";
+  value: {
+    image: TFullImage;
+    caption: string;
+  };
+  id: string;
+};
+
 // Images
 export type TImageFrag = {
   src: string;
