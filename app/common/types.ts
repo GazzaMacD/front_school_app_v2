@@ -83,6 +83,19 @@ export type TConversationBlock = {
   id: string;
 };
 
+export type TTextWidthImageBlock = {
+  type: "text_width_img";
+  value: {
+    image: TFullImage;
+    caption: string;
+    author: string;
+    attribution_url: string;
+    license_type: string;
+    license_url: string;
+  };
+  id: string;
+};
+
 // Images
 export type TImageFrag = {
   src: string;
