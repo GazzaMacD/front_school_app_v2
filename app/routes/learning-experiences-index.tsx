@@ -1,14 +1,18 @@
+import { Link } from "react-router";
+
 import type { Route } from "./+types/learning-experiences-index";
 import { SimpleImageGallery } from "~/components/galleries";
 import galleryStyles from "~/styles/components/galleries.css?url";
 import { SlidingHeaderPage } from "~/components/pages";
 import pageCStyles from "~/styles/components/pages.css?url";
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
+import { FaRegCalendar } from "react-icons/fa6";
 import {
   getTitle,
   getDesc,
   fetchWithMeta,
   getDivisor3LetterHash,
+  getDateString,
 } from "~/common/utils";
 import { HeadingOne } from "~/components/headings";
 import type {
@@ -75,7 +79,7 @@ export async function loader({ context }: Route.LoaderArgs) {
   // success
   return {
     listPage: listPageResult.data.items[0],
-    detailPages: detailPagesResult.data.items,
+    detailPages,
     base_back_url: BASE_BACK_URL,
   };
 }
@@ -127,7 +131,67 @@ export default function LearningExperiencesIndex({
             </div>
           </div>
         </section>
-        <div>page here</div>
+
+        <section id="upcoming">
+          <div>
+            <div>
+              <HeadingOne
+                enText={listPage.upcoming_en_title}
+                jpText={listPage.upcoming_jp_title}
+                align="center"
+                bkground="light"
+                level="h2"
+              />
+            </div>
+            <div className="le-lp-upcoming__exps">
+              {detailPages.length ? (
+                <div className="g-grid-container1">
+                  {detailPages.map((page, i) => {
+                    const dateString = getDateString(
+                      page.start_date,
+                      page.end_date
+                    );
+                    return (
+                      <div
+                        key={page.id}
+                        className={`le-lp-upcoming__exp-wrapper ${upcomingHash[i]}`}
+                      >
+                        <article className="le-lp-upcoming__exp">
+                          <div className="le-lp-upcoming__exp__img-wrap">
+                            <img
+                              className="le-lp-upcoming__exp__img"
+                              src={`${base_back_url}${page.header_image.thumbnail.src}`}
+                              alt={page.header_image.thumbnail.alt}
+                            />
+                          </div>
+                          <div className="le-lp-upcoming__exp__details">
+                            <div className="le-lp-upcoming__exp__dt">
+                              <FaRegCalendar />
+                              {dateString}
+                            </div>
+                            <h3 className="le-lp-upcoming__exp__title">
+                              {page.display_title}
+                            </h3>
+                            <Link
+                              className="le-lp-upcoming__exp__link"
+                              to={`/learning-experiences/${page.meta.slug}`}
+                            >
+                              詳しく見る
+                            </Link>
+                          </div>
+                        </article>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="le-lp-upcoming__none">
+                  <p>Coming soon! Please check back.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
       </SlidingHeaderPage>
     </>
   );

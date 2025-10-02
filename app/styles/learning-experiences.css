@@ -62,6 +62,9 @@
 .le-lp-upcoming__exp-wrapper.c {
   grid-column: 1/16;
 }
+.le-lp-upcoming__none > p {
+  text-align: center;
+}
 /* upcomimg--cards */
 .le-lp-upcoming__exp__img-wrap {
   margin-bottom: 30px;
