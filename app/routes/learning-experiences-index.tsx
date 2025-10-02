@@ -4,7 +4,12 @@ import galleryStyles from "~/styles/components/galleries.css?url";
 import { SlidingHeaderPage } from "~/components/pages";
 import pageCStyles from "~/styles/components/pages.css?url";
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
-import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
+import {
+  getTitle,
+  getDesc,
+  fetchWithMeta,
+  getDivisor3LetterHash,
+} from "~/common/utils";
 import type {
   TDetailMeta,
   TFullImage,
@@ -73,7 +78,27 @@ export default function LearningExperiencesIndex({
   loaderData,
 }: Route.ComponentProps) {
   const { listPage, detailPages, base_back_url } = loaderData;
-  return <div>page here</div>;
+  const upcomingHash = getDivisor3LetterHash(detailPages.length);
+  return (
+    <>
+      {/* Meta tags*/}
+      <title>
+        {getTitle({
+          title: `${listPage.display_title}`,
+          isHome: false,
+        })}
+      </title>
+      <meta
+        name="description"
+        content={getDesc({
+          desc: listPage.intro.replace(/<\/?[^>]+(>|$)/g, ""),
+          isHome: false,
+        })}
+      />
+      {/* Meta tags END*/}
+      <div>page here</div>
+    </>
+  );
 }
 
 /**
