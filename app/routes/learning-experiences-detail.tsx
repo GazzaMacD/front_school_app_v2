@@ -170,6 +170,19 @@ export default function LearningExperiencesDetail({
           })}
         </div>
       </section>
+
+      <section id="past-photos">
+        <div className="g-narrow-container">
+          <HeadingOne
+            enText="Past Pictures"
+            jpText="過去の写真"
+            align="center"
+            bkground="light"
+            level="h2"
+          />
+        </div>
+        <SimpleImageGallery images={page.past_photos} baseUrl={base_back_url} />
+      </section>
     </>
   );
 }
