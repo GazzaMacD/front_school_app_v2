@@ -303,6 +303,40 @@ export default function LearningExperiencesDetail({
           </div>
         </div>
       </section>
+
+      <section id="access">
+        <div className="g-narrow-container">
+          <HeadingOne
+            enText="Access"
+            jpText="アクセス"
+            align="center"
+            bkground="light"
+            level="h2"
+          />
+        </div>
+        <div
+          className="le-dp-access__map"
+          dangerouslySetInnerHTML={{ __html: page.display_map }}
+        />
+        {page.address && (
+          <div className="g-basic-container">
+            <div className="le-dp-access__contact">
+              <p>
+                {page.address.postal_code} {page.address.city_town_village}{" "}
+                {page.address.line_two} {page.address.line_one}{" "}
+                {page.address.name}
+              </p>
+              <p>TEL: 0561-42-5707</p>
+              <p>
+                メールアドレス:{" "}
+                <a href="mailto:contact@xlingual.co.jp">
+                  contact@xlingual.co.jp
+                </a>
+              </p>
+            </div>
+          </div>
+        )}
+      </section>
     </>
   );
 }
