@@ -5,7 +5,6 @@ import {
   getDesc,
   fetchWithMeta,
   getDateStringWithDays,
-  getDivisor4LetterHash,
 } from "~/common/utils";
 import { BlogCard, StaffRoundPicCard } from "~/components/cards";
 import { Swoosh1 } from "~/components/swooshes";
@@ -25,8 +24,6 @@ import type {
   TImageFrag,
   TAltFullImage,
   TSimpleImageBlock,
-  TYoutubeBlock,
-  TConversationBlock,
 } from "~/common/types";
 
 /**
@@ -337,6 +334,31 @@ export default function LearningExperiencesDetail({
           </div>
         )}
       </section>
+
+      <section id="related-lessons">
+        <div className="g-grid-container1">
+          <div className="le-dp-related__heading">
+            <h2>あなたへのおすすめ記事</h2>
+          </div>
+          {page.related_lessons.map((item, i) => {
+            const lesson = item.lesson;
+            return (
+              <BlogCard
+                key={lesson.id}
+                i={`item${i}`}
+                slug={lesson.slug}
+                src={`${base_back_url}/${lesson.image.thumbnail.src}`}
+                alt={lesson.image.thumbnail.alt}
+                date={lesson.published_date}
+                title={lesson.display_title}
+                category={lesson.category}
+              />
+            );
+          })}
+        </div>
+      </section>
+
+      <Swoosh1 swooshColor="beige" backColor="white" />
     </>
   );
 }
