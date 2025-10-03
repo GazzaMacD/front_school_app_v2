@@ -12,7 +12,7 @@ type TBlogCardProps = {
   date: string;
   title: string;
   category: {
-    id: number;
+    id?: number;
     name: string;
     ja_name: string;
     slug: string;
