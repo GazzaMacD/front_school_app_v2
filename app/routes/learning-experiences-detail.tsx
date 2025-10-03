@@ -105,6 +105,7 @@ export default function LearningExperiencesDetail({
         content={getDesc({ desc: page.display_tagline, isHome: false })}
       />
       {/* Meta tags END*/}
+
       <header className="le-dp-header">
         <div className="g-basic-container">
           <div className="le-dp-header__titles">
@@ -126,6 +127,22 @@ export default function LearningExperiencesDetail({
           />
         </div>
       </header>
+
+      <section id="will-do">
+        <div className="g-narrow-container">
+          <HeadingOne
+            enText="What will we do?"
+            jpText="何をするか"
+            align="center"
+            bkground="light"
+            level="h2"
+          />
+          <div
+            className="text-container"
+            dangerouslySetInnerHTML={{ __html: page.will_do }}
+          />
+        </div>
+      </section>
 
       <div>page here</div>
     </>
