@@ -144,7 +144,32 @@ export default function LearningExperiencesDetail({
         </div>
       </section>
 
-      <div>page here</div>
+      <section id="teachers">
+        <div className="g-basic-container">
+          <HeadingOne
+            enText="Who are your teachers?"
+            jpText="担当の講師"
+            align="center"
+            bkground="light"
+            level="h2"
+          />
+        </div>
+        <div className="le-dp-teachers">
+          {page.staff_members.map((member) => {
+            return (
+              <div className="le-dp-teacher" key={member.id}>
+                <StaffRoundPicCard
+                  url={`/staff/${member.staff.slug}`}
+                  src={`${base_back_url}${member.staff.image.thumbnail.src}`}
+                  alt={member.staff.image.thumbnail.alt}
+                  name={member.staff.name}
+                  tagline={member.staff.tagline}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </section>
     </>
   );
 }
@@ -195,7 +220,7 @@ type TStaff = {
   meta: { type: string };
   staff: {
     id: number;
-    name: number;
+    name: string;
     tagline: string;
     slug: string;
     image: TOrigThumbImage;
