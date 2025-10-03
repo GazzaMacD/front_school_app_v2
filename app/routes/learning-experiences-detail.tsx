@@ -183,6 +183,126 @@ export default function LearningExperiencesDetail({
         </div>
         <SimpleImageGallery images={page.past_photos} baseUrl={base_back_url} />
       </section>
+
+      <section id="details">
+        <div className="g-narrow-container">
+          <HeadingOne
+            enText="Experience Details"
+            jpText="エクスペリエンスの詳細"
+            align="center"
+            bkground="light"
+            level="h2"
+          />
+          {page.details.map((block) => {
+            if (block.type === "limited_rich_text_block") {
+              return (
+                <div
+                  key={block.id}
+                  dangerouslySetInnerHTML={{ __html: block.value }}
+                />
+              );
+            }
+            if (block.type === "schedule_block") {
+              const hasDate: boolean = block.value.schedule.some(
+                (item) => item.date
+              );
+              return (
+                <div key={block.id}>
+                  <h4>スケジュール</h4>
+                  {block.value.intro && <p>{block.value.intro}</p>}
+                  <table className="le-dp-details__schedule-table">
+                    <thead>
+                      {hasDate ? (
+                        <tr>
+                          <th className="date">
+                            <div>
+                              <span>
+                                <FaRegCalendar /> Date
+                              </span>
+                            </div>
+                          </th>
+                          <th className="time">
+                            <div>
+                              <span>
+                                <FaRegClock /> Time
+                              </span>
+                            </div>
+                          </th>
+                          <th className="info">
+                            <div>
+                              <span>
+                                <FaInfo /> Information
+                              </span>
+                            </div>
+                          </th>
+                        </tr>
+                      ) : (
+                        <tr>
+                          <th className="time">
+                            <div>
+                              <FaRegClock /> Time
+                            </div>
+                          </th>
+                          <th className="info">
+                            <div>
+                              <FaInfo /> Information
+                            </div>
+                          </th>
+                        </tr>
+                      )}
+                    </thead>
+                    <tbody>
+                      {block.value.schedule.map((row) => {
+                        return (
+                          <tr key={row.detail.slice(0, 12)}>
+                            {hasDate && <td className="date">{row?.date}</td>}
+                            <td className="time">{row.time.slice(0, 5)}</td>
+                            <td className="info">{row.detail}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              );
+            }
+          })}
+          <div className="le-dp-details__prices">
+            <h4>料金</h4>
+            <table className="le-dp-details__price-table">
+              <thead>
+                <tr>
+                  <th className="choice">
+                    <span>
+                      <FaRegHandPointRight /> Option
+                    </span>
+                  </th>
+                  <th className="price">
+                    <span>
+                      <FaYenSign /> Price
+                    </span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {getValidPrices(
+                  page.learning_experience.product_service.prices
+                ).map((price) => {
+                  return (
+                    <tr key={price.id}>
+                      <td>{price.display_name}</td>
+                      <td>
+                        ￥{price.posttax_price} <span>(税込)</span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            <ul></ul>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
@@ -246,7 +366,7 @@ type TSchduleDate = {
   detail: string;
 };
 type TScheduleBlock = {
-  type: string;
+  type: "schedule_block";
   value: {
     title: string;
     intro: string;
@@ -254,7 +374,13 @@ type TScheduleBlock = {
   };
   id: string;
 };
-type TLearnExpDetails = TScheduleBlock;
+type TLimitedTextBlock = {
+  type: "limited_rich_text_block";
+  value: string;
+  id: string;
+};
+
+type TLearnExpDetails = TScheduleBlock | TLimitedTextBlock;
 
 type TLearnExpDetailPage = {
   id: number;
