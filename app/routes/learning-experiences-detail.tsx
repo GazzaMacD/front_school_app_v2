@@ -105,6 +105,27 @@ export default function LearningExperiencesDetail({
         content={getDesc({ desc: page.display_tagline, isHome: false })}
       />
       {/* Meta tags END*/}
+      <header className="le-dp-header">
+        <div className="g-basic-container">
+          <div className="le-dp-header__titles">
+            <h1>
+              {page.display_title}
+              <span>{page.title}</span>
+            </h1>
+            <p>{page.display_tagline}</p>
+            <div>
+              <FaRegCalendar />
+              {dateString}
+            </div>
+          </div>
+        </div>
+        <div className="le-dp-header__img-wrapper">
+          <img
+            src={`${base_back_url}${page.header_image.medium.src}`}
+            alt={page.header_image.medium.alt}
+          />
+        </div>
+      </header>
 
       <div>page here</div>
     </>
