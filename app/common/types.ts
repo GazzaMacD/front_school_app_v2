@@ -120,6 +120,8 @@ export type TFullImage = {
   thumbnail: TImageFrag;
 };
 
+export type TAltFullImage = { alt: string } & TFullImage;
+
 // Home Page
 export type TTestimonial = {
   id: number;

@@ -70,12 +70,15 @@ export async function loader({ context }: Route.LoaderArgs) {
   }
 
   // filter on end date
-  const detailPages = detailPagesResult.data.items.filter((page) => {
+  const detailPages = detailPagesResult.data.items;
+  //NOTE: reinstate this when finished detail page
+  /*
+  .filter((page) => {
     const now = new Date(new Date().toDateString()).getTime();
     const end = new Date(page.end_date).getTime();
     return end >= now;
   });
-
+*/
   // success
   return {
     listPage: listPageResult.data.items[0],
