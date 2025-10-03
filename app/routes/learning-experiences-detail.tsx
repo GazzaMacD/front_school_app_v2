@@ -90,7 +90,25 @@ export default function LearningExperiencesDetail({
   loaderData,
 }: Route.ComponentProps) {
   const { page, base_back_url } = loaderData;
-  return <div>page here</div>;
+  const dateString = getDateStringWithDays(page.start_date, page.end_date);
+  return (
+    <>
+      {/* Meta tags*/}
+      <title>
+        {getTitle({
+          title: `${page.display_title} - Learning Experience`,
+          isHome: false,
+        })}
+      </title>
+      <meta
+        name="description"
+        content={getDesc({ desc: page.display_tagline, isHome: false })}
+      />
+      {/* Meta tags END*/}
+
+      <div>page here</div>
+    </>
+  );
 }
 
 /**
