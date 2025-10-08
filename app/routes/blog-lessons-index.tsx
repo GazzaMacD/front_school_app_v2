@@ -11,12 +11,26 @@ import type { TAltFullImage, TDetailMeta, TFullImage } from "~/common/types";
 /**
  * Helpers
  */
+const pageDesc =
+  "すべてのXlingualブログレッスンの一覧ページには、カテゴリーボタンがあり、簡単に記事を並べ替えることができます。";
 export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: pageStyles,
   },
 ];
+
+function deDuplicateLessons(lessons: TLearningBlogs): TLearningBlogs {
+  const lessonTracker: { [key: string]: "exists" } = {};
+  const deDuplicated = lessons.filter((lesson) => {
+    if (lessonTracker.hasOwnProperty(String(lesson.id))) {
+      return false;
+    }
+    lessonTracker[String(lesson.id)] = "exists";
+    return true;
+  });
+  return deDuplicated;
+}
 
 /**
  * Loaders and Actions
@@ -108,13 +122,17 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   // success
   const learningBlogs = learningBlogsResult.data.items;
+  const totalBlogs = learningBlogsResult.data.meta.total_count;
 
   return {
     categories,
     selectedCategory,
     listPage,
     learningBlogs,
+    totalBlogs,
     base_back_url: BASE_BACK_URL,
+    pageNumber,
+    limit: BLOG_LESSONS_LIMIT,
   };
 }
 
@@ -128,10 +146,70 @@ export default function BlogLessonsIndex({ loaderData }: Route.ComponentProps) {
     selectedCategory,
     listPage,
     learningBlogs,
+    totalBlogs,
     base_back_url,
+    pageNumber,
+    limit,
   } = loaderData;
 
-  return <div>Index Page here</div>;
+  const [lessons, setLessons] = React.useState<TLearningBlogs>(learningBlogs);
+  const [currentCategory, setCurrentCategory] =
+    React.useState<TBlogCategory>(selectedCategory);
+  const [loadMore, setLoadMore] = React.useState(false);
+  const currentLessonCount = lessons.length;
+  const totalPages = Math.ceil(totalBlogs / limit);
+
+  /* === Effects === */
+  // set page and blog lessons
+  React.useEffect(() => {
+    const previousPage = Number(sessionStorage.getItem("previous-page"));
+    if (!previousPage) {
+      sessionStorage.setItem("previous-page", String(pageNumber));
+      return;
+    }
+    if (previousPage === pageNumber) return;
+    setLessons((old) => deDuplicateLessons([...old, ...learningBlogs]));
+    sessionStorage.setItem("previous-page", String(pageNumber));
+    setLoadMore(false);
+  }, [loadMore, pageNumber, learningBlogs]);
+
+  React.useEffect(() => {
+    if (currentCategory.id !== selectedCategory.id) {
+      setCurrentCategory(() => selectedCategory);
+      setLessons(() => learningBlogs);
+    }
+  }, [
+    selectedCategory.id,
+    currentCategory.id,
+    selectedCategory,
+    learningBlogs,
+  ]);
+
+  return (
+    <>
+      {/* Meta tags*/}
+      <title>
+        {getTitle({
+          title: `${listPage.title}・${listPage.display_title}`,
+          isHome: false,
+        })}
+      </title>
+      <meta
+        name="description"
+        content={getDesc({ desc: pageDesc, isHome: false })}
+      />
+      {/* Meta tags END*/}
+      <SlidingHeaderPage
+        mainTitle={listPage.title}
+        subTitle={listPage.display_title}
+        swooshBackColor="cream"
+        swooshFrontColor="beige"
+      >
+        {" "}
+        <div>Page here</div>
+      </SlidingHeaderPage>
+    </>
+  );
 }
 
 /**
