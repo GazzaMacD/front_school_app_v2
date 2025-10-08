@@ -7,7 +7,9 @@ import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
 import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
 import pageStyles from "~/styles/components/pages.css?url";
 import { BLOG_LESSONS_LIMIT, BLOG_LESSONS_OFFSET } from "~/app-config";
-import type { TAltFullImage, TDetailMeta, TFullImage } from "~/common/types";
+import { FaArrowRightLong } from "react-icons/fa6";
+
+import type { TAltFullImage } from "~/common/types";
 
 /**
  * Helpers
@@ -240,6 +242,73 @@ export default function BlogLessonsIndex({ loaderData }: Route.ComponentProps) {
                 }
               })}
             </div>
+          </div>
+        </section>
+
+        <section id="posts">
+          <div className="bl-lp-posts">
+            <div className="g-grid-container1">
+              {lessons.length
+                ? lessons.map((lesson, i) => {
+                    const pubDate = new Date(lesson.published_date);
+                    const n = i % 2;
+                    return (
+                      <div
+                        key={lesson.id}
+                        className={`bl-lp-post-wrapper t${n}`}
+                      >
+                        <Link
+                          to={lesson.meta.slug}
+                          className="bl-lp-post-link"
+                          target="_blank"
+                        >
+                          <article className="bl-lp-post">
+                            <div className="bl-lp-post__img-wrapper">
+                              <img
+                                src={`${base_back_url}${lesson.header_image.thumbnail.src}`}
+                                alt={lesson.header_image.title}
+                              />
+                              <div className="bl-lp-post__overlay">
+                                <p>Let's learn!</p>
+                                <p>勉強しよう</p>
+                                <FaArrowRightLong />
+                              </div>
+                            </div>
+                            <div className="bl-lp-post__details">
+                              <p>
+                                {`${pubDate.getFullYear()}.${
+                                  pubDate.getMonth() + 1
+                                }.${pubDate.getDate()}`}{" "}
+                                <span>[ {lesson.category.ja_name} ]</span>
+                              </p>
+                              <h3>{lesson.display_title}</h3>
+                            </div>
+                          </article>
+                        </Link>
+                      </div>
+                    );
+                  })
+                : null}
+            </div>
+            {pageNumber < totalPages ? (
+              <>
+                <p className="bl-lp-post__see-more-count">
+                  {totalBlogs}投稿中{currentLessonCount}投稿を表示
+                </p>
+                <Link
+                  to={`/blog-lessons?page=${pageNumber + 1}${
+                    currentCategory.id === 0
+                      ? ""
+                      : "&category=" + currentCategory.ja_name
+                  }`}
+                  onClick={() => setLoadMore(true)}
+                  preventScrollReset
+                  className="bl-lp-post__see-more-btn"
+                >
+                  もっと見る
+                </Link>
+              </>
+            ) : null}
           </div>
         </section>
       </SlidingHeaderPage>
