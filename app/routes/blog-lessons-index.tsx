@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router";
 
 import type { Route } from "./+types/blog-lessons-index";
 import { SlidingHeaderPage } from "~/components/pages";
@@ -205,8 +206,42 @@ export default function BlogLessonsIndex({ loaderData }: Route.ComponentProps) {
         swooshBackColor="cream"
         swooshFrontColor="beige"
       >
-        {" "}
-        <div>Page here</div>
+        <section className="bl-lp-cats-wrapper">
+          <div className="bl-lp-cats-wrapper__inner">
+            <div className="bl-lp-cats-aside">カテゴリで絞り込む</div>
+            <div className="bl-lp-cats">
+              {categories.map((category, i) => {
+                if (i === 0) {
+                  return (
+                    <Link
+                      to="/blog-lessons"
+                      className={`bl-lp-cat ${
+                        currentCategory.id === 0 ? "bl-lp-cat--active" : ""
+                      }`}
+                      key={category.id}
+                    >
+                      {category.ja_name}
+                    </Link>
+                  );
+                } else {
+                  return (
+                    <Link
+                      to={`/blog-lessons?category=${category.ja_name}`}
+                      key={category.id}
+                      className={`bl-lp-cat ${
+                        currentCategory.id === category.id
+                          ? "bl-lp-cat--active"
+                          : ""
+                      }`}
+                    >
+                      {category.ja_name}
+                    </Link>
+                  );
+                }
+              })}
+            </div>
+          </div>
+        </section>
       </SlidingHeaderPage>
     </>
   );
