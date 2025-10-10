@@ -4,6 +4,10 @@ import * as React from "react";
 import type { Route } from "./+types/blog-lessons-detail";
 import { AiOutlineCalendar, AiOutlineClockCircle } from "react-icons/ai";
 import { RiEmotionUnhappyLine, RiEmotionHappyLine } from "react-icons/ri";
+import { EmailSubscription } from "~/components/email-subscriptions";
+import { BlogCard } from "~/components/cards";
+import { Swoosh1 } from "~/components/swooshes";
+
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
 import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
 import { SimpleBannerCampaignAdd } from "~/components/ads";
@@ -428,6 +432,36 @@ export default function BlogLessonsDetail({
           </div>
         </section>
       ) : null}
+
+      <section>
+        <div className="g-narrow-container">
+          <EmailSubscription />
+        </div>
+      </section>
+
+      <section className="bl-dp__related">
+        <div className="g-grid-container1">
+          <h2>あなたへのおすすめ記事</h2>
+        </div>
+        <div className="g-grid-container1">
+          {page.related_lessons.map((l, i) => {
+            return (
+              <BlogCard
+                i={`item${i}`}
+                key={l.id}
+                slug={l.lesson.slug}
+                src={`${base_back_url}/${l.lesson.image.thumbnail.src}`}
+                alt={l.lesson.image.thumbnail.alt}
+                date={l.lesson.published_date}
+                title={l.lesson.display_title}
+                category={l.lesson.category}
+              />
+            );
+          })}
+        </div>
+      </section>
+
+      <Swoosh1 swooshColor="beige" backColor="white" />
     </>
   );
 }
