@@ -82,9 +82,7 @@ export type TConversationBlock = {
   };
   id: string;
 };
-
-export type TTextWidthImageBlock = {
-  type: "text_width_img";
+type BaseImageBlock = {
   value: {
     image: TFullImage;
     caption: string;
@@ -95,6 +93,11 @@ export type TTextWidthImageBlock = {
   };
   id: string;
 };
+export type TTextWidthImageBlock = { type: "text_width_img" } & BaseImageBlock;
+export type TFullWidthImageBlock = { type: "full_width_img" } & BaseImageBlock;
+export type TBeyondTextImageBlock = {
+  type: "beyond_text_img";
+} & BaseImageBlock;
 
 export type TSimpleImageBlock = {
   type: "simple_image_block";
@@ -111,6 +114,12 @@ export type TImageFrag = {
   width: number;
   height: number;
   alt: string;
+};
+export type TOrigThumbImage = {
+  id: number;
+  title: string;
+  original: TImageFrag;
+  thumbnail: TImageFrag;
 };
 export type TFullImage = {
   id: number;
