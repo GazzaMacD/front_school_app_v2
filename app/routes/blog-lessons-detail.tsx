@@ -6,6 +6,7 @@ import { AiOutlineCalendar, AiOutlineClockCircle } from "react-icons/ai";
 import { RiEmotionUnhappyLine, RiEmotionHappyLine } from "react-icons/ri";
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
 import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
+import { SimpleBannerCampaignAdd } from "~/components/ads";
 //css
 import cardStyles from "~/styles/components/cards.css?url";
 import emailSubscribeStyles from "~/styles/components/email-subscribe.css?url";
@@ -402,6 +403,31 @@ export default function BlogLessonsDetail({
           }
         })}
       </section>
+
+      {page.related_simple_banner_campaigns &&
+      page.related_simple_banner_campaigns.length ? (
+        <section className="bl-dp__campaign">
+          <div className="g-narrow-container">
+            <h3>キャンペーン情報</h3>
+            <div className="c-cmpa">
+              {page.related_simple_banner_campaigns.map((campaignObj) => {
+                const campaign = campaignObj.campaign;
+                return (
+                  <SimpleBannerCampaignAdd
+                    key={campaign.id}
+                    slug={campaign.slug}
+                    colorType={campaign.color_type}
+                    nameJa={campaign.name_ja}
+                    offer={campaign.offer}
+                    startDate={campaign.start_date}
+                    endDate={campaign.end_date}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      ) : null}
     </>
   );
 }
