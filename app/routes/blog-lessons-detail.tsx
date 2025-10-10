@@ -73,8 +73,8 @@ type TMCQuestionBlock = {
     title: string;
     intro: string;
     questions: TMCQuestions;
-    id: string;
   };
+  id: string;
 };
 
 function transformQuestionToTestQuestion(
@@ -367,7 +367,7 @@ export default function BlogLessonsDetail({
                   <div className="bl-dp__teach__header">
                     Let's read and learn!
                   </div>
-                  {examples.map((s, i) => (
+                  {examples.map((s: string, i: number) => (
                     <div
                       className="bl-dp__example-s"
                       key={i}
@@ -385,7 +385,7 @@ export default function BlogLessonsDetail({
                   <div className="bl-dp__teach__header">
                     Incorrect and Correct!
                   </div>
-                  {list.map((s, i) => {
+                  {list.map((s: TRightWrong, i: number) => {
                     return (
                       <div key={i} className="bl-dp__wr">
                         <div className="bl-dp__wr--wrong">
@@ -507,7 +507,7 @@ type TTestRecordQuestion = {
   questionNumber: number;
   question: string;
   answers: TArrayAnswers;
-  answer: TTestRecordQuestion;
+  answer: TTestRecordAnswer;
   answered: boolean;
   answerCorrect: boolean;
 };
@@ -645,8 +645,7 @@ function MCQuestions({ value }: TMCQuestionsProps) {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     correct: boolean,
     answered: boolean,
-    questionNumber: number,
-    text: string
+    questionNumber: number
   ) {
     if (answered || !testRecord) return;
 
@@ -663,7 +662,7 @@ function MCQuestions({ value }: TMCQuestionsProps) {
     if (testRecord) return;
     function createTestRecord(value: TMCValue): TTestRecord {
       const testRecord = JSON.parse(JSON.stringify(value));
-      const questions = testRecord.questions.map((q) => {
+      const questions = testRecord.questions.map((q: TTestRecordQuestion) => {
         q.answer = getAnswers(q.answers);
         q.answered = false;
         q.answerCorrect = false;
@@ -793,10 +792,15 @@ type TMCAPIQuestionBlock = {
   id: string;
 };
 
+type TRightWrong = {
+  wrong: string;
+  right: string;
+};
+
 type TRightWrongListBlock = {
   type: "wrong_right_list";
   value: {
-    wrong_right_list: { wrong: string; right: string }[];
+    wrong_right_list: TRightWrong[];
   };
   id: string;
 };
@@ -820,7 +824,7 @@ type TConversationBlock = {
     intro: string;
     person_one_name: string;
     person_two_name: string;
-    conversation: TConversationBlock[];
+    conversation: TConversationFrag[];
   };
   id: string;
 };
