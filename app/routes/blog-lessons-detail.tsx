@@ -162,7 +162,19 @@ export default function BlogLessonsDetail({
   loaderData,
 }: Route.ComponentProps) {
   const { page, base_back_url } = loaderData;
-  return <div>Page here</div>;
+  return (
+    <>
+      {/* Meta tags*/}
+      <title>
+        {getTitle({ title: `${page.display_title}`, isHome: false })}
+      </title>
+      <meta
+        name="description"
+        content={getDesc({ desc: page.display_tagline, isHome: false })}
+      />
+      <div>Page here</div>
+    </>
+  );
 }
 
 /**
