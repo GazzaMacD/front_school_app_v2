@@ -3,6 +3,7 @@ import * as React from "react";
 
 import type { Route } from "./+types/blog-lessons-detail";
 import { AiOutlineCalendar, AiOutlineClockCircle } from "react-icons/ai";
+import { RiEmotionUnhappyLine, RiEmotionHappyLine } from "react-icons/ri";
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
 import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
 //css
@@ -236,6 +237,171 @@ export default function BlogLessonsDetail({
           />
         </div>
       </header>
+
+      <section>
+        {page.lesson_content.map((block: any) => {
+          if (block.type === "rich_text") {
+            return (
+              <div
+                className="g-narrow-container"
+                key={block.id}
+                dangerouslySetInnerHTML={{ __html: block.value }}
+              />
+            );
+          } else if (block.type === "text_width_img") {
+            return (
+              <div key={block.id} className="g-narrow-container">
+                <figure className="bl-dp__figure text-width">
+                  <img
+                    src={`${base_back_url}${block.value.image.original.src}`}
+                    alt={block.value.image.original?.alt}
+                  />
+                  {block.value?.caption ? (
+                    <figcaption>{block.value.caption}</figcaption>
+                  ) : null}
+                </figure>
+              </div>
+            );
+          } else if (block.type === "full_width_img") {
+            return (
+              <div key={block.id}>
+                <figure className="bl-dp__figure full-width">
+                  <img
+                    src={`${base_back_url}${block.value.image.original.src}`}
+                    alt={block.value.image.original?.alt}
+                  />
+                  {block.value?.caption ? (
+                    <figcaption>{block.value.caption}</figcaption>
+                  ) : null}
+                </figure>
+              </div>
+            );
+          } else if (block.type === "beyond_text_img") {
+            return (
+              <div key={block.id}>
+                <figure className="bl-dp__figure beyond-text">
+                  <img
+                    src={`${base_back_url}${block.value.image.original.src}`}
+                    alt={block.value.image.original?.alt}
+                  />
+                  {block.value?.caption ? (
+                    <figcaption>{block.value.caption}</figcaption>
+                  ) : null}
+                </figure>
+              </div>
+            );
+          } else if (block.type === "block_quote") {
+            return (
+              <div key={block.id} className="g-narrow-container">
+                <figure className="bl-dp__bquote">
+                  <blockquote cite={block.value?.citation_url}>
+                    <p>{block.value.quote}</p>
+                  </blockquote>
+                  <figcaption>
+                    — {block.value.author},{" "}
+                    <cite>{block.value.citation_source}</cite>
+                  </figcaption>
+                </figure>
+              </div>
+            );
+          } else if (block.type === "youtube") {
+            return (
+              <div key={block.id}>
+                <div className="bl-dp__youtube">
+                  <iframe
+                    className={`youtube-iframe ${
+                      block.value.short ? "youtube-short" : ""
+                    }`}
+                    src={`${block.value.src}?modestbranding=1&controls=0&rel=0`}
+                    title="YouTube video player"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </div>
+            );
+          } else if (block.type === "conversation") {
+            const p1 = block.value.person_one_name;
+            const p2 = block.value.person_two_name;
+            return (
+              <div key={block.id} className="g-narrow-container">
+                <h3>{block.value.title}</h3>
+                <p>{block.value.intro}</p>
+                <div className="bl-dp__teach">
+                  <div className="bl-dp__teach__header">
+                    Learn from this conversation!
+                  </div>
+                  <table className="bl-dp__conversation">
+                    <tbody>
+                      {block.value.conversation.map((lines: any) => {
+                        return (
+                          <React.Fragment key={lines.person_one.slice(0, 10)}>
+                            <tr>
+                              <td>{p1}</td>
+                              <td>:</td> <td>{lines.person_one}</td>
+                            </tr>
+                            <tr>
+                              <td>{p2}</td>
+                              <td>:</td> <td>{lines.person_two}</td>
+                            </tr>
+                          </React.Fragment>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            );
+          } else if (block.type === "mc_questions") {
+            return <MCQuestions key={block.id} value={block.value} />;
+          } else if (block.type === "examples_list") {
+            const examples = block.value.sentences_list;
+            return (
+              <div key={block.id} className="g-narrow-container">
+                <div className="bl-dp__teach">
+                  <div className="bl-dp__teach__header">
+                    Let's read and learn!
+                  </div>
+                  {examples.map((s, i) => (
+                    <div
+                      className="bl-dp__example-s"
+                      key={i}
+                      dangerouslySetInnerHTML={{ __html: s }}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          } else if (block.type === "wrong_right_list") {
+            const list = block.value.wrong_right_list;
+            return (
+              <div key={block.id} className="g-narrow-container">
+                <div className="bl-dp__teach">
+                  <div className="bl-dp__teach__header">
+                    Incorrect and Correct!
+                  </div>
+                  {list.map((s, i) => {
+                    return (
+                      <div key={i} className="bl-dp__wr">
+                        <div className="bl-dp__wr--wrong">
+                          <RiEmotionUnhappyLine />
+                          <p>{s.wrong}</p>
+                        </div>
+                        <div className="bl-dp__wr--right">
+                          <RiEmotionHappyLine />
+                          <p>{s.right}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          } else {
+            return null;
+          }
+        })}
+      </section>
     </>
   );
 }
