@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import * as React from "react";
 
 import type { Route } from "./+types/blog-lessons-detail";
+import { AiOutlineCalendar, AiOutlineClockCircle } from "react-icons/ai";
 import { BASE_API_URL, BASE_BACK_URL } from "~/.server/env";
 import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
 //css
@@ -162,6 +163,8 @@ export default function BlogLessonsDetail({
   loaderData,
 }: Route.ComponentProps) {
   const { page, base_back_url } = loaderData;
+  const pubDate = new Date(page.published_date);
+
   return (
     <>
       {/* Meta tags*/}
@@ -172,7 +175,67 @@ export default function BlogLessonsDetail({
         name="description"
         content={getDesc({ desc: page.display_tagline, isHome: false })}
       />
-      <div>Page here</div>
+      {/* Meta tags END*/}
+
+      <header className="bl-dp-header">
+        <div className="g-basic-container">
+          <div className="bl-dp-header__titles">
+            <h1>
+              {page.display_title}
+              <span>{page.title}</span>
+            </h1>
+            <p>{page.display_tagline}</p>
+          </div>
+        </div>
+
+        <div className="g-basic-container">
+          <div className="bl-dp-header__details">
+            <div className="bl-dp-header__details__author">
+              <Link to={`/staff/${page.author.slug}`}>
+                <img
+                  src={`${base_back_url}${page.author.image.thumbnail.src}`}
+                  alt={page.author.image.thumbnail.alt}
+                />
+              </Link>
+              <p>
+                <span>By </span>
+                <Link to={`/staff/${page.author.slug}`}>
+                  {page.author.name}
+                </Link>
+              </p>
+            </div>
+            <div className="bl-dp-header__details__date">
+              <AiOutlineCalendar />
+              <p>
+                {" "}
+                {`${pubDate.getFullYear()}.${
+                  pubDate.getMonth() + 1
+                }.${pubDate.getDate()}`}
+              </p>
+            </div>
+            <div className="bl-dp-header__details__learn">
+              <AiOutlineClockCircle />
+              <p>
+                <span>この記事は</span>
+                {page.estimated_time}分で読めます
+              </p>
+            </div>
+            <Link
+              to={`/blog-lessons?category=${page.category.ja_name}`}
+              className="bl-dp-header__details__cat"
+            >
+              {page.category.ja_name}
+            </Link>
+          </div>
+        </div>
+
+        <div className="bl-dp-header__img-wrap">
+          <img
+            src={`${base_back_url}${page.header_image.medium.src}`}
+            alt={page.header_image.title}
+          />
+        </div>
+      </header>
     </>
   );
 }
