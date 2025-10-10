@@ -158,7 +158,6 @@ export async function loader({ params }: Route.LoaderArgs) {
   let page = blogDetailPageResult.data.items[0];
   page = multipleChoiceCreator(page);
 
-  console.dir(page, { depth: null });
   return { page, base_back_url: BASE_BACK_URL };
 }
 
