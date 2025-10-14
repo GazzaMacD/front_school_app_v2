@@ -3,6 +3,7 @@ import { Link, redirect } from "react-router";
 import type { Route } from "./+types/contact-success";
 import { HeadingOne } from "~/components/headings";
 import { Swoosh1 } from "~/components/swooshes";
+import { getTitle, getDesc } from "~/common/utils";
 
 export function loader({ request }: Route.LoaderArgs) {
   const referer = request.headers.get("referer");
@@ -16,6 +17,22 @@ export function loader({ request }: Route.LoaderArgs) {
 export default function ContactSuccess() {
   return (
     <>
+      {/* Meta tags*/}
+      <title>
+        {getTitle({
+          title: `送信しました・Success`,
+          isHome: false,
+        })}
+      </title>
+      <meta
+        name="description"
+        content={getDesc({
+          desc: "お問い合わせいただき誠にありがとうございます。こちらから改めてご連絡させていただきますのでお待ち下さいませ",
+          isHome: false,
+        })}
+      />
+      {/* Meta tags END*/}
+
       <div className="ct-success">
         <div className="g-narrow-container">
           <div className="ct-success__heading">
