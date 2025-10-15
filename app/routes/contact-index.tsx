@@ -219,6 +219,45 @@ export default function ContactIndex({ loaderData }: Route.ComponentProps) {
             </div>
           </div>
         </section>
+
+        <section id="telephone">
+          <div className="ct-tel">
+            <div className="g-narrow-container">
+              <div className="ct-tel__heading">
+                <HeadingOne
+                  enText={page.tel_en_title}
+                  jpText={page.tel_jp_title}
+                  align="center"
+                  bkground="light"
+                  level="h2"
+                />
+              </div>
+
+              <div className="ct-tel__details">
+                <Link className="ct-tel__link" to={`tel:${page.tel_number}`}>
+                  <FaMobileAlt />
+                  <div>
+                    {page.tel_display_number}
+                    <span>タップして電話をかける</span>
+                  </div>
+                </Link>
+                <div className="ct-tel__times">
+                  <div className="ct-tel__times__label">
+                    <span>電話受付時間</span>
+                  </div>
+                  <div className="ct-tel__times__time">
+                    <span>火/水/木/金/土</span>
+                    <span>09:00 - 17:00</span>
+                  </div>
+                  <div className="ct-tel__times__time">
+                    <span>日/月/祝</span>
+                    <span>休業</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </SlidingHeaderPage>
     </>
   );
