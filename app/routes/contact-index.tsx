@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { FaCaretDown, FaArrowDown, FaArrowRightLong } from "react-icons/fa6";
 import { FaMobileAlt } from "react-icons/fa";
 
@@ -12,6 +13,34 @@ import type { TDetailMeta, TFullImage } from "~/common/types";
 /**
  * Helpers
  */
+
+const contactMenu: TContactMenu = [
+  {
+    id: 1,
+    text: "レベルチェックと体験レッスン",
+    url: "#trial",
+  },
+  {
+    id: 2,
+    text: "ラーニング・エクスペリエンス",
+    url: "#experience",
+  },
+  {
+    id: 3,
+    text: "よくある質問",
+    url: "#q&a",
+  },
+  {
+    id: 4,
+    text: "お電話でのお問い合わせ",
+    url: "#telephone",
+  },
+  {
+    id: 5,
+    text: "お問い合わせフォーム",
+    url: "#form",
+  },
+];
 
 /**
  * Loaders and Actions
@@ -46,12 +75,68 @@ export async function loader({ context }: Route.LoaderArgs) {
  */
 export default function ContactIndex({ loaderData }: Route.ComponentProps) {
   const { page, base_back_url } = loaderData;
-  return <div>Page here</div>;
+  return (
+    <>
+      {/* Meta tags*/}
+      <title>
+        {getTitle({
+          title: `${page.display_title}・${page.title}`,
+          isHome: false,
+        })}
+      </title>
+      <meta name="description" content={getDesc({ desc: "", isHome: false })} />
+      {/* Meta tags END*/}
+
+      <SlidingHeaderPage
+        mainTitle={page.title}
+        subTitle={page.display_title}
+        swooshBackColor="cream"
+        swooshFrontColor="beige"
+      >
+        <div className="ct-nav">
+          {contactMenu.map((item) => {
+            return <PageNav key={item.id} text={item.text} url={item.url} />;
+          })}
+        </div>
+        <div>Page here</div>
+      </SlidingHeaderPage>
+    </>
+  );
+}
+
+/*
+ * Components
+ */
+
+type TPageNavProps = {
+  text: string;
+  url: string;
+};
+
+function PageNav({ text, url }: TPageNavProps) {
+  return (
+    <Link className="ct-nav__link " to={url}>
+      <div className="ct-nav__btn">
+        <div className="ct-nav__icon">
+          <FaArrowDown />
+        </div>
+        <div className="ct-nav__text">{text}</div>
+      </div>
+    </Link>
+  );
 }
 
 /**
  * Types
  */
+type TContactMenuItem = {
+  id: number;
+  text: string;
+  url: string;
+};
+
+type TContactMenu = TContactMenuItem[];
+
 type TQAndABlock = {
   type: "q_and_a";
   value: {
