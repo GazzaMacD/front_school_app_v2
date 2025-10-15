@@ -258,6 +258,62 @@ export default function ContactIndex({ loaderData }: Route.ComponentProps) {
             </div>
           </div>
         </section>
+
+        <section id="form">
+          <div className="ct-form">
+            <div className="g-narrow-container">
+              <div className="ct-form__heading">
+                <HeadingOne
+                  enText={page.form_en_title}
+                  jpText={page.form_jp_title}
+                  align="center"
+                  bkground="light"
+                  level="h2"
+                />
+              </div>
+              <div className="ct-form__wrapper">
+                <div className="ct-form__msg">
+                  <p>
+                    <Link to="#trial">
+                      無料レベルチェック・無料体験レッスン
+                    </Link>
+                    や<Link to="#experience">ラーニング・エクスペリエンス</Link>
+                    またスクールへのお問い合わせは、こちらのお問い合わせフォームをご利用ください。
+                    お問い合わせ受付は火曜日〜土曜日です。（日・月・祝、またGWやお盆、年末年始は休校です。その際は翌営業日以降に出来るだけ早くご連絡させていただきます。）
+                  </p>
+                  <p>
+                    無料レベルチェックレッスンをご希望の方は、ご希望の旨と下記項目をご記載ください。
+                  </p>
+                  <ol>
+                    <li>レベルチェックレッスンのご希望日時（第3希望まで）</li>
+                    <ul>
+                      <li>レッスンは毎時ちょうどから50分間です。</li>
+                      <li>
+                        ご受講時間帯　火～金：8時～21時（21時開始が最終）、土：8時～18時（18時開始が最終）
+                      </li>
+                      <li>日・月・祝日は休校です。</li>
+                    </ul>
+                    <li>受講ご希望校舎（はなみずき通校／オンライン）</li>
+                    <li>
+                      レベルチェックレッスンの形式のご希望（対面／オンライン）
+                    </li>
+                    <li>
+                      オンライン受講をご希望の場合、ご希望の形式（Zoom／Google
+                      Meet／Skype）
+                    </li>
+                    <ul>
+                      <li>
+                        三好丘校または伏見校は開校時間が異なる場合がございますので、こちらのフォームからご希望校をお知らせください。
+                      </li>
+                    </ul>
+                  </ol>
+                </div>
+
+                <div>{"FORM HERE -->"} </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </SlidingHeaderPage>
     </>
   );
