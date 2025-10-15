@@ -72,7 +72,7 @@ export default function CoursesDetail({ loaderData }: Route.ComponentProps) {
       </title>
       <meta
         name="description"
-        content={getDesc({ desc: page.display_title, isHome: false })}
+        content={getDesc({ desc: page.display_tagline, isHome: false })}
       />
       {/* Meta tags END*/}
 
