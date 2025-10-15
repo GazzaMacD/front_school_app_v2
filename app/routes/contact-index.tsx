@@ -145,6 +145,53 @@ export default function ContactIndex({ loaderData }: Route.ComponentProps) {
             </div>
           </div>
         </section>
+
+        <section id="experience">
+          <div className="ct-texp">
+            <div className="g-narrow-container">
+              <div className="ct-texp__heading">
+                <HeadingOne
+                  enText={page.exp_en_title}
+                  jpText={page.exp_jp_title}
+                  align="center"
+                  bkground="light"
+                  level="h2"
+                />
+              </div>
+              <div
+                className="ct-texp__intro"
+                dangerouslySetInnerHTML={{ __html: page.exp_intro }}
+              />
+              <div className="ct-texp__steps">
+                {page.exp_steps.map((step, i, arr) => {
+                  const len = arr.length;
+                  return (
+                    <div key={step.id}>
+                      <NumberedHorizontalCards
+                        number={`0${i + 1}`}
+                        jaTitle={step.value.title}
+                        text={step.value.text}
+                        src={
+                          step.value.image
+                            ? `${base_back_url}${step.value.image.thumbnail.src}`
+                            : null
+                        }
+                        alt={
+                          step.value.image ? step.value.image.medium.alt : null
+                        }
+                      />
+                      {i + 1 < len ? (
+                        <div className="ct-texp__step__caret">
+                          <FaCaretDown />
+                        </div>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
       </SlidingHeaderPage>
     </>
   );
