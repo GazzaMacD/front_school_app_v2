@@ -1,4 +1,5 @@
-import { Link } from "react-router";
+import * as React from "react";
+import { Link, useNavigation, Form, data, redirect } from "react-router";
 import { FaCaretDown, FaArrowDown, FaArrowRightLong } from "react-icons/fa6";
 import { FaMobileAlt } from "react-icons/fa";
 
@@ -8,6 +9,7 @@ import { HeadingOne } from "~/components/headings";
 import { NumberedHorizontalCards } from "~/components/cards";
 import { SlidingHeaderPage } from "~/components/pages";
 import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
+import { MESSAGES } from "~/common/constants";
 import type { TDetailMeta, TFullImage } from "~/common/types";
 
 /**
@@ -42,11 +44,91 @@ const contactMenu: TContactMenu = [
   },
 ];
 
+function validateRequired(value: unknown): string[] {
+  if (!value) {
+    return [MESSAGES["ja"].formRequired];
+  }
+  return [];
+}
+
 /**
  * Loaders and Actions
  */
 export async function action({ request }: Route.ActionArgs) {
-  return null;
+  const formData = await request.formData();
+  const fields = Object.fromEntries(formData);
+
+  const errors: TContactErrors = {
+    non_field_errors: [],
+    name: validateRequired(fields.name),
+    name_en: validateRequired(fields.name_en),
+    email: validateRequired(fields.email),
+    message: validateRequired(fields.message),
+  };
+
+  if (!Object.values(errors).every((v) => !v.length)) {
+    return data(
+      {
+        fields,
+        data: null,
+        errors,
+      },
+      { status: 400 }
+    );
+  }
+
+  /* back end call*/
+  try {
+    const postObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: fields.name,
+        name_en: fields.name_en,
+        contact_emails: [{ email: fields.email }],
+        contact_notes: [{ note: fields.message }],
+      }),
+    };
+
+    const response = await fetch(`${BASE_API_URL}/contact/form/`, postObj);
+
+    const responseData: TContactAPIResponse = await response.json();
+    if (!response.ok) {
+      // errors
+      if (response.status === 422) {
+        // Spam so just send to success page
+        return redirect("/contact/success");
+      }
+      errors.email = responseData.email ? responseData.email : [];
+      errors.message = responseData.contact_notes
+        ? responseData.contact_notes[0].note
+        : [];
+      return data(
+        {
+          fields: fields,
+          data: null,
+          errors,
+        },
+        { status: 400 }
+      );
+    }
+
+    //success
+    return redirect("/contact/success");
+  } catch (error) {
+    // network error
+    errors.non_field_errors = [MESSAGES["ja"].formUnknownError];
+    return data(
+      {
+        fields,
+        data: null,
+        errors,
+      },
+      { status: 400 }
+    );
+  } // catch
 }
 
 export async function loader({ context }: Route.LoaderArgs) {
@@ -73,8 +155,34 @@ export async function loader({ context }: Route.LoaderArgs) {
 /**
  * Page
  */
-export default function ContactIndex({ loaderData }: Route.ComponentProps) {
+export default function ContactIndex({
+  loaderData,
+  actionData,
+}: Route.ComponentProps) {
   const { page, base_back_url } = loaderData;
+
+  let navigation = useNavigation();
+  if (navigation.state !== "idle") {
+    console.log("Nav state not idle");
+  }
+
+  const maxMsgLength = 300;
+  const [remaining, setRemaining] = React.useState(maxMsgLength);
+  const [privacyRead, setPrivacyRead] = React.useState(false);
+  const messageRef = React.useRef<null | HTMLTextAreaElement>(null);
+
+  function messageChangeHandler(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    const num = maxMsgLength - e.currentTarget.value.length;
+    setRemaining(num);
+  }
+
+  React.useEffect(() => {
+    if (messageRef.current) {
+      const len = messageRef.current.value.length;
+      setRemaining(maxMsgLength - len);
+    }
+  }, []);
+
   return (
     <>
       {/* Meta tags*/}
@@ -309,7 +417,207 @@ export default function ContactIndex({ loaderData }: Route.ComponentProps) {
                   </ol>
                 </div>
 
-                <div>{"FORM HERE -->"} </div>
+                <Form
+                  preventScrollReset
+                  action="/contact?index"
+                  className="ct-form__form"
+                  noValidate
+                  method="post"
+                >
+                  {actionData?.errors?.non_field_errors?.length ? (
+                    <div className="g-form__nonfield-errors">
+                      <ul>
+                        {actionData.errors.non_field_errors.map((error) => (
+                          <li role="alert" key={error}>
+                            {error}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+
+                  <div className="g-form__input-group">
+                    <label
+                      className="g-form__text-label g-required"
+                      htmlFor="name-input"
+                    >
+                      お名前（日本語表記）
+                    </label>
+                    <input
+                      type="text"
+                      id="name-input"
+                      name="name"
+                      required
+                      placeholder="例: 山田太郎 | ex. Bob Jones"
+                      defaultValue={actionData?.fields?.name}
+                      aria-invalid={Boolean(actionData?.errors?.name?.length)}
+                      aria-errormessage={
+                        actionData?.errors?.name?.length
+                          ? "name-errors"
+                          : undefined
+                      }
+                    />
+                    {actionData?.errors?.name?.length ? (
+                      <ul
+                        className="g-form__validation-errors"
+                        role="alert"
+                        id="name-errors"
+                      >
+                        {actionData.errors.name.map((error: string) => {
+                          return <li key={error}>{error}</li>;
+                        })}
+                      </ul>
+                    ) : null}
+                  </div>
+
+                  <div className="g-form__input-group">
+                    <label
+                      className="g-form__text-label g-required"
+                      htmlFor="name_en-input"
+                    >
+                      お名前（英語表記）
+                    </label>
+                    <input
+                      type="text"
+                      id="name_en-input"
+                      name="name_en"
+                      required
+                      placeholder="例: Yamada Taro | ex. Bob Jones"
+                      defaultValue={actionData?.fields?.name_en}
+                      aria-invalid={Boolean(
+                        actionData?.errors?.name_en?.length
+                      )}
+                      aria-errormessage={
+                        actionData?.errors?.name_en?.length
+                          ? "name_en-errors"
+                          : undefined
+                      }
+                    />
+                    {actionData?.errors?.name_en?.length ? (
+                      <ul
+                        className="g-form__validation-errors"
+                        role="alert"
+                        id="name_en-errors"
+                      >
+                        {actionData.errors.name_en.map((error: string) => {
+                          return <li key={error}>{error}</li>;
+                        })}
+                      </ul>
+                    ) : null}
+                  </div>
+
+                  <div className="g-form__input-group">
+                    <label
+                      className="g-form__text-label g-required"
+                      htmlFor="email-input"
+                    >
+                      Eメールアドレス
+                    </label>
+                    <input
+                      type="email"
+                      id="email-input"
+                      name="email"
+                      placeholder="例: y.t@abcdz.com | ex. j.b@abcdz.com"
+                      required
+                      defaultValue={actionData?.fields?.email}
+                      aria-invalid={Boolean(actionData?.errors?.email?.length)}
+                      aria-errormessage={
+                        actionData?.errors?.email?.length
+                          ? "email-errors"
+                          : undefined
+                      }
+                    />
+                    {actionData?.errors?.email?.length ? (
+                      <ul
+                        className="g-form__validation-errors"
+                        role="alert"
+                        id="email-errors"
+                      >
+                        {actionData.errors.email.map((error: string) => {
+                          return <li key={error}>{error}</li>;
+                        })}
+                      </ul>
+                    ) : null}
+                  </div>
+
+                  <div className="g-form__input-group ct-form__textarea">
+                    <label
+                      className="g-form__text-label g-required"
+                      htmlFor="message-input"
+                    >
+                      お問い合わせ内容
+                      <span
+                        className={`ct-form__textarea__remaining ${
+                          remaining > 0 ? "yes" : "no"
+                        }`}
+                      >
+                        {remaining}/300 文字
+                      </span>
+                    </label>
+                    <textarea
+                      id="message-input"
+                      maxLength={maxMsgLength}
+                      name="message"
+                      onChange={messageChangeHandler}
+                      ref={messageRef}
+                      defaultValue={actionData?.fields?.message}
+                      aria-invalid={Boolean(
+                        actionData?.errors?.message?.length
+                      )}
+                      aria-errormessage={
+                        actionData?.errors?.message?.length
+                          ? "message-errors"
+                          : undefined
+                      }
+                    ></textarea>
+                    {actionData?.errors?.message?.length ? (
+                      <ul
+                        className="g-form__validation-errors"
+                        role="alert"
+                        id="message-errors"
+                      >
+                        {actionData.errors.message.map((error: string) => {
+                          return <li key={error}>{error}</li>;
+                        })}
+                      </ul>
+                    ) : null}
+                  </div>
+
+                  <div className="ct-form__privacy">
+                    <div>
+                      <input
+                        type="checkbox"
+                        id="privacy-read"
+                        name="privacy-read"
+                        checked={privacyRead}
+                        autoComplete="off"
+                        onChange={() => setPrivacyRead((prev) => !prev)}
+                      />
+                      <label htmlFor="privacy-read">
+                        プライバシーポリシーに同意する
+                      </label>
+                    </div>
+                    <div>
+                      当社のプライバシーポリシーは
+                      <Link
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        to="/privacy"
+                      >
+                        こちら
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="ct-form__submit">
+                    <button
+                      disabled={!privacyRead || navigation.state !== "idle"}
+                      type="submit"
+                    >
+                      {navigation.state === "idle" ? "送信する" : "送信中"}
+                      <FaArrowRightLong />
+                    </button>
+                  </div>
+                </Form>
               </div>
             </div>
           </div>
@@ -396,4 +704,30 @@ type TContactPage = {
 type TContactPageResult = {
   meta: { total_count: number };
   items: TContactPage[];
+};
+
+// action types
+type TContactAPIResponse = {
+  details?: "ok";
+  email?: string[];
+  contact_notes?: {
+    note: string[];
+  }[];
+};
+type TContactErrors = {
+  non_field_errors?: string[];
+  name?: string[];
+  name_en?: string[];
+  email?: string[];
+  message?: string[];
+};
+type TContactActionResponse = {
+  fields: {
+    name: string;
+    name_en: string;
+    email: string;
+    message: string;
+  } | null;
+  data: { details: "ok" } | null;
+  errors: TContactErrors;
 };

@@ -9,3 +9,16 @@ export const SOCIAL_URLS = {
   youtube: "https://www.youtube.com/@learnwithxlingual1908/",
   facebook: "https://www.facebook.com/xlingual/",
 };
+
+// Messages Dictionary
+export const MESSAGES = {
+  ja: {
+    formRequired: "この項目は必須です",
+    formUnknownError:
+      "申し訳ありませんが、エラーが発生しました。もう一度お試しください。",
+  },
+  en: {
+    formRequired: "This field is required",
+    formUnknownError: "Sorry, there has been an error. Please try again",
+  },
+};
