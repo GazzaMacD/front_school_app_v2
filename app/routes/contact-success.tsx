@@ -1,4 +1,5 @@
 import { Link, redirect } from "react-router";
+import * as React from "react";
 
 import type { Route } from "./+types/contact-success";
 import { HeadingOne } from "~/components/headings";
@@ -15,6 +16,10 @@ export function loader({ request }: Route.LoaderArgs) {
 }
 
 export default function ContactSuccess() {
+  React.useEffect(() => {
+    // To compensate for preventScrollReset in Form
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       {/* Meta tags*/}
