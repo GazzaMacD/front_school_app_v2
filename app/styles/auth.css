@@ -1,0 +1,73 @@
+/* wrappers */
+.au-wrapper {
+  margin: 50px 20px 100px 20px;
+}
+.au-wrapper__inner {
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 380px;
+  background-color: var(--color-brand-white);
+  border-radius: var(--radius-small);
+  box-shadow: 0px 0px 4px 0px rgba(88, 63, 25, 0.2);
+}
+
+@media (min-width: 48rem) {
+  .au-wrapper {
+    margin: 60px 30px 120px 30px;
+  }
+  .au-wrapper__inner {
+    max-width: 480px;
+    padding: 80px;
+    border-radius: var(--radius-medium);
+  }
+}
+
+/* form */
+.au-form {
+}
+.au-form__bottom-message {
+  padding: 40px 0 0 0;
+  text-align: left;
+  font-size: var(--r12px);
+}
+.au-form__bottom-message > p {
+  margin-bottom: 5px;
+}
+.au-form__bottom-message > ul {
+  list-style-position: outside;
+  padding-left: 15px;
+}
+.au-form__message {
+  max-width: 500px;
+  text-align: center;
+  font-size: var(--r14px);
+}
+.au-form__message > p {
+  margin-bottom: 5px;
+}
+.au-form__submit {
+  background-color: var(--color-brand-green);
+  color: var(--color-brand-white);
+  width: 100%;
+  text-align: center;
+  position: relative;
+  border: 2px solid var(--color-brand-green);
+  border-radius: 100px;
+  line-height: 1;
+  font-weight: 600;
+  padding: 12px 26px;
+  transition: all 0.25s ease-in-out;
+}
+.au-form__submit:hover {
+  background-color: var(--color-brand-white);
+  color: var(--color-brand-green);
+}
+.au-form__submit svg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto 30px auto 0;
+  width: 24px;
+  height: 24px;
+}
