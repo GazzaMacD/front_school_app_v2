@@ -13,21 +13,23 @@ import { MESSAGES } from "~/common/constants";
 
 //types
 import type { Route } from "./+types/auth-login";
-import type { TLoginAction, TUserData } from "~/common/types";
+import type { TLoginAction, TUser } from "~/common/types";
 
 /**
  * Helper Functions
  */
-type TGetUserFromMatches = TUserData | null;
+type TGetUserFromMatches = TUser | null;
+type TUIData = { user: TUser } | undefined;
 
 function getUserFromMatches(
   routeId: string,
-  matches: UIMatch[]
-): TGetUserDataFromMatches {
+  matches: UIMatch<TUIData>[]
+): TGetUserFromMatches {
   const filtered = matches.filter((match) => match.data?.user);
   if (!filtered.length) return null;
-
-  return filtered[0].data.user;
+  const user = filtered[0].data?.user;
+  if (!user) return null;
+  return user;
 }
 
 /**
