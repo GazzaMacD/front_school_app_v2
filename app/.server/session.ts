@@ -86,6 +86,51 @@ function getUserSession(request: Request) {
 /*
  * Auth Functions
  */
+
+export async function login({
+  email,
+  password,
+}: TLogin): Promise<TLoginResponse> {
+  try {
+    const apiUrl = `${BASE_API_URL}/auth/login/`;
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+      return {
+        success: false,
+        status: response.status,
+        data: null,
+        errors: responseData,
+      };
+    }
+    return {
+      success: true,
+      status: 200,
+      data: responseData,
+      errors: null,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      status: 500,
+      data: null,
+      errors: {
+        non_field_errors: [MESSAGES["ja"].networkError],
+      },
+    };
+  }
+}
+
 /* reset confirm */
 export async function resetConfirm({
   uid,
@@ -245,47 +290,6 @@ export async function register({
       }),
     });
     const data: TRegisterOk | TRegisterFail = await response.json();
-    if (!response.ok) {
-      return {
-        success: false,
-        status: response.status,
-        data: data,
-      };
-    }
-    return {
-      success: true,
-      status: response.status,
-      data: data,
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      success: false,
-      status: 500,
-      data: {
-        non_field_errors: [MESSAGES["ja"].networkError],
-      },
-    };
-  }
-}
-
-export async function login({
-  email,
-  password,
-}: TLogin): Promise<TLoginResponse> {
-  try {
-    const apiUrl = `${BASE_API_URL}/auth/login/`;
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-    const data: TLoginOk | TLoginFail = await response.json();
     if (!response.ok) {
       return {
         success: false,
