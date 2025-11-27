@@ -49,7 +49,7 @@ export async function action({ request }: Route.ActionArgs) {
       { status: 500 }
     );
   }
-}
+} // end action
 
 /**
  * Page
@@ -61,7 +61,13 @@ export default function Login({ actionData }: Route.ComponentProps) {
     <>
       {/* Meta tags*/}
       <title>{getTitle({ title: "Login・ログイン", isHome: false })}</title>
-      <meta name="description" content={getDesc({ desc: "", isHome: false })} />
+      <meta
+        name="description"
+        content={getDesc({
+          desc: "XLingualのログインフォームページ",
+          isHome: false,
+        })}
+      />
       {/* Meta tags END*/}
 
       <header className="au-header">
@@ -75,6 +81,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
             name="redirectTo"
             value={searchParams.get("redirectTo") ?? undefined}
           />
+
           {actionData?.errors?.non_field_errors ? (
             <div className="g-form__nonfield-errors">
               <ul>
@@ -86,6 +93,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
               </ul>
             </div>
           ) : null}
+
           <div className="g-form__input-group">
             <label
               className="g-form__text-label g-required"
