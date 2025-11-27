@@ -1,4 +1,10 @@
-import { data, Link, useSearchParams } from "react-router";
+import {
+  data,
+  Link,
+  useSearchParams,
+  useMatches,
+  type UIMatch,
+} from "react-router";
 
 import { getTitle, getDesc } from "~/common/utils";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -7,7 +13,22 @@ import { MESSAGES } from "~/common/constants";
 
 //types
 import type { Route } from "./+types/auth-login";
-import type { TLoginAction, TLoginOk, TLoginFail } from "~/common/types";
+import type { TLoginAction, TUserData } from "~/common/types";
+
+/**
+ * Helper Functions
+ */
+type TGetUserFromMatches = TUserData | null;
+
+function getUserFromMatches(
+  routeId: string,
+  matches: UIMatch[]
+): TGetUserDataFromMatches {
+  const filtered = matches.filter((match) => match.data?.user);
+  if (!filtered.length) return null;
+
+  return filtered[0].data.user;
+}
 
 /**
  * Loaders and Actions
@@ -55,6 +76,10 @@ export async function action({ request }: Route.ActionArgs) {
  * Page
  */
 export default function Login({ actionData }: Route.ComponentProps) {
+  const matches = useMatches();
+  const user = getUserFromMatches("layouts/front", matches);
+  console.log(user);
+
   const [searchParams] = useSearchParams();
 
   return (
@@ -74,105 +99,116 @@ export default function Login({ actionData }: Route.ComponentProps) {
         <h1 className="au-header__title">Login</h1>
         <h5 className="au-header__subtitle">ログイン</h5>
       </header>
-      <main>
-        <form className="au-form g-form" noValidate method="post">
-          <input
-            type="hidden"
-            name="redirectTo"
-            value={searchParams.get("redirectTo") ?? undefined}
-          />
+      {!user ? (
+        <>
+          <main>
+            <form className="au-form g-form" noValidate method="post">
+              <input
+                type="hidden"
+                name="redirectTo"
+                value={searchParams.get("redirectTo") ?? undefined}
+              />
 
-          {actionData?.errors?.non_field_errors ? (
-            <div className="g-form__nonfield-errors">
-              <ul>
-                {actionData.errors.non_field_errors.map((error) => (
-                  <li role="alert" key={error}>
-                    {error}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
+              {actionData?.errors?.non_field_errors ? (
+                <div className="g-form__nonfield-errors">
+                  <ul>
+                    {actionData.errors.non_field_errors.map((error) => (
+                      <li role="alert" key={error}>
+                        {error}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
 
-          <div className="g-form__input-group">
-            <label
-              className="g-form__text-label g-required"
-              htmlFor="email-input"
-            >
-              Eメールアドレス
-            </label>
-            <input
-              type="email"
-              id="email-input"
-              name="email"
-              required
-              defaultValue={actionData?.fields?.email}
-              aria-invalid={Boolean(actionData?.errors?.email?.length)}
-              aria-errormessage={
-                actionData?.errors?.email?.length ? "email-errors" : undefined
-              }
-            />
-            {actionData?.errors?.email?.length ? (
-              <ul
-                className="g-form__validation-errors"
-                role="alert"
-                id="email-errors"
-              >
-                {actionData.errors.email.map((error: string) => {
-                  return <li key={error}>{error}</li>;
-                })}
-              </ul>
-            ) : null}
-          </div>
+              <div className="g-form__input-group">
+                <label
+                  className="g-form__text-label g-required"
+                  htmlFor="email-input"
+                >
+                  Eメールアドレス
+                </label>
+                <input
+                  type="email"
+                  id="email-input"
+                  name="email"
+                  required
+                  defaultValue={actionData?.fields?.email}
+                  aria-invalid={Boolean(actionData?.errors?.email?.length)}
+                  aria-errormessage={
+                    actionData?.errors?.email?.length
+                      ? "email-errors"
+                      : undefined
+                  }
+                />
+                {actionData?.errors?.email?.length ? (
+                  <ul
+                    className="g-form__validation-errors"
+                    role="alert"
+                    id="email-errors"
+                  >
+                    {actionData.errors.email.map((error: string) => {
+                      return <li key={error}>{error}</li>;
+                    })}
+                  </ul>
+                ) : null}
+              </div>
 
-          <div className="g-form__input-group">
-            <label
-              className="g-form__text-label g-required"
-              htmlFor="password-input"
-            >
-              パスワード
-            </label>
-            <input
-              type="password"
-              id="password-input"
-              name="password"
-              defaultValue={actionData?.fields?.password}
-              aria-invalid={Boolean(actionData?.errors?.password?.length)}
-              aria-errormessage={
-                actionData?.errors?.password?.length
-                  ? "password-errors"
-                  : undefined
-              }
-            />
-            {actionData?.errors?.password?.length ? (
-              <ul
-                className="g-form__validation-errors"
-                role="alert"
-                id="password-errors"
-              >
-                {actionData.errors.password.map((error: string) => {
-                  return <li key={error}>{error}</li>;
-                })}
-              </ul>
-            ) : null}
-          </div>
+              <div className="g-form__input-group">
+                <label
+                  className="g-form__text-label g-required"
+                  htmlFor="password-input"
+                >
+                  パスワード
+                </label>
+                <input
+                  type="password"
+                  id="password-input"
+                  name="password"
+                  defaultValue={actionData?.fields?.password}
+                  aria-invalid={Boolean(actionData?.errors?.password?.length)}
+                  aria-errormessage={
+                    actionData?.errors?.password?.length
+                      ? "password-errors"
+                      : undefined
+                  }
+                />
+                {actionData?.errors?.password?.length ? (
+                  <ul
+                    className="g-form__validation-errors"
+                    role="alert"
+                    id="password-errors"
+                  >
+                    {actionData.errors.password.map((error: string) => {
+                      return <li key={error}>{error}</li>;
+                    })}
+                  </ul>
+                ) : null}
+              </div>
 
-          <div className="g-form__submit">
-            <button type="submit">
-              ログイン
-              <FaArrowRightLong />
-            </button>
-          </div>
-        </form>
-      </main>
-      <footer className="au-footer">
-        <p>
-          初めてのご利用ですか？ <Link to="/register">新規登録はこちら</Link>
-        </p>
-        <p>
-          <Link to="/password-reset">パスワードを忘れた場合</Link>
-        </p>
-      </footer>
+              <div className="g-form__submit">
+                <button type="submit">
+                  ログイン
+                  <FaArrowRightLong />
+                </button>
+              </div>
+            </form>
+          </main>
+          <footer className="au-footer">
+            <p>
+              初めてのご利用ですか？{" "}
+              <Link to="/register">新規登録はこちら</Link>
+            </p>
+            <p>
+              <Link to="/password-reset">パスワードを忘れた場合</Link>
+            </p>
+          </footer>
+        </>
+      ) : (
+        <footer className="au-footer">
+          <p>{`メールアドレス「${user.email}」でログインしています`}</p>
+        </footer>
+      )}
     </>
   );
 }
