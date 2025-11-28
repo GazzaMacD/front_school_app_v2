@@ -79,7 +79,7 @@
 .au-form__message {
   max-width: 500px;
   text-align: center;
-  font-size: var(--r14px);
+  font-size: var(--r12px);
 }
 .au-form__message > p {
   margin-bottom: 5px;

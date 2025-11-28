@@ -1,16 +1,54 @@
-import { useMatches, Link } from "react-router";
+import { redirect, data, useMatches, Link } from "react-router";
 
 import { getUserFromMatches, getTitle, getDesc } from "~/common/utils";
+import { register } from "~/.server/session";
+import { MESSAGES } from "~/common/constants";
 
 //types
 import type { Route } from "./+types/auth-register";
+import type { TRegisterActionResponse } from "~/common/types";
 
 /**
  * Loaders and Actions
  */
-export function action({ request }: Route.ActionArgs) {
-  return null;
-}
+export async function action({ request }: Route.ActionArgs) {
+  const form = await request.formData();
+  const email = form.get("email") as string;
+  const password1 = form.get("password1") as string;
+  const password2 = form.get("password2") as string;
+
+  const fields = { email, password1, password2 };
+
+  try {
+    const response = await register({ email, password1, password2 });
+    if (!response.success) {
+      const registerActionData = Object.assign(response, {
+        fields,
+      });
+      return data<TRegisterActionResponse>(registerActionData, {
+        status: response.status,
+      });
+    }
+    //success
+    return redirect("/register-success");
+  } catch (e) {
+    return data<TRegisterActionResponse>(
+      {
+        success: false,
+        status: 500,
+        data: null,
+        errors: {
+          non_field_errors: [MESSAGES["ja"].networkError],
+          email: [],
+          password1: [],
+          password2: [],
+        },
+        fields,
+      },
+      { status: 500 }
+    );
+  }
+} // end action
 
 /**
  * Page

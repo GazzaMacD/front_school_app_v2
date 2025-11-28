@@ -280,25 +280,28 @@ export async function register({
         password2,
       }),
     });
-    const data: TRegisterOk | TRegisterFail = await response.json();
+    const responseData = await response.json();
     if (!response.ok) {
       return {
         success: false,
         status: response.status,
-        data: data,
+        data: null,
+        errors: responseData,
       };
     }
     return {
       success: true,
       status: response.status,
-      data: data,
+      data: responseData,
+      errors: null,
     };
   } catch (error) {
     console.error(error);
     return {
       success: false,
       status: 500,
-      data: {
+      data: null,
+      errors: {
         non_field_errors: [MESSAGES["ja"].networkError],
       },
     };
