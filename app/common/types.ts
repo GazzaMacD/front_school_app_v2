@@ -257,6 +257,7 @@ export type TUser = {
   email: string;
   contact: {
     name: string;
+    name_en: string;
   };
   is_staff: boolean;
   groups: { name: string }[];
@@ -266,6 +267,44 @@ export type TUserData = {
   refresh: string;
   user: TUser;
 };
+
+/* Login */
+export type TLogin = {
+  email: string;
+  password: string;
+};
+export type TLoginFail = TAuthErrorsBase & {
+  email?: string[];
+  password?: string[];
+};
+export type TLoginOk = {
+  access: string;
+  refresh: string;
+  user: TUser;
+};
+
+export type TLoginResponse =
+  | {
+      success: false;
+      status: number;
+      data: null;
+      errors: TLoginFail;
+    }
+  | {
+      success: true;
+      status: number;
+      data: TLoginOk;
+      errors: null;
+    };
+
+export type TLoginAction = {
+  success: false;
+  status: number;
+  data: null;
+  errors: TLoginFail;
+  fields: TLogin;
+};
+
 /* Register */
 export type TRegister = {
   email: string;
@@ -290,32 +329,6 @@ export type TRegisterActionResponse = {
   fields: TRegister | null;
   data: null;
   errors: TRegisterFail | null;
-};
-
-/* Login */
-
-export type TLogin = {
-  email: string;
-  password: string;
-};
-export type TLoginFail = TAuthErrorsBase & {
-  email?: string[];
-  password?: string[];
-};
-export type TLoginOk = {
-  access: string;
-  refresh: string;
-  user: TUser;
-};
-export type TLoginResponse = {
-  success: boolean;
-  status: number;
-  data: TLoginOk | TLoginFail;
-};
-export type TLoginActionResponse = {
-  fields: TLogin | null;
-  data: null;
-  errors: TLoginFail | null;
 };
 
 /* Verify Email */
@@ -374,7 +387,7 @@ export type TResetConfirmActionResponse = {
 };
 
 /* JWT */
-export type TRefreshToken = {
+export type TRefreshedToken = {
   access: string;
   access_expiration: string;
 };
@@ -386,5 +399,5 @@ export type TValidateTokens = {
 export type TValidateTokensResponse = {
   isValid: boolean;
   isNew: boolean;
-  newToken: string | null;
+  accessToken: string | null;
 };

@@ -1,10 +1,15 @@
 import type { Route } from "./+types/auth-login";
+import { redirect } from "react-router";
 
-export function loader({ context }: Route.LoaderArgs) {
-  return { message: "Logout Route" };
+import { logout } from "~/.server/session";
+
+/**
+ * Loaders and Actions
+ */
+export async function action({ request }: Route.ActionArgs) {
+  return logout(request);
 }
 
-export default function Logout({ loaderData }: Route.ComponentProps) {
-  const { message } = loaderData;
-  return <div>{message}</div>;
+export async function loader() {
+  return redirect("/");
 }

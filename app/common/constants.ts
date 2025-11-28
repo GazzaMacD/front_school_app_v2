@@ -15,10 +15,14 @@ export const MESSAGES = {
   ja: {
     formRequired: "この項目は必須です",
     formUnknownError:
-      "申し訳ありませんが、エラーが発生しました。もう一度お試しください。",
+      "申し訳ありませんが、エラーが発生しました。もう一度お試しください",
+    networkError:
+      "申し訳ありませんが、ネットワークに問題が発生しているようです",
   },
+
   en: {
     formRequired: "This field is required",
     formUnknownError: "Sorry, there has been an error. Please try again",
+    networkError: "Sorry there seems to be a network problem",
   },
 };
