@@ -12,7 +12,7 @@ import type {
   TLoginFail,
   TLoginOk,
   TLoginResponse,
-  TRefreshToken,
+  TRefreshedToken,
   TRegister,
   TRegisterFail,
   TRegisterOk,
@@ -87,6 +87,7 @@ function getUserSession(request: Request) {
  * Auth Functions
  */
 
+// Login
 export async function login({
   email,
   password,
@@ -261,16 +262,6 @@ export async function verifyEmail({
   }
 } //verifyEmail
 
-export async function logout(request: Request, redirectPath = "/") {
-  const session = await getUserSession(request);
-  // NOTE: NEED TO CALL LOGOUT IN BACKEND HERE
-  return redirect(redirectPath, {
-    headers: {
-      "Set-Cookie": await storage.destroySession(session),
-    },
-  });
-} //logout
-
 export async function register({
   email,
   password1,
@@ -314,14 +305,54 @@ export async function register({
   }
 }
 
+// Logout
+export async function logout(request: Request, redirectPath = "/") {
+  const session = await getUserSession(request);
+  const sessionData: TUserData | undefined = session.get(SESSION_NAME);
+
+  // No userData
+  if (!sessionData) {
+    return redirect(redirectPath);
+  }
+
+  //Get valid token or no token
+  const validRes = await validateTokens({
+    accessToken: sessionData.access,
+    refreshToken: sessionData.refresh,
+  });
+
+  // if no token - session is dead anyway so destroy session
+  if (!validRes.isValid && !validRes.isNew && !validRes.accessToken) {
+    return redirect(redirectPath, {
+      headers: {
+        "Set-Cookie": await storage.destroySession(session),
+      },
+    });
+  }
+
+  // if token -> logout backend -> destroy sesson
+  if (validRes.isValid && validRes.accessToken) {
+    const logoutUrl = `${BASE_API_URL}/auth/logout/`;
+    const headers = await createAuthenticatedHeaders(validRes.accessToken);
+    await fetch(logoutUrl, { method: "POST", headers });
+  }
+
+  // Destroy session in all cases
+  return redirect(redirectPath, {
+    headers: {
+      "Set-Cookie": await storage.destroySession(session),
+    },
+  });
+} //logout
+
 /**
  * User and Access functions
  */
-export function createAuthenticatedHeaders(userData: TUserData) {
+export async function createAuthenticatedHeaders(accessToken: string) {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
   headers.append("Accept", "application/json");
-  headers.append("Authorization", `Bearer ${userData.access}`);
+  headers.append("Authorization", `Bearer ${accessToken}`);
   return headers;
 }
 
@@ -352,11 +383,11 @@ export async function authenticatedUser(
   } else if (
     validatedResponse.isValid &&
     validatedResponse.isNew &&
-    validatedResponse.newToken
+    validatedResponse.accessToken
   ) {
     // THe access token has been renewed so session needs to be updated
     // and the cookie set again
-    sessionData.access = validatedResponse.newToken;
+    sessionData.access = validatedResponse.accessToken;
     session.set(SESSION_NAME, sessionData);
     throw redirect(redirectPath, {
       headers: {
@@ -389,9 +420,11 @@ async function verifyAccessToken(accessToken: string): Promise<boolean> {
     console.error(error);
     return false;
   }
-} //validateToken
+} //verifyAccessToken
 
-async function getRefreshToken(refreshToken: string): Promise<string | null> {
+async function getNewAccessTokenFromRefresh(
+  refreshToken: string
+): Promise<string | null> {
   const refreshUrl = `${BASE_API_URL}/auth/token/refresh/`;
   try {
     const res = await fetch(refreshUrl, {
@@ -405,8 +438,8 @@ async function getRefreshToken(refreshToken: string): Promise<string | null> {
       //if not 200 return null
       return null;
     }
-    const resData: TRefreshToken = await res.json();
-    return resData.access;
+    const data: TRefreshedToken = await res.json();
+    return data.access;
   } catch (error) {
     // 500 errors or other unknown
     console.error(error);
@@ -423,23 +456,23 @@ async function validateTokens({
     return {
       isValid: true,
       isNew: false,
-      newToken: null,
+      accessToken: accessToken,
     };
   }
   // notVerified so try to get new token using refresh token
-  const newToken = await getRefreshToken(refreshToken);
-  if (!newToken) {
+  const newAccessToken = await getNewAccessTokenFromRefresh(refreshToken);
+  if (!newAccessToken) {
     // calling function must destroy session with logout
     return {
       isValid: false,
       isNew: false,
-      newToken: null,
+      accessToken: null,
     };
   }
-  //has new Token, calling function must set new session
+  //has new access Token, calling function must set new session
   return {
     isValid: true,
     isNew: true,
-    newToken,
+    accessToken: newAccessToken,
   };
 }

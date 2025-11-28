@@ -21,10 +21,7 @@ import type { TLoginAction, TUser } from "~/common/types";
 type TGetUserFromMatches = TUser | null;
 type TUIData = { user: TUser } | undefined;
 
-function getUserFromMatches(
-  routeId: string,
-  matches: UIMatch<TUIData>[]
-): TGetUserFromMatches {
+function getUserFromMatches(matches: UIMatch<TUIData>[]): TGetUserFromMatches {
   const filtered = matches.filter((match) => match.data?.user);
   if (!filtered.length) return null;
   const user = filtered[0].data?.user;
@@ -79,9 +76,7 @@ export async function action({ request }: Route.ActionArgs) {
  */
 export default function Login({ actionData }: Route.ComponentProps) {
   const matches = useMatches();
-  const user = getUserFromMatches("layouts/front", matches);
-  console.log(user);
-
+  const user = getUserFromMatches(matches);
   const [searchParams] = useSearchParams();
 
   return (

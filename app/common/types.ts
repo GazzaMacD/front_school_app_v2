@@ -387,7 +387,7 @@ export type TResetConfirmActionResponse = {
 };
 
 /* JWT */
-export type TRefreshToken = {
+export type TRefreshedToken = {
   access: string;
   access_expiration: string;
 };
@@ -399,5 +399,5 @@ export type TValidateTokens = {
 export type TValidateTokensResponse = {
   isValid: boolean;
   isNew: boolean;
-  newToken: string | null;
+  accessToken: string | null;
 };
