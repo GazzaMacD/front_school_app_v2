@@ -20,7 +20,7 @@ import type {
   TUserData,
   TValidateTokens,
   TValidateTokensResponse,
-  TVerifyResponse,
+  TVerifyEmailResponse,
   TPasswordResetErrors,
   TPasswordResetOk,
   TPasswordResetResponse,
@@ -224,7 +224,7 @@ export async function verifyEmail({
   key,
 }: {
   key: string;
-}): Promise<TVerifyResponse> {
+}): Promise<TVerifyEmailResponse> {
   try {
     const response = await fetch(
       `${BASE_API_URL}/auth/registration/verify-email/`,
@@ -241,20 +241,23 @@ export async function verifyEmail({
       return {
         success: false,
         status: response.status,
-        data,
+        data: null,
+        errors: data,
       };
     }
     return {
       success: true,
       status: response.status,
       data,
+      errors: null,
     };
   } catch (error) {
     console.error(error);
     return {
       success: false,
       status: 500,
-      data: {
+      data: null,
+      errors: {
         // NOTE: Why is this different to other functions?
         detail: MESSAGES["ja"].networkError,
       },
@@ -340,7 +343,6 @@ export async function logout(request: Request, redirectPath = "/") {
     await fetch(logoutUrl, { method: "POST", headers });
   }
 
-  // Destroy session in all cases
   return redirect(redirectPath, {
     headers: {
       "Set-Cookie": await storage.destroySession(session),

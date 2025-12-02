@@ -342,15 +342,24 @@ export type TRegisterActionResponse = {
   fields: TRegister;
 };
 
-/* Verify Email */
-
-export type TVerifyResponse = {
-  success: boolean;
+// Verify Email
+type TVerifyEmailFail = {
+  success: false;
   status: number;
-  data: { detail: string };
+  data: null;
+  errors: { detail: string };
 };
 
-/* Reset Password */
+type TVerifyEmailSuccess = {
+  success: true;
+  status: number;
+  data: { detail: string };
+  errors: null;
+};
+
+export type TVerifyEmailResponse = TVerifyEmailSuccess | TVerifyEmailFail;
+
+// Reset Password
 export type TPasswordResetOk = {
   detail: string;
 };
