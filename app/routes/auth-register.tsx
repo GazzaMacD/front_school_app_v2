@@ -1,4 +1,4 @@
-import { redirect, data, useMatches, Link } from "react-router";
+import { redirect, useNavigation, data, useMatches, Link } from "react-router";
 
 import { getUserFromMatches, getTitle, getDesc } from "~/common/utils";
 import { register } from "~/.server/session";
@@ -55,7 +55,9 @@ export async function action({ request }: Route.ActionArgs) {
  */
 export default function Register({ actionData }: Route.ComponentProps) {
   const matches = useMatches();
+  let navigation = useNavigation();
   const user = getUserFromMatches(matches);
+  console.log(navigation);
   return (
     <>
       {/* Meta tags*/}
@@ -199,8 +201,10 @@ export default function Register({ actionData }: Route.ComponentProps) {
                 ) : null}
               </div>
 
-              <div className="g-form__submit">
-                <button type="submit">アカウント作成</button>
+              <div className="g-form__submit au-form__submit">
+                <button type="submit" disabled={navigation.state !== "idle"}>
+                  {navigation.state === "idle" ? "アカウント作成" : "送信中"}
+                </button>
               </div>
             </form>
           </main>
