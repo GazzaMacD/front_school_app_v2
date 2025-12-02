@@ -1,4 +1,11 @@
-import { redirect, useNavigation, data, useMatches, Link } from "react-router";
+import {
+  redirect,
+  useNavigation,
+  Form,
+  data,
+  useMatches,
+  Link,
+} from "react-router";
 
 import { getUserFromMatches, getTitle, getDesc } from "~/common/utils";
 import { register } from "~/.server/session";
@@ -57,7 +64,6 @@ export default function Register({ actionData }: Route.ComponentProps) {
   const matches = useMatches();
   let navigation = useNavigation();
   const user = getUserFromMatches(matches);
-  console.log(navigation);
   return (
     <>
       {/* Meta tags*/}
@@ -95,7 +101,7 @@ export default function Register({ actionData }: Route.ComponentProps) {
                 </li>
               </ul>
             </div>
-            <form noValidate className="au-form g-form" method="post">
+            <Form noValidate className="au-form g-form" method="post">
               {actionData?.errors?.non_field_errors ? (
                 <div className="g-form__nonfield-errors">
                   <ul>
@@ -206,7 +212,7 @@ export default function Register({ actionData }: Route.ComponentProps) {
                   {navigation.state === "idle" ? "アカウント作成" : "送信中"}
                 </button>
               </div>
-            </form>
+            </Form>
           </main>
           <footer className="au-footer">
             <p>
