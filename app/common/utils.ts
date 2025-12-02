@@ -1,4 +1,7 @@
+import type { UIMatch } from "react-router";
+
 import { BASE_TITLE, HOME_DESC } from "./constants";
+import type { TUser } from "./types";
 /*
  * Display functions
  */
@@ -39,6 +42,22 @@ export async function fetchWithMeta<T = unknown>(
   } catch (error) {
     return { success: false, status: 500, error, url };
   }
+}
+
+/**
+ * Route Functions
+ */
+type TGetUserFromMatches = TUser | null;
+type TUIData = { user: TUser } | undefined;
+
+export function getUserFromMatches(
+  matches: UIMatch<TUIData>[]
+): TGetUserFromMatches {
+  const filtered = matches.filter((match) => match.data?.user);
+  if (!filtered.length) return null;
+  const user = filtered[0].data?.user;
+  if (!user) return null;
+  return user;
 }
 
 /*

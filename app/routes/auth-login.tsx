@@ -6,7 +6,7 @@ import {
   type UIMatch,
 } from "react-router";
 
-import { getTitle, getDesc } from "~/common/utils";
+import { getTitle, getDesc, getUserFromMatches } from "~/common/utils";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { login, secureRedirect, createUserSession } from "~/.server/session";
 import { MESSAGES } from "~/common/constants";
@@ -14,20 +14,6 @@ import { MESSAGES } from "~/common/constants";
 //types
 import type { Route } from "./+types/auth-login";
 import type { TLoginAction, TUser } from "~/common/types";
-
-/**
- * Helper Functions
- */
-type TGetUserFromMatches = TUser | null;
-type TUIData = { user: TUser } | undefined;
-
-function getUserFromMatches(matches: UIMatch<TUIData>[]): TGetUserFromMatches {
-  const filtered = matches.filter((match) => match.data?.user);
-  if (!filtered.length) return null;
-  const user = filtered[0].data?.user;
-  if (!user) return null;
-  return user;
-}
 
 /**
  * Loaders and Actions

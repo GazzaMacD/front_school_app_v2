@@ -320,26 +320,46 @@ export type TRegisterOk = {
   detail: string;
 };
 
-export type TRegisterResponse = {
-  success: boolean;
-  status: number;
-  data: TRegisterOk | TRegisterFail;
-};
+export type TRegisterResponse =
+  | {
+      success: false;
+      status: number;
+      data: null;
+      errors: TRegisterFail;
+    }
+  | {
+      success: true;
+      status: number;
+      data: TRegisterOk;
+      errors: null;
+    };
+
 export type TRegisterActionResponse = {
-  fields: TRegister | null;
+  success: false;
+  status: number;
   data: null;
-  errors: TRegisterFail | null;
+  errors: TRegisterFail;
+  fields: TRegister;
 };
 
-/* Verify Email */
+// Verify Email
+type TVerifyEmailFail = {
+  success: false;
+  status: number;
+  data: null;
+  errors: { detail: string };
+};
 
-export type TVerifyResponse = {
-  success: boolean;
+type TVerifyEmailSuccess = {
+  success: true;
   status: number;
   data: { detail: string };
+  errors: null;
 };
 
-/* Reset Password */
+export type TVerifyEmailResponse = TVerifyEmailSuccess | TVerifyEmailFail;
+
+// Reset Password
 export type TPasswordResetOk = {
   detail: string;
 };
