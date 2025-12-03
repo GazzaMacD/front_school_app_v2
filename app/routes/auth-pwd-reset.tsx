@@ -68,6 +68,7 @@ export default function PwdReset({ actionData }: Route.ComponentProps) {
         <h1 className="au-header__title">Password Reset</h1>
         <h5 className="au-header__subtitle">パスワード再設定</h5>
       </header>
+
       <main>
         <Form className="au-form g-form" noValidate method="post">
           {actionData && actionData?.errors?.non_field_errors ? (
