@@ -368,14 +368,22 @@ export type TPasswordResetErrors = TAuthErrorsBase & {
   email?: string[];
 };
 
-export type TPasswordResetResponse = {
-  success: boolean;
-  status: number;
-  data: TPasswordResetOk | TPasswordResetErrors;
-};
+export type TPasswordResetResponse =
+  | {
+      success: false;
+      status: number;
+      data: null;
+      errors: TPasswordResetErrors;
+    }
+  | {
+      success: true;
+      status: number;
+      data: TPasswordResetOk;
+      errors: null;
+    };
 
 export type TPasswordResetActionResponse = {
-  fields: { email: string } | null;
+  fields: { email: string };
   errors: TPasswordResetErrors;
 };
 /* reset confirm */
