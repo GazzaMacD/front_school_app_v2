@@ -383,9 +383,13 @@ export type TPasswordResetResponse =
     };
 
 export type TPasswordResetActionResponse = {
-  fields: { email: string };
+  success: false;
+  status: number;
+  data: null;
   errors: TPasswordResetErrors;
+  fields: { email: string };
 };
+
 /* reset confirm */
 export type TResetConfirm = {
   newPassword1: string;
