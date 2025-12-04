@@ -117,6 +117,7 @@ export default function PwdReset({ actionData }: Route.ComponentProps) {
           <div className="g-form__submit au-form__submit">
             <button type="submit" disabled={navigation.state !== "idle"}>
               {navigation.state === "idle" ? "送信する" : "送信中"}
+              <FaArrowRightLong />
             </button>
           </div>
         </Form>

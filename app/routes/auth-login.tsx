@@ -3,7 +3,8 @@ import {
   Link,
   useSearchParams,
   useMatches,
-  type UIMatch,
+  useNavigation,
+  Form,
 } from "react-router";
 
 import { getTitle, getDesc, getUserFromMatches } from "~/common/utils";
@@ -64,6 +65,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
   const matches = useMatches();
   const user = getUserFromMatches(matches);
   const [searchParams] = useSearchParams();
+  let navigation = useNavigation();
 
   return (
     <>
@@ -85,7 +87,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
       {!user ? (
         <>
           <main>
-            <form className="au-form g-form" noValidate method="post">
+            <Form className="au-form g-form" noValidate method="post">
               <input
                 type="hidden"
                 name="redirectTo"
@@ -169,13 +171,13 @@ export default function Login({ actionData }: Route.ComponentProps) {
                 ) : null}
               </div>
 
-              <div className="g-form__submit">
-                <button type="submit">
-                  ログイン
+              <div className="g-form__submit au-form__submit">
+                <button type="submit" disabled={navigation.state !== "idle"}>
+                  {navigation.state === "idle" ? "ログイン" : "送信中"}
                   <FaArrowRightLong />
                 </button>
               </div>
-            </form>
+            </Form>
           </main>
           <footer className="au-footer">
             <p>
