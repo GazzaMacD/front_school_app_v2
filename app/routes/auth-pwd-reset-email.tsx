@@ -18,9 +18,7 @@ export function loader({ request }: Route.LoaderArgs) {
 /**
  * Page
  */
-export default function PwdResetEmailCheck({
-  loaderData,
-}: Route.ComponentProps) {
+export default function PwdResetEmailCheck() {
   return (
     <>
       {/* Meta tags*/}
