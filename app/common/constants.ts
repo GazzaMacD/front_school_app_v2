@@ -16,6 +16,7 @@ export const MESSAGES = {
     formRequired: "この項目は必須です",
     formUnknownError:
       "申し訳ありませんが、エラーが発生しました。もう一度お試しください",
+    formInvalid: "申し訳ありませんが、このフォームは無効です",
     networkError:
       "申し訳ありませんが、ネットワークに問題が発生しているようです",
   },
@@ -23,6 +24,7 @@ export const MESSAGES = {
   en: {
     formRequired: "This field is required",
     formUnknownError: "Sorry, there has been an error. Please try again",
+    formInvalid: "Sorry this form is invalid",
     networkError: "Sorry there seems to be a network problem",
   },
 };

@@ -346,6 +346,7 @@ a.c-fheader-menu__reglog-link:hover > .c-fheader-menu__reglog {
 .c-fheader-sm__inner__menus > h3 {
   font-size: var(--font-size-l);
   margin: 0 0 20px 0;
+  color: var(--color-brand-green);
 }
 .c-fheader-sm__inner__menus > ul {
   margin: 0 0 40px 0;

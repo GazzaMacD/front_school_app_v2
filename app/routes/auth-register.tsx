@@ -6,6 +6,7 @@ import {
   useMatches,
   Link,
 } from "react-router";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 import { getUserFromMatches, getTitle, getDesc } from "~/common/utils";
 import { register } from "~/.server/session";
@@ -210,6 +211,7 @@ export default function Register({ actionData }: Route.ComponentProps) {
               <div className="g-form__submit au-form__submit">
                 <button type="submit" disabled={navigation.state !== "idle"}>
                   {navigation.state === "idle" ? "アカウント作成" : "送信中"}
+                  <FaArrowRightLong />
                 </button>
               </div>
             </Form>

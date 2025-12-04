@@ -127,12 +127,12 @@ export async function login({
   }
 }
 
-/* reset confirm */
+/* password reset confirm */
 export async function resetConfirm({
   uid,
   token,
-  newPassword1,
-  newPassword2,
+  new_password1,
+  new_password2,
 }: TResetConfirm): Promise<TResetConfirmResponse> {
   try {
     const response = await fetch(
@@ -143,32 +143,35 @@ export async function resetConfirm({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          uid: uid,
-          token: token,
-          new_password1: newPassword1,
-          new_password2: newPassword2,
+          uid,
+          token,
+          new_password1,
+          new_password2,
         }),
       }
     );
-    const data: TResetConfirmErrors | TResetConfirmOk = await response.json();
+    const data = await response.json();
     if (!response.ok) {
       return {
         success: false,
         status: response.status,
-        data: data as TResetConfirmErrors,
+        data: null,
+        errors: data,
       };
     }
     return {
       success: true,
       status: response.status,
-      data: data as TResetConfirmOk,
+      data: data,
+      errors: null,
     };
-  } catch (error) {
-    console.error(error);
+  } catch (e) {
+    console.error(`Error in 'resetConfirm': ${e}`);
     return {
       success: false,
       status: 500,
-      data: {
+      data: null,
+      errors: {
         non_field_errors: [MESSAGES["ja"].networkError],
       },
     };
