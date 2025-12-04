@@ -392,8 +392,8 @@ export type TPasswordResetActionResponse = {
 
 /* reset confirm */
 export type TResetConfirm = {
-  newPassword1: string;
-  newPassword2: string;
+  new_password1: string;
+  new_password2: string;
   uid: number;
   token: string;
 };
@@ -407,15 +407,26 @@ export type TResetConfirmOk = {
   detail: string;
 };
 
-export type TResetConfirmResponse = {
-  success: boolean;
-  status: number;
-  data: TResetConfirmOk | TResetConfirmErrors;
-};
+export type TResetConfirmResponse =
+  | {
+      success: false;
+      status: number;
+      data: null;
+      errors: TResetConfirmErrors;
+    }
+  | {
+      success: true;
+      status: number;
+      data: TResetConfirmOk;
+      errors: null;
+    };
 
 export type TResetConfirmActionResponse = {
-  fields: TResetConfirm | null;
+  success: false;
+  status: number;
+  data: null;
   errors: TResetConfirmErrors;
+  fields: TResetConfirm;
 };
 
 /* JWT */
