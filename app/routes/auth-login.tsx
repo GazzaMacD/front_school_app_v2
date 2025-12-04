@@ -14,7 +14,7 @@ import { MESSAGES } from "~/common/constants";
 
 //types
 import type { Route } from "./+types/auth-login";
-import type { TLoginAction, TUser } from "~/common/types";
+import type { TLoginAction } from "~/common/types";
 
 /**
  * Loaders and Actions
