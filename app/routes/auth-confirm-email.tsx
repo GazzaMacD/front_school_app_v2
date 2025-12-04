@@ -1,4 +1,4 @@
-import { data, redirect } from "react-router";
+import { data, redirect, Form, useNavigation } from "react-router";
 
 import { getTitle, getDesc } from "~/common/utils";
 import { verifyEmail } from "~/.server/session";
@@ -34,9 +34,11 @@ export default function ConfirmEmail({
   actionData,
 }: Route.ComponentProps) {
   const { key } = loaderData;
+  let navigation = useNavigation();
+  console.log(navigation);
 
   let ui = (
-    <form className="au-form g-form" noValidate method="post">
+    <Form className="au-form g-form" noValidate method="post">
       <div className="au-form__top-message">
         <p>
           ご登録いただき誠にありがとうございます。下記のボタンをクリックしてあなたのアカウントをご確認ください。
@@ -45,18 +47,19 @@ export default function ConfirmEmail({
       <div>
         <input type="hidden" id="key-input" name="key" defaultValue={key} />
       </div>
-      <div className="g-form__submit">
-        <button type="submit">
-          Eメールを確認する
+      <div className="g-form__submit au-form__submit">
+        <button type="submit" disabled={navigation.state !== "idle"}>
+          {navigation.state === "idle" ? "Eメールを確認する" : "送信中"}
+
           <FaArrowRightLong />
         </button>
       </div>
-    </form>
+    </Form>
   );
 
   if (actionData && !actionData.success) {
     ui = (
-      <form className="au-form g-form" noValidate method="post">
+      <Form className="au-form g-form" noValidate method="post">
         <div className="g-form__nonfield-errors">
           <ul>
             <li role="alert">
@@ -67,13 +70,13 @@ export default function ConfirmEmail({
         <div>
           <input type="hidden" id="key-input" name="key" defaultValue={key} />
         </div>
-        <div className="g-form__submit">
+        <div className="g-form__submit au-form__submit">
           <button type="submit" disabled={true}>
             Eメールを確認する
             <FaArrowRightLong />
           </button>
         </div>
-      </form>
+      </Form>
     );
   }
 

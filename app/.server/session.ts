@@ -9,20 +9,15 @@ import {
 
 import type {
   TLogin,
-  TLoginFail,
   TLoginOk,
   TLoginResponse,
   TRefreshedToken,
   TRegister,
-  TRegisterFail,
-  TRegisterOk,
   TRegisterResponse,
   TUserData,
   TValidateTokens,
   TValidateTokensResponse,
   TVerifyEmailResponse,
-  TPasswordResetErrors,
-  TPasswordResetOk,
   TPasswordResetResponse,
   TResetConfirm,
   TResetConfirmResponse,
@@ -194,25 +189,29 @@ export async function passwordReset({
       },
       body: JSON.stringify({ email }),
     });
-    const data: TPasswordResetErrors | TPasswordResetOk = await response.json();
+    const data = await response.json();
     if (!response.ok) {
       return {
         success: false,
         status: response.status,
-        data: data as TPasswordResetErrors,
+        data: null,
+        errors: data,
       };
     }
+    // success
     return {
       success: true,
       status: response.status,
-      data: data as TPasswordResetOk,
+      data: data,
+      errors: null,
     };
   } catch (error) {
     console.error(error);
     return {
       success: false,
       status: 500,
-      data: {
+      data: null,
+      errors: {
         non_field_errors: [MESSAGES["ja"].networkError],
       },
     };
