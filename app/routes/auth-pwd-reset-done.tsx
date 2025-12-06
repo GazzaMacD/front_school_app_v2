@@ -11,7 +11,7 @@ export function loader({ request }: Route.LoaderArgs) {
   const referer = request.headers.get("referer");
   if (
     !referer ||
-    new URL(referer).pathname.includes("password-reset-confirm")
+    !new URL(referer).pathname.includes("password-reset-confirm")
   ) {
     return redirect("/");
   }
