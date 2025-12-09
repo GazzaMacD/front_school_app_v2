@@ -1,0 +1,88 @@
+/*
+* Mypage global styles - mpg
+*/
+
+.mpg-header {
+  height: 50px;
+  margin: 0;
+  padding: 0;
+}
+.mpg-header__logo > div {
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+a.mpg-header__logo::before {
+  content: none;
+}
+.mpg-header__logo > div > img {
+  height: 35px;
+  width: 35px;
+}
+/* ---------- hamburger button ---------- */
+.mpg-header__hamburger {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  width: 50px;
+  height: 50px;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  background-color: var(--color-brand-beige);
+}
+.mpg-header__hamburger > div {
+  padding: 10px;
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+.mpg-header__hamburger > div > span {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  transition: background-color 0.3s ease-out;
+}
+.mpg-header__hamburger > div > span,
+.mpg-header__hamburger > div > span::before,
+.mpg-header__hamburger > div > span::after {
+  width: 30px;
+  height: 2px;
+  background-color: var(--color-brand-brown);
+  display: inline-block;
+}
+.mpg-header__hamburger > div > span::before,
+.mpg-header__hamburger > div > span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  transition: all 0.2s;
+}
+.mpg-header__hamburger > div > span::before {
+  top: -8px;
+}
+.mpg-header__hamburger > div > span::after {
+  top: 8px;
+}
+/* hamburger button --open */
+.mpg-header__hamburger.open > div > span {
+  background-color: transparent;
+  transition: background-color 0.1s ease-out;
+}
+.mpg-header__hamburger.open > div > span::before {
+  top: 0;
+  transform: rotate(135deg);
+}
+.mpg-header__hamburger.open > div > span::after {
+  top: 0;
+  transform: rotate(-135deg);
+}
