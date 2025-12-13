@@ -5,6 +5,7 @@ import {
   SESSION_SECRET,
   BASE_API_URL,
   LOGIN_REDIRECT,
+  PERMISSIONS,
 } from "~/.server/env";
 
 import type {
@@ -21,8 +22,6 @@ import type {
   TPasswordResetResponse,
   TResetConfirm,
   TResetConfirmResponse,
-  TResetConfirmErrors,
-  TResetConfirmOk,
 } from "~/common/types";
 
 import { MESSAGES } from "~/common/constants";
@@ -41,6 +40,19 @@ export function secureRedirect(to: FormDataEntryValue | null): string {
   }
 
   return to;
+}
+
+/* Permissions */
+export function hasSchedulePermissions(
+  groups: { name: string }[],
+  staff: boolean
+): boolean {
+  if (staff) return true;
+  const schedulePerms = new Set(PERMISSIONS.schedule.split(","));
+  for (let i = 0; i < groups.length; i += 1) {
+    if (schedulePerms.has(groups[i].name)) return true;
+  }
+  return false;
 }
 
 /*
@@ -367,14 +379,14 @@ export async function authenticatedUser(
   request: Request
 ): Promise<TUserData | null> {
   const session = await getUserSession(request);
-  const sessionData: TUserData | undefined = session.get(SESSION_NAME);
+  const userData: TUserData | undefined = session.get(SESSION_NAME);
   const redirectPath = new URL(request.url).pathname;
-  if (!sessionData) return null;
+  if (!userData) return null;
 
   //validate session data
   const validatedResponse = await validateTokens({
-    accessToken: sessionData.access,
-    refreshToken: sessionData.refresh,
+    accessToken: userData.access,
+    refreshToken: userData.refresh,
   });
 
   if (!validatedResponse.isValid) {
@@ -386,7 +398,7 @@ export async function authenticatedUser(
     });
   } else if (validatedResponse.isValid && !validatedResponse.isNew) {
     // No changes required to session, all good here so return sessionData
-    return sessionData;
+    return userData;
   } else if (
     validatedResponse.isValid &&
     validatedResponse.isNew &&
@@ -394,8 +406,8 @@ export async function authenticatedUser(
   ) {
     // THe access token has been renewed so session needs to be updated
     // and the cookie set again
-    sessionData.access = validatedResponse.accessToken;
-    session.set(SESSION_NAME, sessionData);
+    userData.access = validatedResponse.accessToken;
+    session.set(SESSION_NAME, userData);
     throw redirect(redirectPath, {
       headers: {
         "Set-Cookie": await storage.commitSession(session),
@@ -424,7 +436,7 @@ async function verifyAccessToken(accessToken: string): Promise<boolean> {
     }
     return true;
   } catch (error) {
-    console.error(error);
+    console.error(`Error in verifyAccessToken: ${error}`);
     return false;
   }
 } //verifyAccessToken
@@ -449,7 +461,7 @@ async function getNewAccessTokenFromRefresh(
     return data.access;
   } catch (error) {
     // 500 errors or other unknown
-    console.error(error);
+    console.error(`Error in getNewAccessTokenFromRefresh: ${error}`);
     return null;
   }
 } //getRefreshToken
@@ -476,7 +488,7 @@ async function validateTokens({
       accessToken: null,
     };
   }
-  //has new access Token, calling function must set new session
+  //has new access Token, calling function must set new session with new token
   return {
     isValid: true,
     isNew: true,

@@ -1,6 +1,5 @@
 import * as React from "react";
-
-import { Outlet, Link, NavLink } from "react-router";
+import { Outlet, Link, NavLink, redirect } from "react-router";
 import { RxDashboard } from "react-icons/rx";
 import {
   BsPersonCircle,
@@ -11,6 +10,7 @@ import {
 } from "react-icons/bs";
 
 import myPageGlobalStyles from "~/styles/mypage-global.css?url";
+import { authenticatedUser, hasSchedulePermissions } from "~/.server/session";
 // type imports
 import type { Route } from "./+types/my-page";
 
@@ -25,9 +25,31 @@ export const links: Route.LinksFunction = () => [
 ];
 
 /**
+ * Actions
+ */
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const userData = await authenticatedUser(request);
+
+  //if null get path and redirect to login route with redirect parameter
+  if (!userData) {
+    const redirectTo = new URL(request.url).pathname;
+    const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
+    return redirect(`/login?${searchParams}`);
+  }
+
+  const { user } = userData;
+  const perms = {
+    classSchedules: hasSchedulePermissions(user.groups, user.is_staff),
+  };
+  return { user, perms };
+}
+
+/**
  * Page
  */
-export default function MyPage() {
+export default function MyPage({ loaderData }: Route.ComponentProps) {
+  const { user, perms } = loaderData;
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   return (
@@ -53,7 +75,7 @@ export default function MyPage() {
       <aside className={`mpg-menu ${menuOpen ? "open" : ""}`}>
         <div className="mpg-menu__top">
           <BsPersonCircle />
-          <span>Gareth Macdonald</span>
+          <span>{user.contact.name}</span>
         </div>
         <div className="mpg-menu__middle">
           <nav className="mpt-menu__middle_nav">
@@ -70,30 +92,34 @@ export default function MyPage() {
                   マイページホーム
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to="/my-page/schedules"
-                  className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "active" : ""
-                  }
-                  end
-                >
-                  <BsCalendarWeek />
-                  スケジュール
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/my-page/video-calls"
-                  className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "active" : ""
-                  }
-                  end
-                >
-                  <BsPersonVideo2 />
-                  ビデオ通話
-                </NavLink>
-              </li>
+              {perms.classSchedules ? (
+                <>
+                  <li>
+                    <NavLink
+                      to="/my-page/schedules"
+                      className={({ isActive, isPending }) =>
+                        isPending ? "pending" : isActive ? "active" : ""
+                      }
+                      end
+                    >
+                      <BsCalendarWeek />
+                      スケジュール
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/my-page/video-calls"
+                      className={({ isActive, isPending }) =>
+                        isPending ? "pending" : isActive ? "active" : ""
+                      }
+                      end
+                    >
+                      <BsPersonVideo2 />
+                      ビデオ通話
+                    </NavLink>
+                  </li>
+                </>
+              ) : null}
               <li>
                 <NavLink
                   to="/my-page/profile"
@@ -122,7 +148,7 @@ export default function MyPage() {
           </nav>
         </div>
         <div className="mpg-menu__bottom">
-          <p>macdonald.gareth@gmail.com</p>
+          <p>{user.email}</p>
           <form action="/logout" method="post">
             <button className="mpg-menu__logout" type="submit">
               ログアウト
