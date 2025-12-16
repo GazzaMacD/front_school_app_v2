@@ -45,8 +45,14 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   //fetch listpage and categories
   const [listPageResult, blogCategoriesResult] = await Promise.all([
-    fetchWithMeta<TBlogListPageResult>(listPageUrl),
-    fetchWithMeta<TBlogCategoriesResult>(blogCategoriesUrl),
+    fetchWithMeta<TBlogListPageResult>({
+      url: listPageUrl,
+      options: undefined,
+    }),
+    fetchWithMeta<TBlogCategoriesResult>({
+      url: blogCategoriesUrl,
+      options: undefined,
+    }),
   ]);
 
   //errors
@@ -108,9 +114,10 @@ export async function loader({ request }: Route.LoaderArgs) {
       : blogsUrl;
 
   // Fetch blogs
-  const learningBlogsResult = await fetchWithMeta<TLearningBlogsResult>(
-    blogsUrl
-  );
+  const learningBlogsResult = await fetchWithMeta<TLearningBlogsResult>({
+    url: blogsUrl,
+    options: undefined,
+  });
 
   //errors
   if (!learningBlogsResult.success) {

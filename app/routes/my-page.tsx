@@ -53,7 +53,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   return (
-    <>
+    <div>
       <header className="mpg-header">
         <Link to="/" className="mpg-header__logo">
           <div>
@@ -71,94 +71,94 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
             <span></span>
           </div>
         </button>
+        <div className={`mpg-menu ${menuOpen ? "open" : ""}`}>
+          <div className="mpg-menu__top">
+            <BsPersonCircle />
+            <span>{user.contact.name}</span>
+          </div>
+          <div className="mpg-menu__middle">
+            <nav className="mpt-menu__middle_nav">
+              <ul>
+                <li>
+                  <NavLink
+                    to="/my-page"
+                    className={({ isActive, isPending }) =>
+                      isPending ? "pending" : isActive ? "active" : ""
+                    }
+                    end
+                  >
+                    <RxDashboard />
+                    マイページホーム
+                  </NavLink>
+                </li>
+                {perms.classSchedules ? (
+                  <>
+                    <li>
+                      <NavLink
+                        to="/my-page/schedules"
+                        className={({ isActive, isPending }) =>
+                          isPending ? "pending" : isActive ? "active" : ""
+                        }
+                        end
+                      >
+                        <BsCalendarWeek />
+                        スケジュール
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/my-page/video-calls"
+                        className={({ isActive, isPending }) =>
+                          isPending ? "pending" : isActive ? "active" : ""
+                        }
+                        end
+                      >
+                        <BsPersonVideo2 />
+                        ビデオ通話
+                      </NavLink>
+                    </li>
+                  </>
+                ) : null}
+                <li>
+                  <NavLink
+                    to="/my-page/profile"
+                    className={({ isActive, isPending }) =>
+                      isPending ? "pending" : isActive ? "active" : ""
+                    }
+                    end
+                  >
+                    <BsPersonVcard />
+                    プロフィール
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/"
+                    className={({ isActive, isPending }) =>
+                      isPending ? "pending" : isActive ? "active" : ""
+                    }
+                    end
+                  >
+                    <BsHouse />
+                    ホームページ
+                  </NavLink>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div className="mpg-menu__bottom">
+            <p>{user.email}</p>
+            <form action="/logout" method="post">
+              <button className="mpg-menu__logout" type="submit">
+                ログアウト
+              </button>
+            </form>
+          </div>
+        </div>
       </header>
-      <aside className={`mpg-menu ${menuOpen ? "open" : ""}`}>
-        <div className="mpg-menu__top">
-          <BsPersonCircle />
-          <span>{user.contact.name}</span>
-        </div>
-        <div className="mpg-menu__middle">
-          <nav className="mpt-menu__middle_nav">
-            <ul>
-              <li>
-                <NavLink
-                  to="/my-page"
-                  className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "active" : ""
-                  }
-                  end
-                >
-                  <RxDashboard />
-                  マイページホーム
-                </NavLink>
-              </li>
-              {perms.classSchedules ? (
-                <>
-                  <li>
-                    <NavLink
-                      to="/my-page/schedules"
-                      className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "active" : ""
-                      }
-                      end
-                    >
-                      <BsCalendarWeek />
-                      スケジュール
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/my-page/video-calls"
-                      className={({ isActive, isPending }) =>
-                        isPending ? "pending" : isActive ? "active" : ""
-                      }
-                      end
-                    >
-                      <BsPersonVideo2 />
-                      ビデオ通話
-                    </NavLink>
-                  </li>
-                </>
-              ) : null}
-              <li>
-                <NavLink
-                  to="/my-page/profile"
-                  className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "active" : ""
-                  }
-                  end
-                >
-                  <BsPersonVcard />
-                  プロフィール
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "active" : ""
-                  }
-                  end
-                >
-                  <BsHouse />
-                  ホームページ
-                </NavLink>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div className="mpg-menu__bottom">
-          <p>{user.email}</p>
-          <form action="/logout" method="post">
-            <button className="mpg-menu__logout" type="submit">
-              ログアウト
-            </button>
-          </form>
-        </div>
-      </aside>
       <main>
         <Outlet />
       </main>
-    </>
+    </div>
   );
 }
