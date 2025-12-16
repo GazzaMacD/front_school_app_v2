@@ -36,9 +36,10 @@ export const links: Route.LinksFunction = () => [
 export async function loader({ params }: Route.LoaderArgs) {
   const { subject, slug } = params;
   const detailPageUrl = `${BASE_API_URL}/pages/?type=courses.CourseDisplayDetailPage&subject_slug=${subject}&slug=${slug}&fields=*`;
-  const detailPageResult = await fetchWithMeta<TCourseDetailResult>(
-    detailPageUrl
-  );
+  const detailPageResult = await fetchWithMeta<TCourseDetailResult>({
+    url: detailPageUrl,
+    options: undefined,
+  });
 
   //error
   if (!detailPageResult.success) {

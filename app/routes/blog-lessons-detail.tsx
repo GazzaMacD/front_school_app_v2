@@ -139,9 +139,10 @@ function multipleChoiceCreator(page: TBlogDetailAPIPage) {
 export async function loader({ params }: Route.LoaderArgs) {
   const { slug } = params;
   const blogDetailUrl = `${BASE_API_URL}/pages/?type=lessons.LessonDetailPage&slug=${slug}&fields=*`;
-  const blogDetailPageResult = await fetchWithMeta<TBlogDetailPageResult>(
-    blogDetailUrl
-  );
+  const blogDetailPageResult = await fetchWithMeta<TBlogDetailPageResult>({
+    url: blogDetailUrl,
+    options: undefined,
+  });
 
   //errors
   if (!blogDetailPageResult.success) {

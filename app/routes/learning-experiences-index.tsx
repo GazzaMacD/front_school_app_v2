@@ -45,8 +45,14 @@ export async function loader({ context }: Route.LoaderArgs) {
 
   //api fetch
   const [listPageResult, detailPagesResult] = await Promise.all([
-    fetchWithMeta<TLearnExpListPageResult>(listPageUrl),
-    fetchWithMeta<TLearnExpDetailPagesResult>(detailPageUrl),
+    fetchWithMeta<TLearnExpListPageResult>({
+      url: listPageUrl,
+      options: undefined,
+    }),
+    fetchWithMeta<TLearnExpDetailPagesResult>({
+      url: detailPageUrl,
+      options: undefined,
+    }),
   ]);
 
   //error

@@ -24,9 +24,10 @@ export const links: Route.LinksFunction = () => [
  */
 export async function loader() {
   const priceIndexUrl = `${BASE_API_URL}/pages/?type=products.ClassPricesListPage&fields=*`;
-  const priceIndexPageResult = await fetchWithMeta<TPriceIndexPageResult>(
-    priceIndexUrl
-  );
+  const priceIndexPageResult = await fetchWithMeta<TPriceIndexPageResult>({
+    url: priceIndexUrl,
+    options: undefined,
+  });
 
   //error
   if (!priceIndexPageResult.success) {

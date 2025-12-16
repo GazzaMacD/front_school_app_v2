@@ -18,9 +18,10 @@ import { ClassPricePlanTable } from "~/components/prices";
 export async function loader({ params }: Route.LoaderArgs) {
   const { slug } = params;
   const priceDetailUrl = `${BASE_API_URL}/pages/?slug=${slug}&type=products.ClassPricesDetailPage&fields=*`;
-  const priceDetailPageResult = await fetchWithMeta<TPriceDetailPageResult>(
-    priceDetailUrl
-  );
+  const priceDetailPageResult = await fetchWithMeta<TPriceDetailPageResult>({
+    url: priceDetailUrl,
+    options: undefined,
+  });
 
   //error
   if (!priceDetailPageResult.success) {

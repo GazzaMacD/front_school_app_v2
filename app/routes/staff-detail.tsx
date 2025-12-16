@@ -10,9 +10,10 @@ import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
 export async function loader({ params }: Route.LoaderArgs) {
   const { slug } = params;
   const staffApiUrl = `${BASE_API_URL}/pages/?type=staff.StaffDetailPage&slug=${slug}&fields=*`;
-  const staffDetailPageResult = await fetchWithMeta<TStaffDetailPageResult>(
-    staffApiUrl
-  );
+  const staffDetailPageResult = await fetchWithMeta<TStaffDetailPageResult>({
+    url: staffApiUrl,
+    options: undefined,
+  });
 
   //error
   if (!staffDetailPageResult.success) {
