@@ -17,30 +17,60 @@ type TFetchWithMetaSuccess<T> = {
   success: true;
   status: number;
   data: T;
+  error: null;
   url: string;
 };
 
 type TFetchWithMetaError = {
   success: false;
   status: number;
+  data: null;
   error: unknown;
   url: string;
 };
 
-type TFetchWithMetaResult<T> = TFetchWithMetaSuccess<T> | TFetchWithMetaError;
+type TFetchWithMetaResult<T = null> =
+  | TFetchWithMetaSuccess<T>
+  | TFetchWithMetaError;
 
-export async function fetchWithMeta<T = unknown>(
-  url: string
-): Promise<TFetchWithMetaResult<T>> {
+export async function fetchWithMeta<T = unknown>({
+  url,
+  options = undefined,
+}: {
+  url: string;
+  options: undefined | RequestInit;
+}): Promise<TFetchWithMetaResult<T>> {
   try {
-    const res = await fetch(url);
+    let res;
+    if (!options) {
+      res = await fetch(url);
+    }
+    res = await fetch(url, options);
     if (!res.ok) {
-      return { success: false, status: res.status, error: res.statusText, url };
+      return {
+        success: false,
+        status: res.status,
+        data: null,
+        error: res.statusText,
+        url,
+      };
     }
     const data: T = await res.json();
-    return { success: true, data, status: res.status, url };
+    return {
+      success: true,
+      status: res.status,
+      data,
+      error: null,
+      url,
+    };
   } catch (error) {
-    return { success: false, status: 500, error, url };
+    return {
+      success: false,
+      status: 500,
+      data: null,
+      error,
+      url,
+    };
   }
 }
 

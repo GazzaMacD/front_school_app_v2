@@ -1,0 +1,116 @@
+/*
+* My page index - mp-in-
+**/
+.mp-in-wrapper {
+  padding: 70px 50px 50px 50px;
+  background-color: var(--color-brand-cream);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+/*
+* Blog Lesson
+*/
+.mp-in-blogs {
+  flex: 1 1 45%;
+}
+.mp-in-blogs__item {
+  margin: 0 5px 20px 0;
+  display: block;
+  width: fit-content;
+}
+a.mp-in-blog__item::before {
+  content: none;
+}
+.mp-in-blogs__item > div > p {
+  font-size: var(--font-size-xs);
+  color: var(--color-brand-green);
+  font-family: var(--font-en-primary);
+  font-weight: 700;
+  margin: 0 0 3px 0;
+}
+.mp-in-blogs__item > div > h3 {
+  font-size: var(--font-size-s);
+  margin: 0;
+  position: relative;
+}
+/*
+* News
+**/
+.mp-in-news {
+  flex: 1 1 45%;
+}
+.mp-in-news__item {
+  margin: 0 5px 20px 0;
+}
+.mp-in-news__item > p:first-child {
+  font-size: var(--font-size-xs);
+  color: var(--color-brand-green);
+  font-family: var(--font-en-primary);
+  font-weight: 700;
+  margin: 0 0 3px 0;
+}
+.mp-in-news__item > div {
+  display: flex;
+  align-items: center;
+  margin: 0 0 8px 0;
+}
+.mp-in-news__item > div > svg {
+  color: var(--color-brand-orange);
+  margin: 0 5px 0 0;
+}
+
+.mp-in-news__item > div > h3 {
+  font-size: var(--font-size-s);
+  margin: 0;
+  position: relative;
+}
+.mp-in-news__item > p:last-child {
+  font-size: var(--font-size-s);
+  margin: 0;
+}
+
+/*
+* Dad Joke 
+*/
+.mp-in-joke {
+  flex: 1 1 30%;
+  background-color: var(--color-sec-pale-green);
+}
+
+/*
+* Daily Word 
+*/
+.mp-in-word {
+  flex: 1 1 30%;
+  background-color: var(--color-brand-beige);
+}
+/*
+* Nagoya Weather 
+*/
+.mp-in-weather {
+  flex: 1 1 30%;
+  background-color: var(--color-sec-pale-orange);
+}
+/*
+small (480px / 16 = 30rem)
+@media (min-width: 30rem) {
+}
+--------
+medium (768px / 16 = 48rem)
+@media (min-width: 48rem) {
+}
+--------
+large (1024px / 16 = 64rem)
+@media (min-width: 64rem) {
+}
+--------
+medium-large (1200px / 16 = 75rem)
+@media (min-width: 75rem) {
+}
+
+extra-large (1536px / 16 = 96rem)
+@media (min-width: 96rem) {
+}
+*/
