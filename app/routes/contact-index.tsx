@@ -133,9 +133,10 @@ export async function action({ request }: Route.ActionArgs) {
 
 export async function loader({ context }: Route.LoaderArgs) {
   const contactApiUrl = `${BASE_API_URL}/pages/?slug=contact&type=contacts.ContactPage&fields=*`;
-  const contactPageResult = await fetchWithMeta<TContactPageResult>(
-    contactApiUrl
-  );
+  const contactPageResult = await fetchWithMeta<TContactPageResult>({
+    url: contactApiUrl,
+    options: undefined,
+  });
 
   //error
   if (!contactPageResult.success) {

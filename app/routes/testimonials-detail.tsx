@@ -17,9 +17,10 @@ import type {
 export async function loader({ params }: Route.LoaderArgs) {
   const { slug } = params;
   const testApiUrl = `${BASE_API_URL}/pages/?type=testimonials.TestimonialDetailPage&slug=${slug}&fields=*`;
-  const testDetailPageResult = await fetchWithMeta<TTestDetailPageResult>(
-    testApiUrl
-  );
+  const testDetailPageResult = await fetchWithMeta<TTestDetailPageResult>({
+    url: testApiUrl,
+    options: undefined,
+  });
 
   //error
   if (!testDetailPageResult.success) {

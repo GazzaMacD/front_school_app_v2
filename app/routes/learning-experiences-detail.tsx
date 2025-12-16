@@ -60,7 +60,10 @@ export async function loader({ params }: Route.LoaderArgs) {
   const learnExpUrl = `${BASE_API_URL}/pages/?slug=${slug}&type=products.LearningExperienceDetailPage&fields=*`;
 
   const learnExpDetailPageResult =
-    await fetchWithMeta<TLearnExpDetailPageResult>(learnExpUrl);
+    await fetchWithMeta<TLearnExpDetailPageResult>({
+      url: learnExpUrl,
+      options: undefined,
+    });
 
   //error
   if (!learnExpDetailPageResult.success) {
