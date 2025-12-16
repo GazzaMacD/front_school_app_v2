@@ -7,7 +7,7 @@ import { LuWholeWord } from "react-icons/lu";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 
 import { BASE_API_URL } from "~/.server/env";
-import { fetchWithMeta } from "~/common/utils";
+import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
 import myPageIndexStyles from "~/styles/mypage-index.css?url";
 // type imports
 import type { Route } from "./+types/my-page-index";
@@ -96,87 +96,92 @@ export async function loader({ context }: Route.LoaderArgs) {
 export default function MyPageIndex({ loaderData }: Route.ComponentProps) {
   const { blogData, xlNews, dadJokeData } = loaderData;
   return (
-    <div className="mp-in-wrapper">
-      <section id="blog-lessons" className="mpg-widget mp-in-blogs">
-        <h2 className="mpg-widget__heading">
-          <span>
-            <TfiWrite />
-          </span>
-          Latest Blog Lessons
-        </h2>
-        <div className="mpg-widget__content1">
-          {blogData.success ? (
-            blogData.data.items.map((blog) => (
-              <BlogItem
-                key={blog.id}
-                title={blog.display_title}
-                slug={blog.meta.slug}
-                date={blog.date}
+    <>
+      {/* Meta tags*/}
+      <title>{getTitle({ title: "My Page・マイページ", isHome: false })}</title>
+
+      <div className="mp-in-wrapper">
+        <section id="blog-lessons" className="mpg-widget mp-in-blogs">
+          <h2 className="mpg-widget__heading">
+            <span>
+              <TfiWrite />
+            </span>
+            Latest Blog Lessons
+          </h2>
+          <div className="mpg-widget__content1">
+            {blogData.success ? (
+              blogData.data.items.map((blog) => (
+                <BlogItem
+                  key={blog.id}
+                  title={blog.display_title}
+                  slug={blog.meta.slug}
+                  date={blog.date}
+                />
+              ))
+            ) : (
+              <WidgetError />
+            )}
+          </div>
+        </section>
+
+        <section id="xl-news" className="mpg-widget mp-in-news">
+          <h2 className="mpg-widget__heading">
+            <span>
+              <IoInformation />
+            </span>
+            XLingual News
+          </h2>
+          <div className="mpg-widget__content1">
+            {xlNews.map((item) => (
+              <NewsItem
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                content={item.content}
+                published_date={item.published_date}
+                type={item.type}
               />
-            ))
-          ) : (
-            <WidgetError />
-          )}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
 
-      <section id="xl-news" className="mpg-widget mp-in-news">
-        <h2 className="mpg-widget__heading">
-          <span>
-            <IoInformation />
-          </span>
-          XLingual News
-        </h2>
-        <div className="mpg-widget__content1">
-          {xlNews.map((item) => (
-            <NewsItem
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              content={item.content}
-              published_date={item.published_date}
-              type={item.type}
-            />
-          ))}
-        </div>
-      </section>
+        <section id="joke" className="mpg-widget mp-in-joke">
+          <h2 className="mpg-widget__heading">
+            <span>
+              <FaRegFaceLaughSquint />
+            </span>
+            Random Dad Joke
+          </h2>
+          <div className="mpg-widget__content1">
+            {dadJokeData.success ? (
+              <p>{dadJokeData.data.joke}</p>
+            ) : (
+              <WidgetError />
+            )}
+          </div>
+        </section>
 
-      <section id="joke" className="mpg-widget mp-in-joke">
-        <h2 className="mpg-widget__heading">
-          <span>
-            <FaRegFaceLaughSquint />
-          </span>
-          Random Dad Joke
-        </h2>
-        <div className="mpg-widget__content1">
-          {dadJokeData.success ? (
-            <p>{dadJokeData.data.joke}</p>
-          ) : (
-            <WidgetError />
-          )}
-        </div>
-      </section>
+        <section id="word" className="mpg-widget mp-in-word">
+          <h2 className="mpg-widget__heading">
+            <span>
+              <LuWholeWord />
+            </span>
+            Today's English Word
+          </h2>
+          <div className="mpg-widget__content1"></div>
+        </section>
 
-      <section id="word" className="mpg-widget mp-in-word">
-        <h2 className="mpg-widget__heading">
-          <span>
-            <LuWholeWord />
-          </span>
-          Today's English Word
-        </h2>
-        <div className="mpg-widget__content1"></div>
-      </section>
-
-      <section id="weather" className="mpg-widget mp-in-weather">
-        <h2 className="mpg-widget__heading">
-          <span>
-            <TiWeatherPartlySunny />
-          </span>
-          Nagoya Weather in English
-        </h2>
-        <div className="mpg-widget__content1"></div>
-      </section>
-    </div>
+        <section id="weather" className="mpg-widget mp-in-weather">
+          <h2 className="mpg-widget__heading">
+            <span>
+              <TiWeatherPartlySunny />
+            </span>
+            Nagoya Weather in English
+          </h2>
+          <div className="mpg-widget__content1"></div>
+        </section>
+      </div>
+    </>
   );
 }
 
