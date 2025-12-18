@@ -86,6 +86,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
                       isPending ? "pending" : isActive ? "active" : ""
                     }
                     end
+                    onClick={() => setMenuOpen(false)}
                   >
                     <RxDashboard />
                     マイページホーム
@@ -100,6 +101,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
                           isPending ? "pending" : isActive ? "active" : ""
                         }
                         end
+                        onClick={() => setMenuOpen(false)}
                       >
                         <BsCalendarWeek />
                         スケジュール
@@ -112,6 +114,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
                           isPending ? "pending" : isActive ? "active" : ""
                         }
                         end
+                        onClick={() => setMenuOpen(false)}
                       >
                         <BsPersonVideo2 />
                         ビデオ通話
@@ -126,6 +129,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
                       isPending ? "pending" : isActive ? "active" : ""
                     }
                     end
+                    onClick={() => setMenuOpen(false)}
                   >
                     <BsPersonVcard />
                     プロフィール
@@ -138,6 +142,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
                       isPending ? "pending" : isActive ? "active" : ""
                     }
                     end
+                    onClick={() => setMenuOpen(false)}
                   >
                     <BsHouse />
                     ホームページ
@@ -156,7 +161,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
       </header>
-      <main>
+      <main className="mpg-main">
         <Outlet />
       </main>
     </div>

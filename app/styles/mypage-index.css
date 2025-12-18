@@ -2,7 +2,6 @@
 * My page index - mp-in-
 **/
 .mp-in-wrapper {
-  padding: 70px 50px 50px 50px;
   background-color: var(--color-brand-cream);
   display: flex;
   flex-wrap: wrap;
