@@ -1,10 +1,30 @@
-import type { Route } from "./+types/myp-video-calls-index";
+import { Unauthorized } from "~/components/unauthorized";
+//type imports
+import type { TVideoCalls, TUser } from "~/common/types";
 
-export function loader({ context }: Route.LoaderArgs) {
-  return { message: "Video Calls Index Page" };
+import { useParentData } from "~/hooks/use-parent-data";
+
+export default function VideoCallsIndex() {
+  const parentData = useParentData<TVideoCallsParentData>(
+    "/my-page/video-calls"
+  );
+  if (
+    !parentData ||
+    !parentData.user ||
+    !parentData.videoCalls ||
+    !parentData.hasVideoPermissions
+  ) {
+    return <Unauthorized />;
+  }
+  return <div> Ok </div>;
 }
 
-export default function VideoCallsIndex({ loaderData }: Route.ComponentProps) {
-  const { message } = loaderData;
-  return <div>{message}</div>;
-}
+/*
+ * Types
+ */
+
+type TVideoCallsParentData = {
+  videoCalls: TVideoCalls;
+  user: TUser;
+  hasVideoPermissions: boolean;
+};

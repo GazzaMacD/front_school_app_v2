@@ -10,7 +10,7 @@ import {
 } from "react-icons/bs";
 
 import myPageGlobalStyles from "~/styles/mypage-global.css?url";
-import { authenticatedUser, hasSchedulePermissions } from "~/.server/session";
+import { authenticatedUser, hasStudentPermissions } from "~/.server/session";
 // type imports
 import type { Route } from "./+types/my-page";
 
@@ -40,7 +40,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const { user } = userData;
   const perms = {
-    classSchedules: hasSchedulePermissions(user.groups, user.is_staff),
+    classSchedules: hasStudentPermissions(user.groups, user.is_staff),
   };
   return { user, perms };
 }

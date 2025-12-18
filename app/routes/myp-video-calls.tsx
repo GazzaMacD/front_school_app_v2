@@ -3,11 +3,13 @@ import { Outlet, redirect, data } from "react-router";
 import {
   authenticatedUser,
   createAuthenticatedHeaders,
+  hasStudentPermissions,
 } from "~/.server/session";
 import { fetchWithMeta } from "~/common/utils";
 import { BASE_API_URL } from "~/.server/env";
 //type imports
 import type { Route } from "./+types/myp-video-calls";
+import type { TVideoCalls, TUser } from "~/common/types";
 
 /*
  * Loaders and Actions
@@ -35,9 +37,16 @@ export async function loader({ request }: Route.LoaderArgs) {
     if (!videoCallsData.success) {
       return redirect(`/login?${searchParams}`);
     }
+
+    const hasVideoPermissions = hasStudentPermissions(
+      userData.user.groups,
+      userData.user.is_staff
+    );
+
     return data({
       videoCalls: videoCallsData.data,
       user: userData.user,
+      hasVideoPermissions,
     });
   } catch (error) {
     console.error(`Error in loader at ${redirectTo}: ${error}`);
@@ -49,21 +58,10 @@ export async function loader({ request }: Route.LoaderArgs) {
  * Page
  */
 export default function VideoCalls({ loaderData }: Route.ComponentProps) {
-  const { user, videoCalls } = loaderData;
+  const { user, videoCalls, hasVideoPermissions } = loaderData;
   return (
     <>
       <Outlet />
     </>
   );
 }
-
-/*
- * Types
- */
-type TVideoCall = {
-  slug: string;
-  teacher: { name: string; id: number };
-  host_room_url: string;
-  room_url: string;
-};
-type TVideoCalls = TVideoCall[];

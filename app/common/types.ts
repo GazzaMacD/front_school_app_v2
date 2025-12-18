@@ -1,3 +1,15 @@
+/*
+ * Video Call Types
+ */
+
+export type TVideoCall = {
+  slug: string;
+  teacher: { name: string; id: number };
+  host_room_url: string;
+  room_url: string;
+};
+export type TVideoCalls = TVideoCall[];
+
 /**
  * API Types
  */

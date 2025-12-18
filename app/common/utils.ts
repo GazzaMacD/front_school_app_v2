@@ -2,6 +2,7 @@ import type { UIMatch } from "react-router";
 
 import { BASE_TITLE, HOME_DESC } from "./constants";
 import type { TUser } from "./types";
+
 /*
  * Display functions
  */
