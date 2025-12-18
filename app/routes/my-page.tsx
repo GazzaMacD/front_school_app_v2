@@ -10,6 +10,7 @@ import {
 } from "react-icons/bs";
 
 import myPageGlobalStyles from "~/styles/mypage-global.css?url";
+import unauthorizedStyles from "~/styles/components/unauthorized.css?url";
 import { authenticatedUser, hasStudentPermissions } from "~/.server/session";
 // type imports
 import type { Route } from "./+types/my-page";
@@ -21,6 +22,10 @@ export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: myPageGlobalStyles,
+  },
+  {
+    rel: "stylesheet",
+    href: unauthorizedStyles,
   },
 ];
 
