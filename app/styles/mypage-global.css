@@ -238,6 +238,8 @@ a.mpg-header__logo::before {
   padding: 70px 50px 50px 50px;
   min-height: calc(100vh);
   background-color: var(--color-brand-cream);
+  display: flex;
+  flex-direction: column;
 }
 /* ---------- content ---------- */
 .mpg-widget__content1 {

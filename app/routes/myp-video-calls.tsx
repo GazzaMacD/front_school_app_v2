@@ -7,10 +7,20 @@ import {
 } from "~/.server/session";
 import { fetchWithMeta } from "~/common/utils";
 import { BASE_API_URL } from "~/.server/env";
+import videoStyles from "~/styles/mypage-video.css?url";
 //type imports
 import type { Route } from "./+types/myp-video-calls";
 import type { TVideoCalls, TUser } from "~/common/types";
 
+/**
+ * Helpers
+ */
+export const links: Route.LinksFunction = () => [
+  {
+    rel: "stylesheet",
+    href: videoStyles,
+  },
+];
 /*
  * Loaders and Actions
  */

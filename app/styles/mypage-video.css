@@ -1,0 +1,23 @@
+/*
+* Video Calls
+*/
+.mp-video-index {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.mp-video-index__msg > p {
+  margin: 0 0 4px 0;
+  font-size: var(--font-size-s);
+}
+.mp-video-index__links {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.mp-video-index__button_inner {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
