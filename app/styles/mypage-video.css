@@ -1,9 +1,14 @@
 /*
 * Video Calls
 */
+
+/* ----- index page ----- */
 .mp-video-index {
   max-width: 600px;
   margin: 0 auto;
+}
+.mp-video-index__msg {
+  padding: 0 0 30px 0;
 }
 .mp-video-index__msg > p {
   margin: 0 0 4px 0;
@@ -21,3 +26,5 @@
   gap: 15px;
   align-items: center;
 }
+
+/* ----- detail page ----- */

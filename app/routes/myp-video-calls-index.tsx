@@ -40,11 +40,13 @@ export default function VideoCallsIndex() {
             </span>
             Video Calls
           </h2>
-          <p>
-            Please click one of the buttons below to start a video lesson or
-            call with the staff member whose name is indicated on the button.
-            They will accept your call as soon as they are ready
-          </p>
+          <div className="mp-video-index__msg">
+            <p>
+              Please click one of the buttons below to start a video lesson or
+              call with the staff member whose name is indicated on the button.
+              They will accept your call as soon as they are ready
+            </p>
+          </div>
           <div className="mpg-widget__content1">
             <div className="mp-video-index__links">
               {parentData.videoCalls.map((videoCallObj: TVideoCall) => {
