@@ -1,6 +1,5 @@
 import { Unauthorized } from "~/components/unauthorized";
 import { getTitle } from "~/common/utils";
-import { HeadingOne } from "~/components/headings";
 import { useParentData } from "~/hooks/use-parent-data";
 import { BsPersonVideo2 } from "react-icons/bs";
 //type imports
@@ -26,7 +25,6 @@ export default function VideoCallsIndex() {
       </>
     );
   }
-  console.dir(parentData.videoCalls, { depth: null });
   return (
     <>
       <title>

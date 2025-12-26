@@ -11,6 +11,7 @@ import {
 import type { Route } from "./+types/root";
 import globalStyles from "~/styles/global.css?url";
 import fontStyles from "~/styles/fonts.css?url";
+import errorStyles from "~/styles/components/errors.css?url";
 
 export const links: Route.LinksFunction = () => [
   {
@@ -20,6 +21,10 @@ export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: fontStyles,
+  },
+  {
+    rel: "stylesheet",
+    href: errorStyles,
   },
 ];
 

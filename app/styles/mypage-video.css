@@ -28,3 +28,16 @@
 }
 
 /* ----- detail page ----- */
+.mp-video-detail {
+  min-height: calc(100vh - 90px);
+  border-radius: 50px;
+}
+.mp-video-detail__video {
+  border-radius: 50px;
+}
+.mp-video-detail__video > iframe {
+  width: 100%;
+  height: calc(100vh - 90px);
+  border: 0;
+  border-radius: var(--radius-small);
+}
