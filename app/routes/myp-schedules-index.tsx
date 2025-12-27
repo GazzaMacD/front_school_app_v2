@@ -5,7 +5,6 @@ import { BsCalendarWeek } from "react-icons/bs";
 import { BorderedPillButtonLink } from "~/components/buttons";
 
 //type imports
-import type { Route } from "./+types/myp-schedules";
 import type { TSchedulesBySchool, TUser } from "~/common/types";
 
 export default function SchedulesIndex() {

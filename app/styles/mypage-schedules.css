@@ -1,3 +1,8 @@
+/*
+* My page Schedules
+*/
+
+/* index */
 .mp-schedules-index {
   display: flex;
   flex-wrap: wrap;
@@ -33,4 +38,20 @@
   display: flex;
   gap: 15px;
   align-items: center;
+}
+
+/* detail */
+.mp-schedules-detail {
+  width: 100%;
+}
+.mp-schedules-detail__inner {
+  background-color: white;
+  padding: 20px;
+  border-radius: var(--radius-small);
+  box-shadow: 0px 0px 4px 0px rgba(88, 63, 25, 0.2);
+}
+.mp-schedules-detail__iframe {
+  border: none;
+  width: 100%;
+  min-height: 1500px;
 }
