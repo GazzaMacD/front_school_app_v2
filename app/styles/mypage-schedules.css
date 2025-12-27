@@ -1,0 +1,36 @@
+.mp-schedules-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+.mp-schedules-index__msg-box {
+  flex: 0 0 100%;
+  display: flex;
+  padding: 0 20px;
+}
+.mp-schedules-index__msg-box > div {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+.mp-schedules-index__msg-box > div > p {
+  display: block;
+  max-width: 350px;
+  margin: 0;
+  font-size: var(--font-size-xs);
+}
+.mp-schedules-school {
+  flex: 0 0 400px;
+}
+.mp-schedules-school__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 15px;
+}
+.mp-schedules-school-button {
+  width: 300px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}

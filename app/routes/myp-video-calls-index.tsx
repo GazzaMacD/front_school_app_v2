@@ -31,7 +31,7 @@ export default function VideoCallsIndex() {
         {getTitle({ title: "Video Calls・ビデオ通話", isHome: false })}
       </title>
       <div className="mp-video-index">
-        <section id="weather" className="mpg-widget">
+        <section id="videos" className="mpg-widget">
           <h2 className="mpg-widget__heading">
             <span>
               <BsPersonVideo2 />
