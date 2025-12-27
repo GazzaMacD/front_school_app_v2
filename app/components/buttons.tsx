@@ -91,8 +91,8 @@ type TPillButtonLinkProps = {
 function SolidPillButtonLink({
   to,
   color,
-  children,
   reloadDoc = false,
+  children,
 }: TPillButtonLinkProps) {
   return (
     <Link to={to} reloadDocument={reloadDoc} className="g-sp-button-link">
@@ -101,9 +101,14 @@ function SolidPillButtonLink({
   );
 }
 
-function BorderedPillButtonLink({ to, color, children }: TPillButtonLinkProps) {
+function BorderedPillButtonLink({
+  to,
+  color,
+  reloadDoc = false,
+  children,
+}: TPillButtonLinkProps) {
   return (
-    <Link to={to} className="g-bp-button-link">
+    <Link to={to} reloadDocument={reloadDoc} className="g-bp-button-link">
       <div className={`g-bp-button ${color}`}>{children}</div>
     </Link>
   );
@@ -115,4 +120,5 @@ export {
   RoundButtonLink,
   LgBiButtonLink,
   SolidPillButtonLink,
+  BorderedPillButtonLink,
 };

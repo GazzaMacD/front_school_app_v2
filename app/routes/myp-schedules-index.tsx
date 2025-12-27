@@ -2,7 +2,7 @@ import { Unauthorized } from "~/components/unauthorized";
 import { getTitle } from "~/common/utils";
 import { useParentData } from "~/hooks/use-parent-data";
 import { BsCalendarWeek } from "react-icons/bs";
-import { SolidPillButtonLink } from "~/components/buttons";
+import { BorderedPillButtonLink } from "~/components/buttons";
 
 //type imports
 import type { Route } from "./+types/myp-schedules";
@@ -53,7 +53,7 @@ export default function SchedulesIndex() {
                 <div className="mpg-widget__content1">
                   <div className="mp-schedules-school__inner">
                     {schedules.map((schedule) => (
-                      <SolidPillButtonLink
+                      <BorderedPillButtonLink
                         color="green"
                         key={schedule.slug}
                         to={`/my-page/schedules/${schedule.slug}`}
@@ -62,7 +62,7 @@ export default function SchedulesIndex() {
                           <BsCalendarWeek />
                           {`${schedule.teacher}`}
                         </div>
-                      </SolidPillButtonLink>
+                      </BorderedPillButtonLink>
                     ))}
                   </div>
                 </div>
