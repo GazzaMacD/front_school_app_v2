@@ -73,7 +73,6 @@ export async function loader({ request }: Route.LoaderArgs) {
       userData.user.is_staff
     );
     const schedulesBySchool = groupSchedulesBySchool(schedulesData.data);
-    console.dir(schedulesBySchool, { depth: null });
 
     return data({
       schedulesBySchool,
