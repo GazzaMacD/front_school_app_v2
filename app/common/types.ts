@@ -1,3 +1,37 @@
+/*
+ * Schedules Types
+ */
+type TAPISchedule = {
+  slug: string;
+  schedule_url: string;
+  teacher: { name: string; id: number };
+  language_school: { name: string };
+};
+
+export type TAPISchedules = TAPISchedule[];
+
+export type TSchedulesObject = {
+  slug: string;
+  url: string;
+  teacher: string;
+  school: string;
+};
+
+export type TSchedulesBySchool = {
+  [key: string]: TSchedulesObject[];
+};
+
+/*
+ * Video Call Types
+ */
+export type TVideoCall = {
+  slug: string;
+  teacher: { name: string; id: number };
+  host_room_url: string;
+  room_url: string;
+};
+export type TVideoCalls = TVideoCall[];
+
 /**
  * API Types
  */

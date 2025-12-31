@@ -5,11 +5,13 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import globalStyles from "~/styles/global.css?url";
 import fontStyles from "~/styles/fonts.css?url";
+import errorStyles from "~/styles/components/errors.css?url";
 
 export const links: Route.LinksFunction = () => [
   {
@@ -20,9 +22,14 @@ export const links: Route.LinksFunction = () => [
     rel: "stylesheet",
     href: fontStyles,
   },
+  {
+    rel: "stylesheet",
+    href: errorStyles,
+  },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { pathname } = useLocation();
   return (
     <html lang="ja">
       <head>
@@ -30,6 +37,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        {pathname.includes("video-calls") ? (
+          <script
+            src="https://cdn.srv.whereby.com/embed/v2-embed.js"
+            type="module"
+            defer
+          ></script>
+        ) : null}
       </head>
       <body>
         <div className="g-base-wrapper">{children}</div>

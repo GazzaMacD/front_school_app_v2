@@ -27,6 +27,7 @@ a.mpg-header__logo::before {
   height: 25px;
   width: 25px;
 }
+
 /* ---------- hamburger button ---------- */
 .mpg-header__hamburger {
   position: absolute;
@@ -232,6 +233,15 @@ a.mpg-header__logo::before {
   justify-content: center;
   margin-right: 10px;
 }
+/* ---------- main ---------- */
+.mpg-main {
+  padding: 70px 50px 50px 50px;
+  min-height: calc(100vh);
+  background-color: var(--color-brand-cream);
+  display: flex;
+  flex-direction: column;
+}
+/* ---------- content ---------- */
 .mpg-widget__content1 {
   display: flex;
   flex-direction: column;

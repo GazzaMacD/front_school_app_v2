@@ -10,7 +10,8 @@ import {
 } from "react-icons/bs";
 
 import myPageGlobalStyles from "~/styles/mypage-global.css?url";
-import { authenticatedUser, hasSchedulePermissions } from "~/.server/session";
+import unauthorizedStyles from "~/styles/components/unauthorized.css?url";
+import { authenticatedUser, hasStudentPermissions } from "~/.server/session";
 // type imports
 import type { Route } from "./+types/my-page";
 
@@ -21,6 +22,10 @@ export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
     href: myPageGlobalStyles,
+  },
+  {
+    rel: "stylesheet",
+    href: unauthorizedStyles,
   },
 ];
 
@@ -40,7 +45,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const { user } = userData;
   const perms = {
-    classSchedules: hasSchedulePermissions(user.groups, user.is_staff),
+    classSchedules: hasStudentPermissions(user.groups, user.is_staff),
   };
   return { user, perms };
 }
@@ -86,6 +91,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
                       isPending ? "pending" : isActive ? "active" : ""
                     }
                     end
+                    onClick={() => setMenuOpen(false)}
                   >
                     <RxDashboard />
                     マイページホーム
@@ -100,6 +106,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
                           isPending ? "pending" : isActive ? "active" : ""
                         }
                         end
+                        onClick={() => setMenuOpen(false)}
                       >
                         <BsCalendarWeek />
                         スケジュール
@@ -112,6 +119,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
                           isPending ? "pending" : isActive ? "active" : ""
                         }
                         end
+                        onClick={() => setMenuOpen(false)}
                       >
                         <BsPersonVideo2 />
                         ビデオ通話
@@ -126,6 +134,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
                       isPending ? "pending" : isActive ? "active" : ""
                     }
                     end
+                    onClick={() => setMenuOpen(false)}
                   >
                     <BsPersonVcard />
                     プロフィール
@@ -138,6 +147,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
                       isPending ? "pending" : isActive ? "active" : ""
                     }
                     end
+                    onClick={() => setMenuOpen(false)}
                   >
                     <BsHouse />
                     ホームページ
@@ -156,7 +166,7 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
       </header>
-      <main>
+      <main className="mpg-main">
         <Outlet />
       </main>
     </div>

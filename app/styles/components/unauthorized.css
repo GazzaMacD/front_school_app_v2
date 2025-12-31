@@ -1,0 +1,12 @@
+/*
+* Unauthorized
+*/
+.c-unauthorized__inner {
+  margin: 0 auto;
+  max-width: 500px;
+}
+.c-unauthorized__inner > h1 {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}

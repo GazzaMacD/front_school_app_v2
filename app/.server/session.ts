@@ -42,8 +42,10 @@ export function secureRedirect(to: FormDataEntryValue | null): string {
   return to;
 }
 
-/* Permissions */
-export function hasSchedulePermissions(
+/*
+ *Permissions
+ */
+export function hasStudentPermissions(
   groups: { name: string }[],
   staff: boolean
 ): boolean {

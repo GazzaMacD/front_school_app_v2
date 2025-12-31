@@ -1,0 +1,20 @@
+/*
+* Errors
+*/
+.c-error__inner {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 40px 20px;
+  border: 2px solid var(--color-sec-red);
+  border-radius: var(--radius-medium);
+}
+.c-error__inner > h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: var(--color-sec-red);
+}
+.c-error__inner > p {
+  color: var(--color-sec-red);
+}
