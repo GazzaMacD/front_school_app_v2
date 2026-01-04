@@ -6,7 +6,7 @@ import { IoInformation } from "react-icons/io5";
 import { LuWholeWord } from "react-icons/lu";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 
-import { BASE_API_URL } from "~/.server/env";
+import { BASE_API_URL, WN_API_KEY } from "~/.server/env";
 import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
 import myPageIndexStyles from "~/styles/mypage-index.css?url";
 // type imports
@@ -61,11 +61,15 @@ export async function loader({ context }: Route.LoaderArgs) {
       Accept: "application/json",
     },
   };
+  const wordNikApiURL = `https://api.wordnik.com/v4/words.json/wordOfTheDay?api_key=${WN_API_KEY}`;
   // fetch all
-  const [blogData, dadJokeData] = await Promise.all([
+  const [blogData, dadJokeData, wordNikData] = await Promise.all([
     fetchWithMeta<TBlogData>({ url: blogsApiUrl, options: undefined }),
     fetchWithMeta<TDadJoke>({ url: dadJokeApiUrl, options: dadJokeOptions }),
+    fetchWithMeta<TWordNik>({ url: wordNikApiURL, options: undefined }),
   ]);
+  //wordNik
+  console.dir(wordNikData, { depth: null });
   //Blog Dates
   if (blogData.success) {
     const blogsWithDate = blogData.data.items.map((blog) => {
@@ -90,11 +94,12 @@ export async function loader({ context }: Route.LoaderArgs) {
     blogData,
     xlNews,
     dadJokeData,
+    wordNikData,
   };
 }
 
 export default function MyPageIndex({ loaderData }: Route.ComponentProps) {
-  const { blogData, xlNews, dadJokeData } = loaderData;
+  const { blogData, xlNews, dadJokeData, wordNikData } = loaderData;
   return (
     <>
       {/* Meta tags*/}
@@ -168,7 +173,18 @@ export default function MyPageIndex({ loaderData }: Route.ComponentProps) {
             </span>
             Today's English Word
           </h2>
-          <div className="mpg-widget__content1"></div>
+          <div className="mpg-widget__content1">
+            {wordNikData.success ? (
+              <WordOfTheDay
+                word={wordNikData.data.word}
+                definitions={wordNikData.data.definitions}
+                examples={wordNikData.data.examples}
+                note={wordNikData.data.note}
+              />
+            ) : (
+              <WidgetError />
+            )}
+          </div>
         </section>
 
         <section id="weather" className="mpg-widget mp-in-weather">
@@ -237,6 +253,57 @@ function NewsItem({ published_date, title, content, type }: TNewsItem) {
   );
 }
 
+// WordNikItem
+type TWordOfTheDayProps = {
+  word: string;
+  note: string;
+  definitions: TWordNikDef[];
+  examples: TWordNikExample[];
+};
+function WordOfTheDay({
+  word,
+  note,
+  definitions,
+  examples,
+}: TWordOfTheDayProps) {
+  return (
+    <div>
+      <h4>{word}</h4>
+      {definitions.length ? (
+        <div>
+          <h5>Defintion</h5>
+          <p>
+            [<i>{definitions[0].partOfSpeech}</i>]&nbsp;
+            {definitions[0].text}
+          </p>
+        </div>
+      ) : null}
+      {examples.length ? (
+        <div>
+          <h5>Examples</h5>
+          {examples.map((example) => (
+            <div key={example.url}>
+              <blockquote cite={example.url}>
+                <p>{example.text}</p>
+              </blockquote>
+              <p>
+                <cite>{example.title}</cite>
+              </p>
+            </div>
+          ))}
+        </div>
+      ) : null}
+
+      {note ? (
+        <div>
+          <h5>Note</h5>
+          <p>Note: {note}</p>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 /*
  * Types
  */
@@ -260,4 +327,30 @@ type TDadJoke = {
   id: string;
   joke: string;
   status: number;
+};
+
+//WORDNIK
+type TWordNikDef = {
+  text: string;
+  partOfSpeech: string;
+  source: "century";
+  note: string | null;
+};
+type TWordNikExample = {
+  url: string;
+  text: string;
+  title: string;
+  id: number;
+};
+
+type TWordNik = {
+  _id: string;
+  word: string;
+  publishDate: string; // iso datetime string
+  contentProvider: { name: "wordnik"; id: 711 };
+  note: string;
+  htmlExtra: string | null;
+  pdd: string;
+  definitions: TWordNikDef[];
+  examples: TWordNikExample[];
 };
