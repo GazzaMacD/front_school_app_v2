@@ -12,7 +12,9 @@ type TENV_VARS =
   | "LOGIN_REDIRECT"
   | "MC_API_KEY"
   | "MC_URL"
-  | "MC_AUD_ALL_ID";
+  | "MC_AUD_ALL_ID"
+  | "WN_API_KEY"
+  | "OW_API_KEY";
 /*
  * Env Functions
  */
@@ -40,3 +42,5 @@ export const LOGIN_REDIRECT = "/my-page";
 export const MC_API_KEY = getEnvOrThrow("MC_API_KEY");
 export const MC_URL = getEnvOrThrow("MC_URL");
 export const MC_AUD_ALL_ID = getEnvOrThrow("MC_AUD_ALL_ID");
+export const WN_API_KEY = getEnvOrThrow("WN_API_KEY");
+export const OW_API_KEY = getEnvOrThrow("OW_API_KEY");
