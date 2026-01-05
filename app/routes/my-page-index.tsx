@@ -6,7 +6,7 @@ import { IoInformation } from "react-icons/io5";
 import { LuWholeWord } from "react-icons/lu";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 
-import { BASE_API_URL, WN_API_KEY } from "~/.server/env";
+import { BASE_API_URL, OW_API_KEY, WN_API_KEY } from "~/.server/env";
 import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
 import myPageIndexStyles from "~/styles/mypage-index.css?url";
 // type imports
@@ -15,6 +15,7 @@ import type { Route } from "./+types/my-page-index";
 /**
  * Helpers
  */
+
 export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
@@ -61,15 +62,20 @@ export async function loader({ context }: Route.LoaderArgs) {
       Accept: "application/json",
     },
   };
-  const wordNikApiURL = `https://api.wordnik.com/v4/words.json/wordOfTheDay?api_key=${WN_API_KEY}`;
+  const wordNikApiUrl = `https://api.wordnik.com/v4/words.json/wordOfTheDay?api_key=${WN_API_KEY}`;
+  const openWeatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=35.183333&lon=136.9&units=metric&appid=${OW_API_KEY}`;
   // fetch all
-  const [blogData, dadJokeData, wordNikData] = await Promise.all([
-    fetchWithMeta<TBlogData>({ url: blogsApiUrl, options: undefined }),
-    fetchWithMeta<TDadJoke>({ url: dadJokeApiUrl, options: dadJokeOptions }),
-    fetchWithMeta<TWordNik>({ url: wordNikApiURL, options: undefined }),
-  ]);
-  //wordNik
-  console.dir(wordNikData, { depth: null });
+  const [blogData, dadJokeData, wordNikData, openWeatherData] =
+    await Promise.all([
+      fetchWithMeta<TBlogData>({ url: blogsApiUrl, options: undefined }),
+      fetchWithMeta<TDadJoke>({ url: dadJokeApiUrl, options: dadJokeOptions }),
+      fetchWithMeta<TWordNik>({ url: wordNikApiUrl, options: undefined }),
+      fetchWithMeta<TWeatherResponse>({
+        url: openWeatherApiUrl,
+        options: undefined,
+      }),
+    ]);
+  //
   //Blog Dates
   if (blogData.success) {
     const blogsWithDate = blogData.data.items.map((blog) => {
@@ -95,11 +101,17 @@ export async function loader({ context }: Route.LoaderArgs) {
     xlNews,
     dadJokeData,
     wordNikData,
+    openWeatherData,
   };
 }
+/**
+ *Page
+ */
 
 export default function MyPageIndex({ loaderData }: Route.ComponentProps) {
-  const { blogData, xlNews, dadJokeData, wordNikData } = loaderData;
+  const { blogData, xlNews, dadJokeData, wordNikData, openWeatherData } =
+    loaderData;
+
   return (
     <>
       {/* Meta tags*/}
@@ -194,7 +206,18 @@ export default function MyPageIndex({ loaderData }: Route.ComponentProps) {
             </span>
             Nagoya Weather in English
           </h2>
-          <div className="mpg-widget__content1"></div>
+          <div className="mpg-widget__content1">
+            {openWeatherData.success ? (
+              <WeatherItem
+                weather={openWeatherData.data.weather[0]}
+                main={openWeatherData.data.main}
+                wind={openWeatherData.data.wind}
+                sys={openWeatherData.data.sys}
+              />
+            ) : (
+              <WidgetError />
+            )}
+          </div>
         </section>
       </div>
     </>
@@ -304,6 +327,138 @@ function WordOfTheDay({
   );
 }
 
+// WeatherItem
+const weatherCodes: Record<string, string> = {
+  "200": "thunderstorm with light rain",
+  "201": "thunderstorm with rain",
+  "202": "thunderstorm with heavy rain",
+  "210": "light thunderstorm",
+  "211": "thunderstorm",
+  "212": "heavy thunderstorm",
+  "221": "ragged thunderstorm",
+  "230": "thunderstorm with light drizzle",
+  "231": "thunderstorm with drizzle",
+  "232": "thunderstorm with heavy drizzle",
+  "300": "light intensity drizzle",
+  "301": "drizzle",
+  "302": "heavy intensity drizzle",
+  "310": "light intensity drizzle rain",
+  "311": "drizzle rain",
+  "312": "heavy intensity drizzle rain",
+  "313": "shower rain and drizzle",
+  "314": "heavy shower rain and drizzle",
+  "321": "shower drizzle",
+  "500": "light rain",
+  "501": "moderate rain",
+  "502": "heavy intensity rain",
+  "503": "very heavy rain",
+  "504": "extreme rain",
+  "511": "freezing rain",
+  "520": "light intensity shower rain",
+  "521": "shower rain",
+  "522": "heavy intensity shower rain",
+  "531": "ragged shower rain",
+  "600": "light snow",
+  "601": "snow",
+  "602": "heavy snow",
+  "611": "sleet",
+  "612": "light shower sleet",
+  "613": "shower sleet",
+  "615": "light rain and snow",
+  "616": "rain and snow",
+  "620": "light shower snow",
+  "621": "shower snow",
+  "622": "heavy shower snow",
+  "701": "mist",
+  "711": "smoke",
+  "721": "haze",
+  "731": "sand/dust whirls",
+  "741": "fog",
+  "751": "sand",
+  "761": "dust",
+  "762": "volcanic ash",
+  "771": "squalls",
+  "781": "tornado",
+  "800": "clear sky",
+  "801": "few clouds (11-25% cloudcover)",
+  "802": "scattered clouds (25-50% cloudcover)",
+  "803": "broken clouds (51-84% cloudcover)",
+  "804": "overcast clouds (85-100% cloudcover)",
+};
+
+type TDirection =
+  | "north"
+  | "northeast"
+  | "east"
+  | "southeast"
+  | "south"
+  | "southwest"
+  | "west"
+  | "northwest";
+
+const directions: readonly TDirection[] = [
+  "north",
+  "northeast",
+  "east",
+  "southeast",
+  "south",
+  "southwest",
+  "west",
+  "northwest",
+] as const;
+
+const degreeToDirectionMap: Record<number, TDirection> = {};
+
+for (let degree = 0; degree <= 360; degree++) {
+  const index = Math.floor(((degree + 22.5) % 360) / 45);
+  degreeToDirectionMap[degree] = directions[index];
+}
+
+function utcToJstTime(utcSeconds: number) {
+  const event = new Date((utcSeconds + 9 * 60 * 60) * 1000);
+  return event.toLocaleTimeString("en-US", {
+    timeStyle: "short",
+  });
+}
+function andOrBut(temp: number, feel: number) {
+  if (temp == feel) return "and";
+  return "but";
+}
+
+type TWeatherItemProps = {
+  weather: TWeather;
+  main: TMain;
+  wind: TWind;
+  sys: TSys;
+};
+
+function WeatherItem({ weather, main, wind, sys }: TWeatherItemProps) {
+  return (
+    <div className="mp-in-weather__inner">
+      <div>
+        <img
+          src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
+          alt={`${weather.description}`}
+        />
+      </div>
+      <p>
+        The current condition is {weatherCodes[String(weather.id)]}. The
+        temperature is {Math.round(main.temp)}°C{" "}
+        {andOrBut(Math.round(main.temp), Math.round(main.feels_like))} feels
+        like {Math.round(main.feels_like)}°C. The humidity is currently{" "}
+        {main.humidity}%. The wind is blowing from the{" "}
+        {degreeToDirectionMap[Math.round(wind.deg)]} at {wind.speed}m/s with
+        gusts of {wind.gust} m/s. Today, sunrise is at{" "}
+        {utcToJstTime(sys.sunrise)} and sunset is at {utcToJstTime(sys.sunset)}.
+      </p>
+    </div>
+  );
+}
+
+/*
+ *
+ */
+
 /*
  * Types
  */
@@ -353,4 +508,63 @@ type TWordNik = {
   pdd: string;
   definitions: TWordNikDef[];
   examples: TWordNikExample[];
+};
+
+// OpenWeather Types
+
+type TCoord = {
+  lon: number;
+  lat: number;
+};
+
+type TWeather = {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
+};
+
+type TMain = {
+  temp: number;
+  feels_like: number;
+  temp_min: number;
+  temp_max: number;
+  pressure: number;
+  humidity: number;
+  sea_level: number;
+  grnd_level: number;
+};
+
+type TWind = {
+  speed: number;
+  deg: number;
+  gust: number;
+};
+
+type TClouds = {
+  all: number;
+};
+
+type TSys = {
+  type: number;
+  id: number;
+  country: string;
+  sunrise: number;
+  sunset: number;
+};
+
+type TWeatherResponse = {
+  coord: TCoord;
+  weather: TWeather[];
+  base: string;
+  main: TMain;
+  visibility: number;
+  wind: TWind;
+  clouds: TClouds;
+  dt: number;
+  sys: TSys;
+  timezone: number;
+  id: number;
+  name: string;
+  cod: number;
 };

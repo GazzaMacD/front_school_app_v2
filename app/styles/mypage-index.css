@@ -92,6 +92,18 @@ a.mp-in-blog__item::before {
   flex: 1 1 30%;
   background-color: var(--color-sec-pale-orange);
 }
+.mp-in-weather__inner > div:first-child {
+  background-color: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin: 8px 15px 10px 0;
+  border-radius: 10px;
+}
+
 /*
 small (480px / 16 = 30rem)
 @media (min-width: 30rem) {
