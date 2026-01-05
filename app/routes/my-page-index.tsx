@@ -159,7 +159,7 @@ export default function MyPageIndex({ loaderData }: Route.ComponentProps) {
           </h2>
           <div className="mpg-widget__content1">
             {dadJokeData.success ? (
-              <p>{dadJokeData.data.joke}</p>
+              <h5>"{dadJokeData.data.joke}"</h5>
             ) : (
               <WidgetError />
             )}
@@ -171,7 +171,7 @@ export default function MyPageIndex({ loaderData }: Route.ComponentProps) {
             <span>
               <LuWholeWord />
             </span>
-            Today's English Word
+            English Word of the Day
           </h2>
           <div className="mpg-widget__content1">
             {wordNikData.success ? (
