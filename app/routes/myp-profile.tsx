@@ -1,9 +1,10 @@
-import { redirect, Form } from "react-router";
+import { redirect, Form, data } from "react-router";
 import * as React from "react";
 import { BsPersonCircle, BsPersonVcard, BsPencil } from "react-icons/bs";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 import { BASE_API_URL } from "~/.server/env";
+import { MESSAGES } from "~/common/constants";
 import { Error } from "~/components/errors";
 import {
   authenticatedUser,
@@ -28,6 +29,7 @@ export const links: Route.LinksFunction = () => [
 /**
  * Loaders and Actions
  */
+
 export async function action({ request }: Route.ActionArgs) {
   const form = await request.formData();
   const name = form.get("name") as string;
@@ -42,7 +44,7 @@ export async function action({ request }: Route.ActionArgs) {
   }
   const profileUrl = `${BASE_API_URL}/users/${userData.user.id}/profile/`;
   const profileOptions = {
-    method: "POST",
+    method: "PUT",
     headers: await createAuthenticatedHeaders(userData.access),
     body: JSON.stringify({
       name,
@@ -50,16 +52,46 @@ export async function action({ request }: Route.ActionArgs) {
       bday,
     }),
   };
-  const profileResponseData = fetchWithMeta<TProfileResponse>({
-    url: profileUrl,
-    options: profileOptions,
-  });
 
-  return null;
-}
+  const fields = {
+    name,
+    name_en,
+    bday,
+  };
+
+  try {
+    const res = await fetch(profileUrl, profileOptions);
+    const resData = await res.json();
+    if (!res.ok) {
+      const actionResponse = {
+        success: false as const,
+        status: res.status,
+        errors: resData,
+        fields,
+      };
+      return data<TProfileActionResponse>(actionResponse);
+    }
+    return data<TProfileActionResponse>({
+      success: true as const,
+      status: res.status,
+      errors: null,
+      fields: null,
+    });
+  } catch (e) {
+    console.error(e);
+    return data<TProfileActionResponse>({
+      success: false as const,
+      status: 500,
+      errors: {
+        non_field_errors: [MESSAGES["ja"].networkError],
+      },
+      fields,
+    });
+  }
+} // end of action
+
 export async function loader({ request }: Route.LoaderArgs) {
   // Check auth
-
   const userData = await authenticatedUser(request);
   if (!userData) {
     const redirectTo = new URL(request.url).pathname;
@@ -96,6 +128,8 @@ export default function Profile({
   //Error in loader
   if (!profileResponseData.success) return <Error />;
 
+  const profileData = profileResponseData.data;
+
   return (
     <div className="mp-p-main__content">
       <section className="mp-pr-main">
@@ -113,15 +147,15 @@ export default function Profile({
                   <tbody>
                     <tr>
                       <td>氏名</td>
-                      <td>{loaderData.name}</td>
+                      <td>{profileData.name}</td>
                     </tr>
                     <tr>
                       <td>英語での氏名</td>
-                      <td>{loaderData.name_en}</td>
+                      <td>{profileData.name_en}</td>
                     </tr>
                     <tr>
                       <td>英語での誕生日</td>
-                      <td>{loaderData.bday}</td>
+                      <td>{profileData.bday}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -165,7 +199,7 @@ export default function Profile({
                     defaultValue={
                       actionData?.fields?.name
                         ? actionData.fields.name
-                        : loaderData.name
+                        : profileData.name
                     }
                     aria-invalid={Boolean(actionData?.errors?.name?.length)}
                     aria-errormessage={
@@ -199,7 +233,7 @@ export default function Profile({
                     defaultValue={
                       actionData?.fields?.name_en
                         ? actionData.fields.name_en
-                        : loaderData.name_en
+                        : profileData.name_en
                     }
                     aria-invalid={Boolean(actionData?.errors?.name_en?.length)}
                     aria-errormessage={
@@ -234,7 +268,7 @@ export default function Profile({
                     defaultValue={
                       actionData?.fields?.bday
                         ? actionData.fields.bday
-                        : loaderData.bday
+                        : profileData.bday
                     }
                     aria-invalid={Boolean(actionData?.errors?.bday?.length)}
                     aria-errormessage={
@@ -249,7 +283,7 @@ export default function Profile({
                       role="alert"
                       id="bday-errors"
                     >
-                      {actionData.errors.name.map((error: string) => {
+                      {actionData.errors.bday.map((error: string) => {
                         return <li key={error}>{error}</li>;
                       })}
                     </ul>
@@ -266,10 +300,6 @@ export default function Profile({
             </article>
           </div>
         </div>
-        {/*
-        <div className="mp-pr-form">
-        </div>
-        */}
       </section>
     </div>
   );
@@ -283,3 +313,26 @@ type TProfileResponse = {
   name_en: string;
   bday: string;
 };
+
+type TProfileActionResponse =
+  | {
+      success: true;
+      status: number;
+      errors: null;
+      fields: null;
+    }
+  | {
+      success: false;
+      status: number;
+      errors: {
+        non_field_errors?: string[];
+        name?: string[];
+        name_en?: string[];
+        bday?: string[];
+      };
+      fields: {
+        name: string;
+        name_en: string;
+        bday: string;
+      };
+    };

@@ -13,6 +13,7 @@ export function getDisplay(str: string, langNum: number) {
 /*
  * Fetch and other API functions
  */
+
 // fetch with Meta - for Fetch.all etc
 type TFetchWithMetaSuccess<T> = {
   success: true;

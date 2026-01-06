@@ -36,6 +36,7 @@
   height: 500px;
   background-color: transparent;
   perspective: 1000px;
+  margin-top: 40px;
 }
 .mp-pr-profile-inner {
   position: relative;
@@ -53,6 +54,9 @@
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
   border-radius: var(--radius-small);
+  border: solid 0.5px #e1d0b5;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(88, 63, 25, 0.3);
+  box-shadow: 0px 0px 5px 1px rgba(88, 63, 25, 0.3);
 }
 .mp-pr-profile-front {
   background-color: var(--color-brand-white);
