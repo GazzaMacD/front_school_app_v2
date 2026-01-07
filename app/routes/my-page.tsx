@@ -6,6 +6,7 @@ import {
   BsCalendarWeek,
   BsPersonVcard,
   BsPersonVideo2,
+  BsInfoSquare,
   BsHouse,
 } from "react-icons/bs";
 
@@ -123,6 +124,19 @@ export default function MyPage({ loaderData }: Route.ComponentProps) {
                       >
                         <BsPersonVideo2 />
                         ビデオ通話
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/my-page/information"
+                        className={({ isActive, isPending }) =>
+                          isPending ? "pending" : isActive ? "active" : ""
+                        }
+                        end
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        <BsInfoSquare />
+                        エクスリンガル情報
                       </NavLink>
                     </li>
                   </>

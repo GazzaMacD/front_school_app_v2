@@ -1,9 +1,9 @@
 import { Outlet, redirect, data } from "react-router";
 
 import { authenticatedUser, hasStudentPermissions } from "~/.server/session";
-import schoolInfoStyles from "~/styles/mypage-school-info.css?url";
+import infoStyles from "~/styles/mypage-info.css?url";
 //type imports
-import type { Route } from "./+types/myp-school-information";
+import type { Route } from "./+types/myp-information";
 
 /**
  * Helpers
@@ -11,18 +11,19 @@ import type { Route } from "./+types/myp-school-information";
 export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",
-    href: schoolInfoStyles,
+    href: infoStyles,
   },
 ];
+
 /*
  * Loaders and Actions
  */
 export async function loader({ request }: Route.LoaderArgs) {
   const userData = await authenticatedUser(request);
-  const redirectTo = new URL(request.url).pathname;
-  const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
   //if null get path and redirect to login route with redirect parameter
   if (!userData) {
+    const redirectTo = new URL(request.url).pathname;
+    const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
     return redirect(`/login?${searchParams}`);
   }
 

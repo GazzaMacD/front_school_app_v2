@@ -86,8 +86,8 @@ export default [
       index("routes/myp-video-calls-index.tsx"),
       route(":slug", "routes/myp-video-calls-detail.tsx"),
     ]),
-    route("school-information", "routes/myp-school-information.tsx", [
-      index("routes/myp-school-information-index.tsx"),
+    route("information", "routes/myp-information.tsx", [
+      index("routes/myp-information-index.tsx"),
     ]),
   ]),
   // ** Resource and Splat routes **
