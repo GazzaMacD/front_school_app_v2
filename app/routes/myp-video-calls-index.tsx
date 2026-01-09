@@ -4,7 +4,7 @@ import { useParentData } from "~/hooks/use-parent-data";
 import { BsPersonVideo2 } from "react-icons/bs";
 //type imports
 import type { TVideoCall, TVideoCalls, TUser } from "~/common/types";
-import { SolidPillButtonLink } from "~/components/buttons";
+import { BorderedPillButtonLink } from "~/components/buttons";
 
 export default function VideoCallsIndex() {
   const parentData = useParentData<TVideoCallsParentData>(
@@ -49,7 +49,7 @@ export default function VideoCallsIndex() {
             <div className="mp-video-index__links">
               {parentData.videoCalls.map((videoCallObj: TVideoCall) => {
                 return (
-                  <SolidPillButtonLink
+                  <BorderedPillButtonLink
                     color="green"
                     key={videoCallObj.teacher.id}
                     to={`/my-page/video-calls/${videoCallObj.slug}`}
@@ -59,7 +59,7 @@ export default function VideoCallsIndex() {
                       <BsPersonVideo2 />
                       {videoCallObj.teacher.name}
                     </div>
-                  </SolidPillButtonLink>
+                  </BorderedPillButtonLink>
                 );
               })}
             </div>
