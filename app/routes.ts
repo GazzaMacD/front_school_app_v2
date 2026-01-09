@@ -77,17 +77,22 @@ export default [
   // ** Back Layout **
   route("my-page", "routes/my-page.tsx", [
     index("routes/my-page-index.tsx"),
+    //profile
     route("profile", "routes/myp-profile.tsx"),
+    // booking system
     route("schedules", "routes/myp-schedules.tsx", [
       index("routes/myp-schedules-index.tsx"),
       route(":slug", "routes/myp-schedules-detail.tsx"),
     ]),
+    // video calls
     route("video-calls", "routes/myp-video-calls.tsx", [
       index("routes/myp-video-calls-index.tsx"),
       route(":slug", "routes/myp-video-calls-detail.tsx"),
     ]),
+    // company information
     route("information", "routes/myp-information.tsx", [
       index("routes/myp-information-index.tsx"),
+      route("booking-system", "routes/myp-info-booking-system.tsx"),
     ]),
   ]),
   // ** Resource and Splat routes **
