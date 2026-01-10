@@ -36,7 +36,12 @@ export default function InfoBookingSystem() {
             </span>
             Booking System
           </h2>
-          <div>some info here ~</div>
+          <div>
+            <details>
+              <summary>Details</summary>
+              Something small enough to escape casual notice.
+            </details>
+          </div>
         </section>
       </div>
     </>
