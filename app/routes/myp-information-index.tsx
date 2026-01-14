@@ -9,7 +9,6 @@ import {
   BsGoogle,
   BsCalendar3,
 } from "react-icons/bs";
-import { LiaFileContractSolid } from "react-icons/lia";
 import { FaYenSign } from "react-icons/fa6";
 import { GiDiscussion } from "react-icons/gi";
 import { TbContract } from "react-icons/tb";

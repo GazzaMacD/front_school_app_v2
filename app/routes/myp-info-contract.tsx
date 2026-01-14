@@ -2,6 +2,7 @@ import { Unauthorized } from "~/components/unauthorized";
 import { getTitle } from "~/common/utils";
 import { useParentData } from "~/hooks/use-parent-data";
 import { BsInfoSquare } from "react-icons/bs";
+import { TbContract } from "react-icons/tb";
 
 //type imports
 import type { TUser } from "~/common/types";
@@ -30,7 +31,7 @@ export default function InfoBookingSystem() {
         <section className="mp-info-page__inner">
           <h2 className="mpg-widget__heading">
             <span>
-              <BsInfoSquare />
+              <TbContract />
             </span>
             Contract・契約書
           </h2>

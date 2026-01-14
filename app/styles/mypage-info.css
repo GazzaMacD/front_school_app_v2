@@ -90,6 +90,11 @@
 .mp-info-page__inner li {
   padding: 10px;
 }
+.mp-info-page__inner > div > h3 {
+  color: var(--color-brand-green);
+  font-size: var(--font-size-l);
+  margin-bottom: 0;
+}
 .mp-info-page__inner__box {
   margin: 14px 0 14px 0;
   padding: 14px;
