@@ -93,6 +93,7 @@ export default [
     route("information", "routes/myp-information.tsx", [
       index("routes/myp-information-index.tsx"),
       route("booking-system", "routes/myp-info-booking-system.tsx"),
+      route("contract", "routes/myp-info-contract.tsx"),
     ]),
   ]),
   // ** Resource and Splat routes **

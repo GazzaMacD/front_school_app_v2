@@ -39,7 +39,10 @@ export default function InformationIndex() {
     <>
       <title>{getTitle({ title: "Information・情報", isHome: false })}</title>
       <div className="mp-info-index">
-        <section id="mp-info-index__inner" className="mp-info-index__inner">
+        <section
+          id="mp-info-index__inner"
+          className="mp-info-page__inner index"
+        >
           <h2 className="mpg-widget__heading">
             <span>
               <BsInfoSquare />
