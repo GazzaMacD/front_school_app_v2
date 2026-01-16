@@ -236,8 +236,8 @@ a.c-fheader-menu__reglog-link:before {
 }
 .c-fheader-menu__reglog {
   color: var(--color-brand-white);
-  background-color: var(--color-brand-orange);
-  border: 2px solid var(--color-brand-orange);
+  background-color: var(--color-brand-brown);
+  border: 2px solid var(--color-brand-brown);
   padding: 8px 12px;
   font-size: 11px;
   font-weight: 600;
@@ -246,7 +246,7 @@ a.c-fheader-menu__reglog-link:before {
   transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
 }
 a.c-fheader-menu__reglog-link:hover > .c-fheader-menu__reglog {
-  color: var(--color-brand-orange);
+  color: var(--color-brand-brown);
   background-color: var(--color-brand-white);
 }
 .c-fheader-menu__reglog.reg {
