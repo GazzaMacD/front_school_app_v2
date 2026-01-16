@@ -129,6 +129,9 @@
   margin-bottom: 0;
 }
 /* table */
+.mp-info-page__inner > div table {
+  margin: 20px 0;
+}
 .mp-info-page__inner > div table,
 .mp-info-page__inner > div table td {
   padding: 5px 10px;
