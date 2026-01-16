@@ -95,6 +95,7 @@ export default [
       route("booking-system", "routes/myp-info-booking-system.tsx"),
       route("contract", "routes/myp-info-contract.tsx"),
       route("google", "routes/myp-info-google.tsx"),
+      route("invoices-and-calendar", "routes/myp-info-invoices-calendar.tsx"),
     ]),
   ]),
   // ** Resource and Splat routes **

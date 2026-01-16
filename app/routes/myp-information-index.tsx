@@ -56,7 +56,6 @@ export default function InformationIndex() {
               elcome to our information link page.
             </p>
             <p>
-              {" "}
               Please click on the links below to go to the page with the
               information you might need. If you can't find any information
               suitable, please contact us on our email contact@xlingual.co.jp.
@@ -84,7 +83,7 @@ export default function InformationIndex() {
                 </Link>
               </li>
               <li className="mp-info-index__nav__item">
-                <Link to="payments-and-calendar">
+                <Link to="invoices-and-calendar">
                   <article>
                     <header>
                       <div>
