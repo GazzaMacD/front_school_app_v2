@@ -1,4 +1,5 @@
-import { redirect, Form, data } from "react-router";
+import { Link, redirect, Form, data } from "react-router";
+
 import * as React from "react";
 import { BsPersonCircle, BsPersonVcard, BsPencil } from "react-icons/bs";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -15,6 +16,7 @@ import profileStyles from "~/styles/mypage-profile.css?url";
 
 //type
 import type { Route } from "./+types/myp-profile";
+import type { TUIMatch } from "~/common/types";
 
 /**
  * Helpers
@@ -25,6 +27,12 @@ export const links: Route.LinksFunction = () => [
     href: profileStyles,
   },
 ];
+
+export const handle = {
+  breadcrumb: function (m: TUIMatch) {
+    return <Link to="my-page/profile">Profile</Link>;
+  },
+};
 
 /**
  * Loaders and Actions
