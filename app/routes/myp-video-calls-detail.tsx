@@ -1,17 +1,20 @@
-import * as React from "react";
-
 import { Unauthorized } from "~/components/unauthorized";
 import { Error } from "~/components/errors";
 import { getTitle } from "~/common/utils";
 import { useParentData } from "~/hooks/use-parent-data";
 //type imports
 import type { Route } from "./+types/myp-video-calls-detail";
-import type { TVideoCall, TVideoCalls, TUser } from "~/common/types";
-import { useLocation } from "react-router";
+import type { TVideoCall, TVideoCalls, TUser, TUIMatch } from "~/common/types";
+import { getBreadCrumbNameFromSlug } from "~/common/utils";
 
 /*
  *  Helpers
  */
+export const handle = {
+  breadcrumb: function (m: TUIMatch) {
+    return <p>{getBreadCrumbNameFromSlug(m.data.slug)}</p>;
+  },
+};
 
 function nameFromSlug(slug: string) {
   let nameArray = slug.split("-");
