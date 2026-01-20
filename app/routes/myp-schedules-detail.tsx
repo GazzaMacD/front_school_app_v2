@@ -1,7 +1,9 @@
+import { type UIMatch, Link } from "react-router";
+
 import { useParentData } from "~/hooks/use-parent-data";
 import { Unauthorized } from "~/components/unauthorized";
 import { Error } from "~/components/errors";
-import { getTitle } from "~/common/utils";
+import { getTitle, getBreadCrumbTextFromSlug } from "~/common/utils";
 
 //type imports
 import type { Route } from "./+types/myp-schedules-detail";
@@ -11,6 +13,25 @@ import type {
   TUser,
 } from "~/common/types";
 
+type TUIMatch = {
+  id: string;
+  pathname: string;
+  params: {
+    slug: string;
+  };
+  data: {
+    slug: string;
+  };
+  handle: {};
+};
+/*
+ * Helper
+ */
+export const handle = {
+  breadcrumb: function (m: TUIMatch) {
+    return <p>{getBreadCrumbTextFromSlug(m.data.slug)}</p>;
+  },
+};
 /*
  * Actions and Loaders
  */
