@@ -1,4 +1,18 @@
 /*
+ *
+ */
+export type TUIMatch = {
+  id: string;
+  pathname: string;
+  params: {
+    slug: string;
+  };
+  data: {
+    slug: string;
+  };
+  handle: {};
+};
+/*
  * Schedules Types
  */
 type TAPISchedule = {

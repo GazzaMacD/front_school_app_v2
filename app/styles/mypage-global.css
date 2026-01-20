@@ -50,6 +50,10 @@ a.mpg-header__logo::before {
   top: 6px;
   left: -14px;
 }
+.mpg-breadcrumbs > li a,
+.mpg-breadcrumbs > li p {
+  font-size: var(--font-size-s);
+}
 .mpg-breadcrumbs > li > a::before {
   content: none;
 }

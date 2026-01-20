@@ -1,9 +1,10 @@
-import { Outlet, redirect, data } from "react-router";
+import { Outlet, redirect, data, Link } from "react-router";
 
 import { authenticatedUser, hasStudentPermissions } from "~/.server/session";
 import infoStyles from "~/styles/mypage-info.css?url";
 //type imports
 import type { Route } from "./+types/myp-information";
+import type { TUIMatch } from "~/common/types";
 
 /**
  * Helpers
@@ -14,6 +15,12 @@ export const links: Route.LinksFunction = () => [
     href: infoStyles,
   },
 ];
+
+export const handle = {
+  breadcrumb: function (m: TUIMatch) {
+    return <Link to="/my-page/information">エクスリンガル情報</Link>;
+  },
+};
 
 /*
  * Loaders and Actions

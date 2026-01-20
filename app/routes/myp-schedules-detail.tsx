@@ -11,19 +11,9 @@ import type {
   TSchedulesBySchool,
   TSchedulesObject,
   TUser,
+  TUIMatch,
 } from "~/common/types";
 
-type TUIMatch = {
-  id: string;
-  pathname: string;
-  params: {
-    slug: string;
-  };
-  data: {
-    slug: string;
-  };
-  handle: {};
-};
 /*
  * Helper
  */
