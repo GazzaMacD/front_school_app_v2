@@ -27,7 +27,43 @@ a.mpg-header__logo::before {
   height: 25px;
   width: 25px;
 }
-
+/* ---------- breadcrumbs ---------- */
+.mpg-breadcrumbs {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  width: max-content;
+  padding: 10px;
+  gap: 20px;
+}
+.mpg-breadcrumbs__home {
+  width: 18px;
+}
+.mpg-breadcrumbs > li {
+  position: relative;
+  line-height: 1;
+}
+.mpg-breadcrumbs > li:not(:first-child)::before {
+  content: ">";
+  position: absolute;
+  line-height: 0;
+  top: 6px;
+  left: -14px;
+}
+.mpg-breadcrumbs > li a,
+.mpg-breadcrumbs > li p {
+  font-size: var(--font-size-s);
+}
+.mpg-breadcrumbs > li > a::before {
+  content: none;
+}
+.mpg-breadcrumbs > li > a:hover {
+  color: var(--color-brand-green);
+}
+.mpg-breadcrumbs > li > p {
+  margin: 0;
+  line-height: 1;
+}
 /* ---------- hamburger button ---------- */
 .mpg-header__hamburger {
   position: absolute;

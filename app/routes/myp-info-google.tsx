@@ -1,10 +1,21 @@
+import { Link } from "react-router";
+
 import { Unauthorized } from "~/components/unauthorized";
 import { getTitle } from "~/common/utils";
 import { useParentData } from "~/hooks/use-parent-data";
 import { BsGoogle } from "react-icons/bs";
 
 //type imports
-import type { TUser } from "~/common/types";
+import type { TUser, TUIMatch } from "~/common/types";
+
+/**
+ * Helpers
+ */
+export const handle = {
+  breadcrumb: function (m: TUIMatch) {
+    return <Link to="/my-page/information/google">Google</Link>;
+  },
+};
 
 /**
  * Page

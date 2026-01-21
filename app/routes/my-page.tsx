@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Outlet, Link, NavLink, redirect } from "react-router";
+import { Outlet, Link, NavLink, redirect, useMatches } from "react-router";
 import { RxDashboard } from "react-icons/rx";
 import {
   BsPersonCircle,
@@ -29,6 +29,13 @@ export const links: Route.LinksFunction = () => [
     href: unauthorizedStyles,
   },
 ];
+export const handle = {
+  breadcrumb: () => (
+    <Link to="/my-page">
+      <RxDashboard />
+    </Link>
+  ),
+};
 
 /**
  * Actions
@@ -56,19 +63,30 @@ export async function loader({ request }: Route.LoaderArgs) {
  */
 export default function MyPage({ loaderData }: Route.ComponentProps) {
   const { user, perms } = loaderData;
+  const matches = useMatches();
+  console.log(matches);
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   return (
     <div>
       <header className="mpg-header">
-        <Link to="/" className="mpg-header__logo">
-          <div>
-            <img
-              src="/img/x_only_xlingual_logo.svg"
-              alt="xlingual x only logo"
-            />
-          </div>
-        </Link>
+        <ol className="mpg-breadcrumbs">
+          <li>
+            <Link to="/" className="mpg-breadcrumbs__home">
+              <div>
+                <img
+                  src="/img/x_only_xlingual_logo.svg"
+                  alt="xlingual x only logo"
+                />
+              </div>
+            </Link>
+          </li>
+          {matches
+            .filter((match) => match.handle && match.handle.breadcrumb)
+            .map((match, index) => (
+              <li key={index}>{match.handle.breadcrumb(match)}</li>
+            ))}
+        </ol>
         <button
           className={`mpg-header__hamburger ${menuOpen ? "open" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}

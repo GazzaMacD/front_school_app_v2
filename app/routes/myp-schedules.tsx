@@ -1,4 +1,4 @@
-import { Outlet, redirect, data } from "react-router";
+import { Outlet, redirect, data, Link } from "react-router";
 
 import {
   authenticatedUser,
@@ -16,6 +16,11 @@ import type { TAPISchedules, TSchedulesBySchool } from "~/common/types";
 /**
  * Helpers
  */
+
+export const handle = {
+  breadcrumb: (m) => <Link to="/my-page/schedules">スケジュール</Link>,
+};
+
 export const links: Route.LinksFunction = () => [
   {
     rel: "stylesheet",

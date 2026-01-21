@@ -4,6 +4,19 @@ import { BASE_TITLE, HOME_DESC } from "./constants";
 import type { TUser } from "./types";
 
 /*
+ * Breadcrumbs
+ */
+export function getBreadCrumbTextFromSlug(slug: string) {
+  return slug.split("-").join(" ");
+}
+
+export function getBreadCrumbNameFromSlug(slug: string) {
+  return slug
+    .split("-")
+    .map((name) => String(name).charAt(0).toUpperCase() + String(name).slice(1))
+    .join(" ");
+}
+/*
  * Display functions
  */
 export function getDisplay(str: string, langNum: number) {
