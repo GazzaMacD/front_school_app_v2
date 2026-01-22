@@ -5,14 +5,20 @@
   background-color: var(--color-brand-cream);
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 20px;
+}
+@media (min-width: 48rem) {
+  .mp-in-wrapper {
+    gap: 30px;
+  }
 }
 
 /*
 * Blog Lesson
 */
 .mp-in-blogs {
-  flex: 1 1 45%;
+  flex: 0 0 100%;
+  border: solid 1px hsla(0, 0%, 99.6%, 0.8);
 }
 .mp-in-blogs__item {
   margin: 0 5px 20px 0;
@@ -34,11 +40,18 @@ a.mp-in-blog__item::before {
   margin: 0;
   position: relative;
 }
+
+@media (min-width: 48rem) {
+  .mp-in-blogs {
+    flex: 1 1 45%;
+  }
+}
 /*
 * News
 **/
 .mp-in-news {
-  flex: 1 1 45%;
+  flex: 0 0 100%;
+  border: solid 1px hsla(0, 0%, 99.6%, 0.8);
 }
 .mp-in-news__item {
   margin: 0 5px 20px 0;
@@ -69,28 +82,53 @@ a.mp-in-blog__item::before {
   font-size: var(--font-size-s);
   margin: 0;
 }
-
-/*
-* Dad Joke 
-*/
-.mp-in-joke {
-  flex: 1 1 30%;
-  background-color: var(--color-sec-pale-green);
+@media (min-width: 48rem) {
+  .mp-in-news {
+    flex: 1 1 45%;
+    border: solid 1px hsla(0, 0%, 99.6%, 0.8);
+  }
 }
 
 /*
 * Daily Word 
 */
 .mp-in-word {
-  flex: 1 1 30%;
+  flex: 0 0 100%;
   background-color: var(--color-brand-beige);
+  border: 1px solid hsl(40.5, 37.4%, 80.6%);
 }
+@media (min-width: 64rem) {
+  .mp-in-word {
+    flex: 1 1 30%;
+  }
+}
+
+/*
+* Dad Joke 
+*/
+.mp-in-joke {
+  flex: 0 0 100%;
+  background-color: var(--color-sec-pale-green);
+  border: solid 1px hsla(104, 61.8%, 70.2%, 0.8);
+}
+@media (min-width: 30rem) {
+  .mp-in-joke {
+    flex: 1 1 45%;
+  }
+}
+@media (min-width: 48rem) {
+  .mp-in-joke {
+    flex: 1 1 30%;
+  }
+}
+
 /*
 * Nagoya Weather 
 */
 .mp-in-weather {
-  flex: 1 1 30%;
+  flex: 0 0 100%;
   background-color: var(--color-sec-pale-orange);
+  border: 1px solid hsl(28.5, 70.8%, 73.1%);
 }
 .mp-in-weather__inner > div:first-child {
   background-color: lightblue;
@@ -102,6 +140,16 @@ a.mp-in-blog__item::before {
   float: left;
   margin: 8px 15px 10px 0;
   border-radius: 10px;
+}
+@media (min-width: 30rem) {
+  .mp-in-weather {
+    flex: 1 1 45%;
+  }
+}
+@media (min-width: 48rem) {
+  .mp-in-weather {
+    flex: 1 1 30%;
+  }
 }
 
 /*

@@ -18,7 +18,7 @@ export const links: Route.LinksFunction = () => [
 
 export const handle = {
   breadcrumb: function (m: TUIMatch) {
-    return <Link to="/my-page/information">エクスリンガル情報</Link>;
+    return <Link to="/my-page/information">情報</Link>;
   },
 };
 
