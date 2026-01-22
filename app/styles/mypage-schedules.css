@@ -78,5 +78,15 @@
 .mp-schedules-detail__iframe {
   border: none;
   width: 100%;
-  min-height: 1500px;
+  min-height: 1600px;
+}
+@media (min-width: 48rem) {
+  .mp-schedules-detail__iframe {
+    min-height: 1500px;
+  }
+}
+@media (min-width: 1163px) {
+  .mp-schedules-detail__iframe {
+    min-height: 1200px;
+  }
 }
