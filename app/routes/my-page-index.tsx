@@ -162,22 +162,6 @@ export default function MyPageIndex({ loaderData }: Route.ComponentProps) {
           </div>
         </section>
 
-        <section id="joke" className="mpg-widget mp-in-joke">
-          <h2 className="mpg-widget__heading">
-            <span>
-              <FaRegFaceLaughSquint />
-            </span>
-            Random Dad Joke
-          </h2>
-          <div className="mpg-widget__content1">
-            {dadJokeData.success ? (
-              <h5>"{dadJokeData.data.joke}"</h5>
-            ) : (
-              <WidgetError />
-            )}
-          </div>
-        </section>
-
         <section id="word" className="mpg-widget mp-in-word">
           <h2 className="mpg-widget__heading">
             <span>
@@ -193,6 +177,22 @@ export default function MyPageIndex({ loaderData }: Route.ComponentProps) {
                 examples={wordNikData.data.examples}
                 note={wordNikData.data.note}
               />
+            ) : (
+              <WidgetError />
+            )}
+          </div>
+        </section>
+
+        <section id="joke" className="mpg-widget mp-in-joke">
+          <h2 className="mpg-widget__heading">
+            <span>
+              <FaRegFaceLaughSquint />
+            </span>
+            Random Dad Joke
+          </h2>
+          <div className="mpg-widget__content1">
+            {dadJokeData.success ? (
+              <h5>"{dadJokeData.data.joke}"</h5>
             ) : (
               <WidgetError />
             )}

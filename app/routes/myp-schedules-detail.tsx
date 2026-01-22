@@ -17,9 +17,22 @@ import type {
 /*
  * Helper
  */
+function getScheduleBreadcrumb(slug: string) {
+  let crumb = slug.split("-");
+  if (crumb.length == 1) {
+    return crumb[0];
+  } else if (crumb.length == 2) {
+    return crumb.join(" ");
+  } else if (crumb.length == 3) {
+    return `${crumb[0]} ${crumb[2]}`;
+  } else {
+    return "";
+  }
+}
+
 export const handle = {
   breadcrumb: function (m: TUIMatch) {
-    return <p>{getBreadCrumbTextFromSlug(m.data.slug)}</p>;
+    return <p>{getScheduleBreadcrumb(m.data.slug)}</p>;
   },
 };
 /*
