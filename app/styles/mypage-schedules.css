@@ -3,10 +3,8 @@
 */
 
 /* index */
-.mp-schedules-index {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 50px;
+.mp-schedules-school {
+  margin: 20px 0;
 }
 .mp-schedules-index__msg-box {
   flex: 0 0 100%;
@@ -24,20 +22,47 @@
   margin: 0;
   font-size: var(--font-size-xs);
 }
-.mp-schedules-school {
-  flex: 0 0 400px;
-}
 .mp-schedules-school__inner {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: stretch;
+  justify-content: stretch;
   gap: 15px;
 }
 .mp-schedules-school-button {
-  width: 300px;
   display: flex;
   gap: 15px;
   align-items: center;
+}
+
+@media (min-width: 30rem) {
+  .mp-schedules-index {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .mp-schedules-school {
+    flex: 0 0 300px;
+    margin: 0;
+  }
+  .mp-schedules-school-button {
+    width: 300px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+}
+@media (min-width: 48rem) {
+  .mp-schedules-index {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 20px;
+  }
+  .mp-schedules-school {
+    flex: 0 0 400px;
+  }
 }
 
 /* detail */
