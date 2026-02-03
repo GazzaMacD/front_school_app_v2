@@ -329,7 +329,7 @@ a.c-fheader-menu__reglog-link:hover > .c-fheader-menu__reglog {
   top: 0;
   right: 0;
   bottom: 0;
-  padding: 100px 10px 0px 20px;
+  padding: 46px 10px 0px 20px;
   transform: translate(320px);
   opacity: 0;
   background-color: var(--color-brand-white);
@@ -340,33 +340,42 @@ a.c-fheader-menu__reglog-link:hover > .c-fheader-menu__reglog {
   position: absolute;
   padding: 10px 0 40px 0;
   height: calc(100% - 100px);
-  width: calc(100%);
+  width: calc(100% - 40px);
   overflow-y: auto;
 }
 .c-fheader-sm__inner__menus > h3 {
-  font-size: var(--font-size-l);
-  margin: 0 0 20px 0;
+  font-size: var(--font-size-s);
+  font-family: var(--font-en-primary);
+  margin: 0 0 10px 0;
+  line-height: 1;
   color: var(--color-brand-green);
 }
 .c-fheader-sm__inner__menus > ul {
-  margin: 0 0 40px 0;
+  margin: 0 0 20px 0;
   padding: 0;
 }
 .c-fheader-sm__inner__menus li {
   font-size: var(--font-size-s);
-  margin: 0 0 10px 0;
+  margin: 0 0 4px 0;
 }
 .c-fheader-sm__inner__menus li > a {
   font-size: var(--font-size-s);
-  display: block;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 5px;
 }
 .c-fheader-sm__inner__menus li > a::before {
   content: none;
 }
+.c-fheader-sm__inner__menus li > a:hover {
+  background-color: var(--color-brand-beige);
+}
 /* socials */
 .c-fheader-sm__inner__socials {
-  display: grid;
-  grid-template-columns: 290px;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 a.c-fheader-sm__social::before {
@@ -397,8 +406,6 @@ a.c-fheader-sm__social {
     line-height: 1;
   }
   .c-fheader-sm__inner__socials {
-    display: grid;
-    grid-template-columns: 290px 140px;
     gap: 10px;
   }
 }
@@ -436,8 +443,8 @@ a.c-fheader-sm__social {
 }
 @media (min-width: 48rem) {
   .c-fheader-sm {
-    width: 480px;
-    transform: translate(480px);
+    width: 380px;
+    transform: translate(380px);
     padding: 100px 20px 0px 20px;
   }
   .c-fheader-sm__inner {
@@ -448,11 +455,6 @@ a.c-fheader-sm__social {
   }
 }
 @media (min-width: 96rem) {
-  .c-fheader-sm {
-    width: 560px;
-    transform: translate(560px);
-    padding: 100px 60px 0px 60px;
-  }
   .c-fheader-sm__inner {
     position: absolute;
     height: calc(100% - 100px);
