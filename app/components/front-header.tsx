@@ -3,11 +3,18 @@ import {
   FaMobileAlt,
   FaInstagram,
   FaFacebookF,
-  FaYoutube,
+  FaChalkboardTeacher,
 } from "react-icons/fa";
+import { BsFileEarmarkLock } from "react-icons/bs";
+import { FaYenSign, FaRegFaceGrinStars, FaWpforms } from "react-icons/fa6";
+import { BsInfoSquare } from "react-icons/bs";
+import { RiSchoolLine } from "react-icons/ri";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import { LuFilePenLine, LuMail } from "react-icons/lu";
 
 import { SOCIAL_URLS } from "~/common/constants";
-import type { TUser } from "~/types";
+import type { TUser } from "~/common/types";
+import { RxDashboard } from "react-icons/rx";
 
 type TFrontHeaderProps = {
   user: TUser | null;
@@ -105,54 +112,83 @@ function HamburgerMenu() {
         <div className="c-fheader-sm">
           <nav className="c-fheader-sm__inner">
             <div className="c-fheader-sm__inner__menus">
-              <h3>言語学習</h3>
+              <h3>Language Learning</h3>
               <ul>
                 <li>
-                  <Link to="/courses">― 語学コース一覧</Link>
+                  <Link to="/courses">
+                    <FaChalkboardTeacher />
+                    語学コース一覧
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/price-plans">― 料金プラン</Link>
+                  <Link to="/price-plans">
+                    <FaYenSign />
+                    料金プラン
+                  </Link>
                 </li>
                 <li>
                   <Link to="/learning-experiences">
-                    ― ラーニング・エクスペリエンス
+                    <FaRegFaceGrinStars />
+                    ラーニング・エクスペリエンス
                   </Link>
                 </li>
                 <li>
-                  <Link to="/blog-lessons">― 読んで学べるブログ</Link>
+                  <Link to="/blog-lessons">
+                    <LuFilePenLine />
+                    読んで学べるブログ
+                  </Link>
                 </li>
               </ul>
 
-              <h3>会社案内</h3>
+              <h3>Company</h3>
               <ul>
                 <li>
-                  <Link to="/about">― 私たちについて</Link>
+                  <Link to="/about">
+                    <BsInfoSquare />
+                    私たちについて
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/language-schools">― スクール一覧</Link>
-                </li>
-              </ul>
-              <h3>お問い合わせ</h3>
-              <ul>
-                <li>
-                  <Link to="/contact#form">― フォームでのお問い合わせ</Link>
-                </li>
-                <li>
-                  <Link to="/contact#telephone">― 電話でのお問い合わせ</Link>
-                </li>
-                <li>
-                  <Link to="mailto:contact@xlingual.co.jp">
-                    ― Eメールでのお問い合わせ
+                  <Link to="/language-schools">
+                    <RiSchoolLine />
+                    スクール一覧
                   </Link>
                 </li>
               </ul>
-              <h3>その他</h3>
+              <h3>Contact</h3>
               <ul>
                 <li>
-                  <Link to="/my-page">― マイページ</Link>
+                  <Link to="/contact#form">
+                    <FaWpforms />
+                    フォームでのお問い合わせ
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/privacy">― プライバシーポリシー</Link>
+                  <Link to="/contact#telephone">
+                    <FaMobileAlt />
+                    電話でのお問い合わせ
+                  </Link>
+                </li>
+                <li>
+                  <Link to="mailto:contact@xlingual.co.jp">
+                    <LuMail />
+                    Eメールでのお問い合わせ
+                  </Link>
+                </li>
+              </ul>
+              <h3>Other</h3>
+              <ul>
+                <li>
+                  <Link to="/my-page">
+                    <RxDashboard />
+                    マイページ
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/privacy">
+                    <BsFileEarmarkLock />
+                    プライバシーポリシー
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -165,13 +201,6 @@ function HamburgerMenu() {
                 <div>Instagram | Language Learning</div>
               </Link>
               <Link
-                to={SOCIAL_URLS.facebook}
-                className="c-fheader-sm__social regular"
-              >
-                <FaFacebookF />
-                <div>Facebook</div>
-              </Link>
-              <Link
                 to={SOCIAL_URLS.instagram_news}
                 className="c-fheader-sm__social instagram"
               >
@@ -179,11 +208,11 @@ function HamburgerMenu() {
                 <div>Instagram | News</div>
               </Link>
               <Link
-                to={SOCIAL_URLS.youtube}
+                to={SOCIAL_URLS.facebook}
                 className="c-fheader-sm__social regular"
               >
-                <FaYoutube />
-                <div>Youtube</div>
+                <FaFacebookF />
+                <div>Facebook</div>
               </Link>
             </div>
           </nav>
