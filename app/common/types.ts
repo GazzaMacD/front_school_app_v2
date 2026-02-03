@@ -102,6 +102,20 @@ export type TPricePlan = {
   price_plan: TPrice;
 };
 
+// Streamfields in Wagtail
+export type TFullMeta = {
+  type: string;
+  detail_url: string;
+  html_url: string;
+  slug: string;
+  show_in_menus: boolean;
+  seo_title: string;
+  search_description: string;
+  first_published_at: string;
+  alias_of: string | null;
+  locale: string;
+};
+
 // WagTail Blocks
 export type TRichTextBlock = {
   type: "rich_text";
