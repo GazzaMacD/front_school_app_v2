@@ -69,6 +69,10 @@ export default [
       index("routes/staff-index.tsx"),
       route(":slug", "routes/staff-detail.tsx"),
     ]),
+    // questionnaires
+    route("questionnaires", "routes/questionnaires.tsx", [
+      index("routes/questionnaires-index.tsx"),
+    ]),
     // testimonials
     route("testimonials", "routes/testimonials.tsx", [
       index("routes/testimonials-index.tsx"),
