@@ -1,0 +1,46 @@
+/* qu */
+/* List page */
+
+/** 
+* Detail  pages
+*/
+#questionnaire-header {
+  padding-top: 40px;
+}
+.qu-dp-questionnaire > iframe {
+  width: 100%;
+  padding-bottom: 40px;
+  border: none;
+}
+/* small (480px / 16 = 30rem) */
+#post-experience-questionnaire > iframe {
+  min-height: 5800px;
+}
+@media (min-width: 30rem) {
+  #post-experience-questionnaire > iframe {
+    min-height: 5000px;
+  }
+}
+/* medium (768px / 16 = 48rem) */
+@media (min-width: 48rem) {
+  #post-experience-questionnaire > iframe {
+    min-height: 4500px;
+  }
+}
+/*
+*
+*/
+#pre-assessment-questionnaire > iframe {
+  min-height: 2420px;
+}
+@media (min-width: 30rem) {
+  #pre-assessment-questionnaire > iframe {
+    min-height: 2200px;
+  }
+}
+/* medium (768px / 16 = 48rem) */
+@media (min-width: 48rem) {
+  #pre-assessment-questionnaire > iframe {
+    min-height: 2080px;
+  }
+}
