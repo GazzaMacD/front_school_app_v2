@@ -10,6 +10,7 @@ export default [
   layout("layouts/front.tsx", [
     index("routes/home.tsx"),
     route("about", "routes/about.tsx"),
+    route("subscribe-to-email", "routes/subscribe-to-email.tsx"),
     // ** Auth Layout in Front **
     layout("layouts/auth.tsx", [
       route("confirm-email/:key", "routes/auth-confirm-email.tsx"),
