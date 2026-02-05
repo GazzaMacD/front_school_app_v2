@@ -1,7 +1,12 @@
 import { useFetcher } from "react-router";
 import { useRef, useEffect, useState } from "react";
+import { FaArrowRightLong } from "react-icons/fa6";
 
-function EmailSubscription() {
+type TEmailSubscriptionProps = {
+  hasHeader?: boolean;
+};
+
+function EmailSubscription({ hasHeader = true }: TEmailSubscriptionProps) {
   const fetcher = useFetcher();
   const formRef = useRef<HTMLFormElement>(null);
   const [showThanks, setShowThanks] = useState(false);
@@ -19,7 +24,7 @@ function EmailSubscription() {
   if (showThanks) {
     return (
       <div className="c-es-wrapper">
-        <h3>ご登録いただき、誠にありがとうございます。</h3>
+        {hasHeader ? <h3>ご登録いただき、誠にありがとうございます。</h3> : null}
 
         <p>
           エクスリンガルの学習メールにご関心をお寄せくださり、誠にありがとうございます。私たちは、メール読者の皆様の学習をサポートし、ご満足いただけるよう取り組んでおりますが、何かご意見などございましたら、ぜひお気軽にお問い合わせくださいませ。万一、ご満足いただけない場合には、メールの配信解除はいつでも可能となっております。メール下部の「unsubscribe」のリンクから配信解除を行っていただけます。
@@ -35,7 +40,8 @@ function EmailSubscription() {
 
   return (
     <div className="c-es-wrapper">
-      <h3>エクスリンガル学習メールをぜひご利用ください</h3>
+      {hasHeader ? <h3>エクスリンガル学習メールをぜひご利用ください</h3> : null}
+
       <p>
         私たちは、語学学習をする多くの方を全力でサポートしたいと考えています。このメールでは講師ブログや当校インスタグラムの最新記事、語学イベント「ラーニング・エクスペリエンス」のご案内などをお届けしています。メールは約2週間に1度の配信です。購読は無料となっておりますので、ぜひメールを登録して、あなたの学習に役立つ情報をお受け取りください。配信解除はいつでも可能です。メールアドレスのみでもご登録いただけますが、もし差し支えなければ、お名前のご入力もよろしくお願いいたします。
       </p>
@@ -144,7 +150,10 @@ function EmailSubscription() {
         </div>
 
         <div className="g-form__submit">
-          <button type="submit">Subscribe</button>
+          <button type="submit" disabled={fetcher.state !== "idle"}>
+            {fetcher.state === "idle" ? "登録する" : "送信中"}
+            <FaArrowRightLong />
+          </button>
         </div>
       </fetcher.Form>
     </div>
