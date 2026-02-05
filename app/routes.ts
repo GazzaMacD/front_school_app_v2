@@ -72,6 +72,8 @@ export default [
     // questionnaires
     route("questionnaires", "routes/questionnaires.tsx", [
       index("routes/questionnaires-index.tsx"),
+      route("pre-assessment", "routes/questionnaire-pre-assessment.tsx"),
+      route("post-learning-experience", "routes/questionnaire-post-le.tsx"),
     ]),
     // testimonials
     route("testimonials", "routes/testimonials.tsx", [
