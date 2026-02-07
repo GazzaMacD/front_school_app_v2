@@ -39,19 +39,22 @@ export default function InfoBookingSystem() {
       <title>{getTitle({ title: "Contract・契約書", isHome: false })}</title>
       <div className="mp-info-page">
         <section className="mp-info-page__inner">
-          <h2 className="mpg-widget__heading">
+          <h1 className="mpg-widget__heading">
             <span>
               <TbContract />
             </span>
             Contract・契約書
-          </h2>
+          </h1>
           <div>
             <ul>
               <li>
-                添付の契約書PDFファイルをご覧ください。契約書項目についてご質問などございましたら遠慮なくお問い合わせください。
+                ご契約書は、ご入会決定後にメールで送信させていただきます。
               </li>
               <li>
-                契約書を2部プリントアウトしていただき、両方にご署名、押印いただき、ご署名日を明記ください。後日一部を弊社控えとしてご提出いただき、もう一部はお客様控えとしてご自宅で保管してください。
+                ご契約内容についてご質問などございましたら、遠慮なくお問い合わせください。
+              </li>
+              <li>
+                ご契約書がメールで届きましたら、2部プリントアウトしていただき、両方にご署名、押印いただき、ご署名日を明記ください。後日一部を弊社控えとしてご提出いただき、もう一部はお客様控えとしてご自宅で保管してください。
               </li>
               <li>
                 チャーターグループレッスンの場合は、グループ代表者の方に契約書をご確認いただき、署名押印いただきます。

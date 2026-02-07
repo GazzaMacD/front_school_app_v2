@@ -1,7 +1,10 @@
 /*
-* Information (mp-info)
+* ====== Information (mp-info) ========
 */
-/* Index */
+
+/**
+* Index Page 
+*/
 .mp-info-index__inner__intro > p {
   margin: 0 0 10px 0;
   font-size: var(--font-size-s);
@@ -9,6 +12,9 @@
 .mp-info-index__nav > ul {
   list-style: none;
   padding: 0;
+}
+.mp-info-index__nav__item > a {
+  width: 100%;
 }
 .mp-info-index__nav__item {
   width: 100%;
@@ -24,6 +30,7 @@
   border: solid 2px var(--color-brand-green);
   border-radius: 10px;
   min-height: 200px;
+  transition: cubic-bezier(0.19, 1, 0.22, 1) 1s;
 }
 @media (min-width: 48rem) {
   .mp-info-index__nav > ul {
@@ -38,10 +45,6 @@
     flex: 0 0 48%;
   }
 }
-/* hover */
-.mp-info-index__nav__item > a:hover header > div {
-  color: var(--color-brand-orange);
-}
 .mp-info-index__nav__item header {
   background-color: var(--color-brand-green);
   border-radius: 6px 6px 0 0;
@@ -51,7 +54,7 @@
   height: 65px;
   align-items: center;
 }
-.mp-info-index__nav__item header > div {
+.mp-info-index__nav__item header > div:first-child {
   flex: 0 0 26%;
   height: 50px;
   display: flex;
@@ -60,14 +63,27 @@
   color: var(--color-brand-green);
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 10px;
   margin-right: 15px;
+  padding: 5px;
+}
+.mp-info-index__nav__item header > div:last-child {
+  flex: 1 1 70%;
 }
 .mp-info-index__nav__item header h3 {
+  font-family: var(--font-en-primary);
   color: var(--color-brand-white);
-  font-size: var(--font-size-s);
+  font-size: var(--font-size-m);
   font-weight: 700;
   margin: 0;
+}
+.mp-info-index__nav__item header h3 > span {
+  font-family: var(--font-jp-primary);
+  color: var(--color-brand-beige);
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  margin: 4px 0 0 0;
 }
 .mp-info-index__nav__item > a > article > div {
   padding: 10px 15px 0 10px;
@@ -75,16 +91,29 @@
   margin: 0;
 }
 
-.mp-info-index__nav__item h3 {
-  font-size: var(--font-size-m);
-  text-align: center;
-  margin: 0 0 10px 0;
-}
 .mp-info-page__inner.index ul {
   list-style: none;
 }
 
-/* Page */
+/* hover effects */
+.mp-info-index__nav__item > a:hover article,
+.mp-info-index__nav__item > a:hover header,
+.mp-info-index__nav__item > a:hover header > div:first-child {
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.mp-info-index__nav__item > a:hover article {
+  border-color: var(--color-sec-darkgreen);
+}
+.mp-info-index__nav__item > a:hover header {
+  background-color: var(--color-sec-darkgreen);
+}
+.mp-info-index__nav__item > a:hover header > div:first-child {
+  color: var(--color-sec-darkgreen);
+}
+
+/**
+* Pages
+*/
 .mp-info-page__inner {
   margin: 0 auto;
   background-color: var(--color-brand-white);
