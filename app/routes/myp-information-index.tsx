@@ -71,13 +71,14 @@ export default function InformationIndex() {
                       <div>
                         <TbContract />
                       </div>
-                      <h3>Contract</h3>
+                      <div>
+                        <h3>
+                          Contract<span>契約書</span>
+                        </h3>
+                      </div>
                     </header>
                     <div>
-                      <p>
-                        Find all information relating to our contracts with
-                        students here
-                      </p>
+                      <p>ご契約書に関する詳細をご覧いただけます</p>
                     </div>
                   </article>
                 </Link>
