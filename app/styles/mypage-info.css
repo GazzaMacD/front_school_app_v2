@@ -124,6 +124,17 @@
   gap: 15px;
   border-radius: var(--radius-sm);
 }
+.mp-info-page__inner ul {
+  list-style: outside;
+  padding-left: 14px;
+  margin-bottom: 15px;
+}
+.mp-info-page__inner > div h2 {
+  color: var(--color-brand-green);
+  font-size: var(--font-size-m);
+  font-weight: 700;
+  margin: 20px 0 14px 0;
+}
 .mp-info-page__inner > div h3 {
   color: var(--color-brand-green);
   font-size: var(--font-size-l);
@@ -172,13 +183,17 @@
 
 /* details */
 .mp-info-page__inner details {
-  margin: 20px 0;
+  margin: 10px 0;
+}
+.mp-info-page__inner details > summary {
+  padding: 8px 0;
 }
 
 .mp-info-page__inner > div > details h3 {
   display: inline-block;
-  color: var(--color-brand-green);
-  font-size: var(--font-size-l);
+  color: var(--color-brand-brown);
+  font-size: var(--font-size-s);
+  font-weight: 800;
   margin: 0;
   margin-bottom: 0;
 }
