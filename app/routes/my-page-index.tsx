@@ -1,4 +1,4 @@
-import { data, Link } from "react-router";
+import { Link } from "react-router";
 import { BsGlobe2, BsEmojiGrimace, BsPersonLock } from "react-icons/bs";
 import { TfiWrite } from "react-icons/tfi";
 import { FaRegFaceLaughSquint } from "react-icons/fa6";
@@ -7,7 +7,7 @@ import { LuWholeWord } from "react-icons/lu";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 
 import { BASE_API_URL, OW_API_KEY, WN_API_KEY } from "~/.server/env";
-import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
+import { getTitle, fetchWithMeta } from "~/common/utils";
 import myPageIndexStyles from "~/styles/mypage-index.css?url";
 // type imports
 import type { Route } from "./+types/my-page-index";
@@ -84,10 +84,10 @@ export async function loader({ context }: Route.LoaderArgs) {
     openWeatherData,
   };
 }
+
 /**
  *Page
  */
-
 export default function MyPageIndex({ loaderData }: Route.ComponentProps) {
   const { blogData, xlNews, dadJokeData, wordNikData, openWeatherData } =
     loaderData;
