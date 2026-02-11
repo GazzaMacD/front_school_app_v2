@@ -257,7 +257,10 @@ function NewsItem({
         {news_type === "public" ? <BsGlobe2 /> : <BsPersonLock />}
         <h3>{title}</h3>
       </div>
-      <div dangerouslySetInnerHTML={{ __html: message }} />
+      <div
+        className="mp-in-news__item__msg"
+        dangerouslySetInnerHTML={{ __html: message }}
+      />
     </div>
   );
 }
