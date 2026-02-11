@@ -90,13 +90,13 @@ export default function InformationIndex() {
                       <div>
                         <FaYenSign /> + <BsCalendar3 />
                       </div>
-                      <h3>Monthly Invoices & Yearly Calendar</h3>
+                      <h3>
+                        Invoices & Calendar<span>ご請求とカレンダー</span>
+                      </h3>
                     </header>
                     <div>
                       <p>
-                        Our system is unique. Find out all you need to know
-                        about invoices, making payments and our yearly calendar
-                        system here.
+                        ご請求とお支払い、カレンダーシステムの詳細をご覧いただけます
                       </p>
                     </div>
                   </article>

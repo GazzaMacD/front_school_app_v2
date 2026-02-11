@@ -1,4 +1,4 @@
-import { data, Link } from "react-router";
+import { Link } from "react-router";
 import { BsGlobe2, BsEmojiGrimace, BsPersonLock } from "react-icons/bs";
 import { TfiWrite } from "react-icons/tfi";
 import { FaRegFaceLaughSquint } from "react-icons/fa6";
@@ -7,7 +7,7 @@ import { LuWholeWord } from "react-icons/lu";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 
 import { BASE_API_URL, OW_API_KEY, WN_API_KEY } from "~/.server/env";
-import { getTitle, getDesc, fetchWithMeta } from "~/common/utils";
+import { getTitle, fetchWithMeta } from "~/common/utils";
 import myPageIndexStyles from "~/styles/mypage-index.css?url";
 // type imports
 import type { Route } from "./+types/my-page-index";
@@ -27,35 +27,10 @@ export const links: Route.LinksFunction = () => [
  * Loaders
  */
 export async function loader({ context }: Route.LoaderArgs) {
-  let xlNews: TNewsItem[] = [
-    {
-      id: 1,
-      title: "Wine Tasting Learning Experience",
-      content:
-        "We will be having a wine tasting experiences at Hanamizukidori School on Saturday, 12 February 2026 from 8:00pm ~ 10:00pm. Please check this page for details and we hope to see you there.",
-      type: "public",
-      published_date: "2025-12-06T03:28:00Z",
-    },
-    {
-      id: 2,
-      title: "New School Year Calender",
-      content:
-        "We have released the school year calendar for 2025/2026. Please check this link to see the pdf. You can download it if you would like.",
-      type: "student",
-      published_date: "2025-12-14T03:28:00Z",
-    },
-    {
-      id: 3,
-      title: "Friend Introduction Campaign",
-      content:
-        "We are doing a freind introduction campaign. It starts from March 1, 2026. Details are on this link.",
-      type: "public",
-      published_date: "2025-12-28T03:28:00Z",
-    },
-  ];
   // api urls
   const blogsApiUrl = `${BASE_API_URL}/pages?order=-published_date&limit=8&type=lessons.LessonDetailPage&fields=_,id,slug,display_title,published_date,type`;
   const dadJokeApiUrl = "https://icanhazdadjoke.com/";
+  const newsApiUrl = `${BASE_API_URL}/pages/?order=-published_date&limit=8&type=news.NewsDetailPage&fields=display_title,message,published_date`;
   const dadJokeOptions = {
     method: "GET",
     headers: {
@@ -65,8 +40,9 @@ export async function loader({ context }: Route.LoaderArgs) {
   const wordNikApiUrl = `https://api.wordnik.com/v4/words.json/wordOfTheDay?api_key=${WN_API_KEY}`;
   const openWeatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=35.183333&lon=136.9&units=metric&appid=${OW_API_KEY}`;
   // fetch all
-  const [blogData, dadJokeData, wordNikData, openWeatherData] =
+  const [newsData, blogData, dadJokeData, wordNikData, openWeatherData] =
     await Promise.all([
+      fetchWithMeta<TNewsData>({ url: newsApiUrl, options: undefined }),
       fetchWithMeta<TBlogData>({ url: blogsApiUrl, options: undefined }),
       fetchWithMeta<TDadJoke>({ url: dadJokeApiUrl, options: dadJokeOptions }),
       fetchWithMeta<TWordNik>({ url: wordNikApiUrl, options: undefined }),
@@ -88,14 +64,18 @@ export async function loader({ context }: Route.LoaderArgs) {
     });
     blogData.data.items = blogsWithDate;
   }
-  xlNews = xlNews.map((item) => {
-    const date = new Date(item.published_date);
-    const dateString = `${date.getFullYear()}.${
-      date.getMonth() + 1
-    }.${date.getDate()}`;
-    item.published_date = dateString;
-    return item;
-  });
+  // News Dates
+  let xlNews;
+  if (newsData.success) {
+    xlNews = newsData.data.items.map((item) => {
+      const date = new Date(item.published_date);
+      const dateString = `${date.getFullYear()}.${
+        date.getMonth() + 1
+      }.${date.getDate()}`;
+      item.published_date = dateString;
+      return item;
+    });
+  }
   return {
     blogData,
     xlNews,
@@ -104,10 +84,10 @@ export async function loader({ context }: Route.LoaderArgs) {
     openWeatherData,
   };
 }
+
 /**
  *Page
  */
-
 export default function MyPageIndex({ loaderData }: Route.ComponentProps) {
   const { blogData, xlNews, dadJokeData, wordNikData, openWeatherData } =
     loaderData;
@@ -149,16 +129,17 @@ export default function MyPageIndex({ loaderData }: Route.ComponentProps) {
             XLingual News
           </h2>
           <div className="mpg-widget__content1">
-            {xlNews.map((item) => (
-              <NewsItem
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                content={item.content}
-                published_date={item.published_date}
-                type={item.type}
-              />
-            ))}
+            {xlNews &&
+              xlNews.map((item) => (
+                <NewsItem
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
+                  message={item.message}
+                  published_date={item.published_date}
+                  news_type={item.news_type}
+                />
+              ))}
           </div>
         </section>
 
@@ -256,22 +237,30 @@ function WidgetError() {
 }
 
 // News Item
-type TNewsItem = {
+type TNewsItemProps = {
   id: number;
   title: string;
-  content: string;
   published_date: string;
-  type: "public" | "student";
+  news_type: "public" | "private";
+  message: string;
 };
-function NewsItem({ published_date, title, content, type }: TNewsItem) {
+function NewsItem({
+  published_date,
+  title,
+  message,
+  news_type,
+}: TNewsItemProps) {
   return (
     <div className="mp-in-news__item">
       <p>{published_date}</p>
       <div>
-        {type === "public" ? <BsGlobe2 /> : <BsPersonLock />}
+        {news_type === "public" ? <BsGlobe2 /> : <BsPersonLock />}
         <h3>{title}</h3>
       </div>
-      <p>{content}</p>
+      <div
+        className="mp-in-news__item__msg"
+        dangerouslySetInnerHTML={{ __html: message }}
+      />
     </div>
   );
 }
@@ -462,6 +451,27 @@ function WeatherItem({ weather, main, wind, sys }: TWeatherItemProps) {
 /*
  * Types
  */
+// News Item
+type TNewsItem = {
+  id: number;
+  meta: {
+    type: string;
+    detail_url: string;
+    html_url: string;
+    slug: string;
+    first_published_at: string;
+  };
+  title: string;
+  display_title: string;
+  published_date: string; //iso date
+  news_type: "public" | "private";
+  message: string;
+};
+type TNews = TNewsItem[];
+type TNewsData = {
+  meta: { total_count: number };
+  items: TNews;
+};
 
 type TBlog = {
   id: number;
@@ -475,7 +485,7 @@ type TBlog = {
 };
 type TBlogs = TBlog[];
 type TBlogData = {
-  meta: { total_count: 93 };
+  meta: { total_count: number };
   items: TBlogs;
 };
 type TDadJoke = {
