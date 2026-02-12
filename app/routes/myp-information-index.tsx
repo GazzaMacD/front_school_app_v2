@@ -109,13 +109,13 @@ export default function InformationIndex() {
                       <div>
                         <BsGoogle />
                       </div>
-                      <h3>Google & XLingual</h3>
+                      <h3>
+                        Google & XLingual<span>グーグルとエクスリンガル</span>
+                      </h3>
                     </header>
                     <div>
                       <p>
-                        We use Google docs for our students lesson notes. Find
-                        out all about Google accounts, Google docs and Google
-                        drive here
+                        Googleセットアップとレッスンノートに関する詳細をご覧いただけます
                       </p>
                     </div>
                   </article>
