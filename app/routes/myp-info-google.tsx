@@ -36,57 +36,72 @@ export default function InfoBookingSystem() {
   }
   return (
     <>
-      <title>{getTitle({ title: "Google・グーグル", isHome: false })}</title>
+      <title>{getTitle({ title: "Google & XLingual", isHome: false })}</title>
       <div className="mp-info-page">
         <section className="mp-info-page__inner">
           <h2 className="mpg-widget__heading">
             <span>
               <BsGoogle />
             </span>
-            Google・グーグル
+            Google & XLingual
           </h2>
           <div>
-            <h3>Gmail アカウント</h3>
             <ul>
               <li>
-                {" "}
-                XLingualでは、お客様に便利にお使いいただけるGoogleのシステムをレッスンに取り入れています。Google
+                当校では、生徒様に便利にお使いいただけるGoogleのシステムをレッスンに取り入れており、Google
+                Document（グーグルドキュメント）をレッスンノートとして使用しております。
+              </li>
+              <li>
+                レッスンでは講師がGoogle
+                Document（グーグルドキュメント）にレッスン内容を記載し、生徒様も同時に記載したり、レッスン外でもレッスンノートを見直すことができます。
+              </li>
+              <li>
+                レッスンによっては、こちらのGoogle
+                Documentをレッスンノートとして使用しない場合もございますので、あらかじめご了承ください。
+              </li>
+            </ul>
+            <h2>Gmail アカウント</h2>
+            <ul>
+              <li>
+                Google
+                Document（グーグルドキュメント）をご使用いただくには、Google
                 アカウントを新規作成（無料）していただく必要があります。
               </li>
               <li>
                 すでにGoogleアカウントをお持ちの方は新たに作成いただく必要はございません。
               </li>
-              <li>下記リンクにアクセスして作成をお願いいたします。</li>{" "}
+              <li>下記リンクにアクセスして作成をお願いいたします。</li>
               <li>
                 <a
-                  href="
-https://support.google.com/mail/topic/3394216?hl=ja&ref_topic=3394144
-                "
+                  href="https://support.google.com/mail/topic/3394216?hl=ja&ref_topic=3394144"
                   target="_target"
                 >
                   Gmail アカウントを管理する
                 </a>
               </li>
             </ul>
-            <h3>Google DriveとDocumentのセットアップ</h3>
+            <h2>グーグルドライブとドキュメントのセットアップ</h2>
             <ul>
               <li>
-                Googleアカウントを作成したら、次はドライブとドキュメントのセットアップです。
+                <strong>
+                  レッスンノートのGoogle
+                  Document（グーグルドキュメント）は、講師が作成し、ご入会後にファイルを共有させていただきます。
+                </strong>
               </li>
               <li>
-                Google
-                ドライブにはレッスンで利用する書類が保管されます。下記リンクにアクセスしてGoogleドライブの使い方をご覧ください。
-              </li>
-              <li>
+                レッスンで使用するGoogle Document（レッスンノート）は、Google
+                ドライブに保管されます。リンクにアクセスして
                 <a
+                  href="https://support.google.com/drive/?hl=ja#
+"
                   target="_blank"
-                  href="https://support.google.com/drive/?hl=ja#topic=14940"
                 >
-                  Google ドライブ ヘルプ
+                  Googleドライブの使い方
                 </a>
+                をご参照ください。
               </li>
               <li>
-                ウェブを利用してのノート管理等をご希望でない場合はお申し出ください。また、セットアップ方法や利用方法がわからない場合は、レッスンの際に教師とパソコンを一緒に見ていただきながら説明することも可能です。お気軽にお申し付けください。
+                ウェブを利用してのノート管理をご希望でない場合はお申し出ください。また、セットアップ方法や利用方法がわからない場合は、レッスンの際に講師とパソコンを一緒にご覧いただきながらご案内させていただくことも可能です。お気軽にお申し付けください。
               </li>
             </ul>
           </div>
