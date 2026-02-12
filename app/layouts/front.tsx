@@ -26,7 +26,6 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function FrontLayout({ loaderData }: Route.ComponentProps) {
   let { user } = loaderData;
-  console.log("user --> ", user);
   return (
     <>
       <FrontHeader user={user} />

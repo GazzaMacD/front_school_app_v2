@@ -64,7 +64,6 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function MyPage({ loaderData }: Route.ComponentProps) {
   const { user, perms } = loaderData;
   const matches = useMatches();
-  console.log(matches);
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   return (
