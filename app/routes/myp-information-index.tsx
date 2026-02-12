@@ -128,12 +128,13 @@ export default function InformationIndex() {
                       <div>
                         <BsCalendarWeek />
                       </div>
-                      <h3>Class Booking System</h3>
+                      <h3>
+                        Class Booking System<span>オンライン予約システム</span>
+                      </h3>
                     </header>
                     <div>
                       <p>
-                        Find out how to book lessons on our system, all the
-                        color codes, limits to booking numbers and times.
+                        レッスン予約、キャンセル、振替の詳細をご覧いただけます
                       </p>
                     </div>
                   </article>

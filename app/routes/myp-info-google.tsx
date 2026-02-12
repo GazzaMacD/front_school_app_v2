@@ -76,8 +76,9 @@ export default function InfoBookingSystem() {
                   href="https://support.google.com/mail/topic/3394216?hl=ja&ref_topic=3394144"
                   target="_target"
                 >
-                  Gmail アカウントを管理する
+                  こちらのリンク
                 </a>
+                にアクセスして作成をお願いいたします
               </li>
             </ul>
             <h2>グーグルドライブとドキュメントのセットアップ</h2>
@@ -89,8 +90,11 @@ export default function InfoBookingSystem() {
                 </strong>
               </li>
               <li>
+                すでにGoogleアカウントをお持ちの方は新たに作成いただく必要はございません
+              </li>
+              <li>
                 レッスンで使用するGoogle Document（レッスンノート）は、Google
-                ドライブに保管されます。リンクにアクセスして
+                ドライブに保管されます。こちらにアクセスして
                 <a
                   href="https://support.google.com/drive/?hl=ja#
 "
